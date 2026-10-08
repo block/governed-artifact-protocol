@@ -1,0 +1,25 @@
+.list {
+  max-width: 38rem;
+  margin: 0 0 var(--ifm-leading);
+  border-top: 1px solid var(--gap-line-soft);
+}
+.item {
+  padding: 0.8rem 0;
+  border-bottom: 1px solid var(--gap-line-soft);
+}
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 1rem;
+  margin-bottom: 0.3rem;
+}
+.head > :last-child {
+  margin-left: auto;
+}
+.title {
+  font-weight: 700;
+}
+.body p {
+  margin: 0;
+}

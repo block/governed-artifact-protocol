@@ -1,0 +1,20 @@
+{
+  "artifactId": "paper:zero-gravity-story-pace",
+  "artifactVersion": 1,
+  "payloadDigest": "sha256:b5aa9c1ac819edbdc5705d65da665ba91d17c645859d4986cc5d817532f7803a",
+  "profile": {
+    "profileId": "research-source",
+    "revision": 1,
+    "digest": "sha256:290320a5fa218822f9435d90657ce042beb845bdaaaabc62e8148bfa44c338e7"
+  },
+  "authorizedAt": "2026-10-08T09:00:00Z",
+  "authorizedBy": {
+    "actorId": "human:cited-works-editor",
+    "actorKind": "human"
+  },
+  "authorizationSubjectDigest": "sha256:c932c4da116887f9a8f7c373c3b5d2e9ac5b3fcfd44e9534243e917db860e853",
+  "authoritySignature": {
+    "signerId": "human:cited-works-editor",
+    "signature": "DASmYajH7wdiTH2PZ2-_EistlJRXvctVCgAdwTcaT5oOC7sSnWDzdD5kDGpH1q9lVB7sYDbLMYZ8fRq0AizYDw"
+  }
+}

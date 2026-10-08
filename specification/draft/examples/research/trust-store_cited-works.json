@@ -1,0 +1,14 @@
+{
+  "human:cited-works-editor": {
+    "publicKey": "-JM-cd7in243KlDVylrhAripfvMO4NYh4GTpBjH1Wik",
+    "actions": [
+      "authorize-release"
+    ]
+  },
+  "human:journal-owner": {
+    "publicKey": "eTbETk9e0vfwcIoymhMTCTZlua0b237BwQbstz4RumM",
+    "actions": [
+      "ratify-profile"
+    ]
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "warning": "Public demonstration keys for synthetic local data only. They are checked in so the walkthrough and the specification examples are reproducible. The demo signs on behalf of configured actors; signatures do not establish who personally operated a key. Never reuse these keys, and never treat a signature under them as a real approval.",
+  "signers": {
+    "human:journal-owner": {
+      "publicKey": "eTbETk9e0vfwcIoymhMTCTZlua0b237BwQbstz4RumM",
+      "privateKey": "4Vkd27AWLrOffb4s8ByE1JBJzXe3eO-Uevopk3op4fs",
+      "actions": [
+        "ratify-profile"
+      ]
+    },
+    "human:cited-works-editor": {
+      "publicKey": "-JM-cd7in243KlDVylrhAripfvMO4NYh4GTpBjH1Wik",
+      "privateKey": "49ISXf-kJwfONVtRnJQM4BZXxLcl5ksf1xzBiq1t5eY",
+      "actions": [
+        "authorize-release"
+      ]
+    },
+    "human:journal-editor": {
+      "publicKey": "C3889fxRbHg_KxCZpyzG_qHdYeyamQ6kgphbb8QvP6A",
+      "privateKey": "SBdMsZKT8YFUb1YFf4iyFvY3lOwejMGpy3VKNWlrSaI",
+      "actions": [
+        "approve-release",
+        "reject-release"
+      ]
+    },
+    "human:journal-publisher": {
+      "publicKey": "NuLdL2g4Zfv7O2Uv3iyfUrmbAVzQjEc5P0EolCpj0ds",
+      "privateKey": "h1nhbv7iqLye1Bz132w76Fb0Gi0QGnpC6nsCMUzznxI",
+      "actions": [
+        "authorize-release",
+        "withdraw-release"
+      ]
+    }
+  }
+}

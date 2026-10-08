@@ -1,0 +1,20 @@
+{
+  "artifactId": "review:floating-gummy-worm-recall",
+  "artifactVersion": 1,
+  "payloadDigest": "sha256:b77f5b18cf837660755f20b3c3b7fbfab4cc135c55af550b639b7b3dbe4d3cb5",
+  "profile": {
+    "profileId": "research-peer-review",
+    "revision": 1,
+    "digest": "sha256:9442eff7ff852018222c670a8d8261d191bb062ba2346f8e9975cd51c4d2a601"
+  },
+  "authorizedAt": "2026-10-08T11:00:00Z",
+  "authorizedBy": {
+    "actorId": "human:journal-publisher",
+    "actorKind": "human"
+  },
+  "authorizationSubjectDigest": "sha256:1c52924ccb91dd0d48ec290f4b14b624f4a0b9d2eee3985ca88eea6268078e67",
+  "authoritySignature": {
+    "signerId": "human:journal-publisher",
+    "signature": "aoI15HYxr0ISeRkvhe5pyQJfM2ybe0jYtUZN2M7a-7NI7U64PkWv9U9X59z0hsvJ5VZmXZ6_UuFyYkLbqa10CQ"
+  }
+}

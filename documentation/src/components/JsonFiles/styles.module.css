@@ -1,0 +1,12 @@
+.schemaReference { margin-top: 2rem; }
+.schemaReference h2 { margin: 2rem 0 .8rem; }
+.definition { border-bottom: 1px solid var(--gap-line); scroll-margin-top: calc(var(--ifm-navbar-height) + 1rem); }
+.definition summary { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: .25rem 1rem; padding: .65rem 0; cursor: pointer; list-style: none; color: var(--gap-ink); font-weight: 700; }
+.definition summary::-webkit-details-marker { display: none; }
+.definition summary::before { content: "+"; margin-right: .5rem; color: var(--gap-muted); font-weight: 400; }
+.definition[open] summary::before { content: "−"; }
+.definition summary span:first-child { margin-right: auto; }
+.definition summary span:last-child, .definition summary code { color: var(--gap-muted); font-size: .72rem; font-weight: 400; }
+.definition summary:hover { color: var(--ifm-color-primary); }
+.definition summary:focus-visible { outline: 2px solid var(--ifm-color-primary); outline-offset: 2px; }
+.definition pre { max-height: 32rem; overflow: auto; font-size: .74rem; }

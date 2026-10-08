@@ -1,0 +1,42 @@
+---
+title: In-app content
+slug: /case-studies/in-app-content
+description: "A fictional product team checks whether an in-app notice sent to engineering matches the version authorized for release."
+---
+
+In this fictional scenario, a product team reviews a notice that will appear in an app. Someone changes the wording before engineering implements it. The story follows this made-up team as it uses GAP to check whether the wording matches the version authorized for release.
+
+## The situation
+
+In this fictional team, an editor reviews version 4. The publisher authorizes that version, and the content system releases it. A later edit changes the next step in the notice.
+
+Engineering receives version 5 with version 4’s authorization. That decision covers the earlier wording, not the edit.
+
+## Where GAP helps
+
+The receiving tool checks the full release records against the content it received. It needs an unambiguous source context, access to the proof, and configured trust. The content, version, and rules must match the release authorization. The decision must come from an authority the receiving tool trusts.
+
+Version 4’s authorization cannot cover version 5. The team can preserve the earlier records, review the edit, and authorize the new version. Editorial approval alone does not release the notice.
+
+## What changes for the team
+
+The required check rejects version 4’s evidence for version 5. The team gets a specific issue to resolve: the decision and the wording do not match.
+
+The application can route the notice to its owner for another decision. This check addresses that mismatch; it does not establish that the entire publication process is correct.
+
+## What still needs judgment
+
+The team still decides whether the notice is accurate, suitable for its audience, and ready to ship in the app. Engineering can check that the received wording matches an authorized release, then follow the team’s deployment process. GAP’s release records do not prove which wording was deployed or whether a customer saw it.
+
+<details>
+<summary>How this maps to the protocol</summary>
+
+The notice is an artifact version. Its [release authorization](../specification/draft/README.md#release-authorization) binds its identity, version, payload digest, and exact profile revision. The receiving tool checks the complete proof under its configured trust; version 4’s evidence fails against version 5’s content.
+
+[Approval](../specification/draft/README.md#release-approval) records a reviewer’s decision. Authorization permits release, and the release transition makes the version available to consumers. A later edit creates a new version with its own authorization. Earlier content and decisions stay preserved.
+
+These records establish a GAP release, rather than deployment of the notice in the app.
+
+</details>
+
+For an application that separates editorial approval from release, read the [blog website guide](../domains/blog-website.mdx). Use the [evaluation guide](../domains/evaluation-guide.md) to compare this check with your existing review controls, including authorized edits, mismatches, missing records, and unnecessary holds.

@@ -1,0 +1,215 @@
+{
+  "$comment": "Coverage manifest for the core protocol requirements listed in specification/draft/conformance/README.md. IDs are stable and never reused; do not renumber or delete. To retire a requirement, keep its entry with its last statement, remove its coverage, and add 'retired' with a 'reason' and 'replacedBy', the IDs in force that replace it (empty if none do). 'executable' lists current in-repository coverage; an empty list records that no executable coverage exists. This manifest is maintained evidence, not a portable conformance runner.",
+  "requirementsSource": "specification/draft/conformance/README.md",
+  "requirements": [
+    {
+      "id": "GAP-CORE-001",
+      "name": "Separated authority",
+      "statement": "Proposal and drafting MUST NOT confer ratification or release authority.",
+      "coverage": {
+        "executable": [
+          "demo/test/cms/cms.test.ts (a writer cannot authorize release; an unratified proposal cannot govern a version; ratification rejects an actor outside the configured local policy)",
+          "demo/test/cms/approvals.test.ts (an approver without release authority cannot publish, and a publisher without approval authority cannot approve)",
+          "demo/test/issue-tracking/bug-tickets.test.ts (a create-only actor can stage changes to an existing ticket but cannot save them)",
+          "demo/test/research/research.test.ts (authors and peer reviewers cannot approve a paper; an editor cannot publish; a publisher cannot approve)"
+        ],
+        "notes": "These tests exercise the demos’ configured permissions. The CMS ratification test uses a human-only local policy; GAP permits a person or an AI agent to hold authority."
+      }
+    },
+    {
+      "id": "GAP-CORE-002",
+      "name": "Exact authority decision",
+      "statement": "Each ratification, release approval, release rejection, release authorization, and release withdrawal MUST record a configured authority's decision for the exact subject digest. A decision for another subject MUST NOT be reused.",
+      "coverage": {
+        "executable": [
+          "demo/test/cms/cms.test.ts (ratification requires the exact preview confirmation and records the previewed profile digest)",
+          "demo/test/cms/approvals.test.ts (approval and rejection require configured approval authority; publish rejects an approval for another version or changed stored payload)",
+          "specification/check-specification.mjs (maintained ratification, approval, rejection, authorization, and withdrawal signatures verify under their own action domains; a maintained rejection and a source authorization are refused for another version of the same artifact; ephemeral-key approval and rejection signatures over the CMS subject are refused cross-action, under narrower trust, and for another version)",
+          "demo/test/research/research.test.ts (exact editorial approval is required; a published version takes no further editorial decision; withdrawal requires configured publisher authority; malformed, mismatched, duplicate, or unauthorized withdrawals fail reads, including one correctly signed by a key trusted to withdraw but not permitted to withdraw that content)",
+          "demo/test/research/signed-authority.test.ts (signatures bind actor, action, and subject; stripped, substituted, cross-action, and untrusted signatures are rejected)"
+        ],
+        "notes": "CMS tests exercise attributed decisions. Research tests exercise signed approval, rejection, authorization, and withdrawal, with signed pre-ratified profiles. The maintained research corpus carries all five signed authority decisions; withdrawal appears in a separate conformance fixture rather than the gummy-worm recall publication walkthrough."
+      }
+    },
+    {
+      "id": "GAP-CORE-003",
+      "name": "Immutable history",
+      "statement": "Ratified profile revisions and artifact versions MUST NOT change in place.",
+      "coverage": {
+        "executable": [
+          "demo/test/cms/cms.test.ts (creating another version preserves both records; reusing an existing artifact ID and version is refused)",
+          "demo/test/cms/locale.test.ts (ratifying a new profile revision preserves the old profile, stored artifacts, release proof, and locale fallback policy)",
+          "demo/test/issue-tracking/bug-tickets.test.ts (concurrent and invalid saves preserve history; repeated working-copy edits produce one new version when saved)",
+          "demo/test/research/research.test.ts (rejection and withdrawal preserve existing records; source changes leave historical paper records unchanged; a published version refuses later editorial decisions, so its served proof is unchanged)"
+        ],
+        "notes": "These tests compare record values before and after later operations. They do not simulate every storage failure or directly attempt an in-place update of a ratified profile revision. The CMS rejection test checks version numbers and record counts, but does not compare every artifact field before and after rejection."
+      }
+    },
+    {
+      "id": "GAP-CORE-004",
+      "name": "Exact profile pin",
+      "statement": "Every artifact version MUST name one profile ID, revision, and digest.",
+      "coverage": {
+        "executable": [
+          "specification/check-specification.mjs (maintained artifact, authorization, and release pins match each other and the referenced profile’s ID, revision, and digest)",
+          "demo/test/cms/cms.test.ts (a newly ratified profile’s digest is pinned by its artifact; a changed release pin is rejected)",
+          "demo/test/research/research.test.ts (every saved source, manuscript, and report pins its ratified profile by exact ID, revision, and digest; a review report binds the submitted manuscript’s full profile pin; changed pins fail capture)",
+          "demo/test/research/signed-authority.test.ts (a release pin that changes the profile ID, revision, or digest fails independent verification)"
+        ],
+        "notes": "The fixtures cover exact pins under several profiles. The CMS tests also reject authoring under a profile that has only been proposed."
+      }
+    },
+    {
+      "id": "GAP-CORE-005",
+      "name": "Bounded payload",
+      "statement": "An artifact version's payload MUST satisfy its pinned profile contract before the version is stored or considered for authorization.",
+      "coverage": {
+        "executable": [
+          "demo/test/cms/cms.test.ts (authoring rejects an empty required title and unknown payload fields)",
+          "demo/test/cms/locale.test.ts (authoring rejects missing required locales and disallowed locale keys, leaving only the valid versions stored)",
+          "demo/test/issue-tracking/bug-tickets.test.ts (an invalid or incomplete working copy cannot become a version; failed saves leave ticket records unchanged)",
+          "demo/test/research/research.test.ts (invalid manuscript contracts and cross-references save nothing)",
+          "demo/test/research/signed-authority.test.ts (a correctly re-signed but contract-invalid payload is rejected by independent verification)"
+        ],
+        "notes": "These checks exercise the payload contracts implemented by the demos. Validation of a working copy is advisory; the issue-tracking tests check the payload again when creating the version."
+      }
+    },
+    {
+      "id": "GAP-CORE-006",
+      "name": "Exact authorization",
+      "statement": "Release authorization MUST bind artifact ID, artifact version, payload digest, and exact profile pin.",
+      "coverage": {
+        "executable": [
+          "specification/check-specification.mjs (recomputed payload and subject digests match the maintained records; approval, rejection, and withdrawal bind the authorization’s four subject fields)",
+          "demo/test/cms/cms.test.ts (a mismatched confirmation creates no authorization or release; payload, pin, and subject tampering is rejected)",
+          "demo/test/cms/approvals.test.ts (approval and rejection bind the previewed stored subject; publishing refuses a payload changed after approval)",
+          "demo/test/cms/locale.test.ts (one authorization covers the complete locale set; removing or changing any locale makes verification fail)",
+          "demo/test/research/research.test.ts (an approval cannot be reused after editing; wrong release confirmations and stale selections write nothing)"
+        ],
+        "notes": "The checks cover complete stored payloads, including every locale. They do not treat authorization as covering only the locale selected for display."
+      }
+    },
+    {
+      "id": "GAP-CORE-007",
+      "name": "Atomic release",
+      "statement": "Authorization evidence and release output MUST become visible as one recoverable logical transition.",
+      "coverage": {
+        "executable": [
+          "demo/test/cms/cms.test.ts (authorization and release are persisted together; a stored release whose authorization is removed is refused on read)",
+          "demo/test/research/research.test.ts (a stored paper release whose authorization is removed is refused on read)"
+        ],
+        "notes": "The tests cover a successful persisted pair and a deliberately incomplete pair. They do not interrupt a write or simulate crash recovery, so they do not demonstrate atomicity under failure."
+      }
+    },
+    {
+      "id": "GAP-CORE-008",
+      "name": "Released-only reads",
+      "statement": "Consumers MUST NOT retrieve drafts through the release boundary.",
+      "coverage": {
+        "executable": [
+          "demo/test/cms/cms.test.ts (an authored draft has no readable release)",
+          "demo/test/cms/mcp.test.ts (get_release_proof refuses a draft through the MCP interface)",
+          "demo/test/issue-tracking/bug-tickets.test.ts (staged working-copy content is absent from current reads and history)",
+          "demo/test/research/mcp.test.ts (read_research refuses the submitted draft through MCP)",
+          "demo/test/research/research.test.ts (a rejected draft stays unreadable through the release boundary)"
+        ],
+        "notes": "These tests exercise the demos’ consumer interfaces. Authoring tools can read drafts; those tools are outside the release boundary."
+      }
+    },
+    {
+      "id": "GAP-CORE-009",
+      "name": "Independent verification",
+      "statement": "A release proof MUST contain enough evidence to verify its records against configured trust without relying on a description of the workflow.",
+      "coverage": {
+        "executable": [
+          "demo/test/research/signed-authority.test.ts (copied proof bytes verify against reader-configured trust after workspace deletion; verifier modules import no filesystem, signing keys, or deployment permission table)",
+          "demo/test/research/mcp.test.ts (verify_research_proof verifies an exported proof with an explicit trust store and rejects tampered content)",
+          "specification/check-specification.mjs (every maintained research decision signature verifies using only the record and the published trust store for its context; a paper and a source authorization each fail under the other context’s store)"
+        ],
+        "notes": "Research tests verify against reader-supplied trust, including missing signers, wrong keys, and disallowed actions. A reader keeps one trust store per context, journal and cited works, each trusting one release authority; a proof checked under the other context's store fails. That per-context split is a local choice, because a trust store cannot scope a signer to some profiles. The MCP test calls the exported verifier with explicit trust. CMS and issue-tracking readers rely on their implementations to enforce authority. Public demonstration keys establish signature mechanics, not who personally operated a key."
+      }
+    },
+    {
+      "id": "GAP-CORE-010",
+      "name": "Fail closed",
+      "statement": "Missing, malformed, incomplete, ambiguous, or mismatched records and evidence MUST be rejected.",
+      "coverage": {
+        "executable": [
+          "specification/check-specification.mjs (malformed records, mismatched decision subjects, and stripped, altered, malformed, cross-action, or untrusted signatures are rejected)",
+          "demo/test/cms/cms.test.ts (payload and pin tampering, missing authorization, duplicate profile revisions, and unknown contract semantics are rejected)",
+          "demo/test/cms/approvals.test.ts (malformed or mismatched approvals and rejections fail verification; stored decisions with unconfigured actors fail reads)",
+          "demo/test/cms/locale.test.ts (removing a locale breaks the contract or payload digest; disallowed delivery locales are refused)",
+          "demo/test/issue-tracking/bug-tickets.test.ts (forged evidence and ambiguous current selections are rejected)",
+          "demo/test/research/research.test.ts (stored approvals and rejections that no longer verify or bind, stored reasons outside the stored bounds, missing authorization, altered payloads, and malformed, mismatched, duplicate, or unauthorized withdrawals fail reads)",
+          "demo/test/research/signed-authority.test.ts (each tampering, missing signature, profile pin change, unknown contract, and missing or narrower trust is rejected with its specific error)"
+        ],
+        "notes": "The cited tests cover specific malformed and mismatched inputs, not every possible invalid record. Unverifiable editorial decisions or withdrawals prevent research reads from treating a release as current."
+      }
+    },
+    {
+      "id": "GAP-CORE-011",
+      "name": "Outcome boundary",
+      "statement": "A release, and any reason recorded with a decision about it, MUST NOT be represented as proof of downstream execution, delivery, or content correctness.",
+      "coverage": {
+        "executable": [
+          "demo/test/research/signed-authority.test.ts (a verified proof claims release, not any downstream outcome; a standalone withdrawal claims only that the release is withdrawn; a reason changes no subject digest)"
+        ],
+        "notes": "This requirement needs review of what an application claims. No executable check covers it as a whole. CMS locale tests report that selection does not prove display; CMS approval tests accept valid reason text without including it in digests; the research verifier's claim text names release and withdrawal only. These are narrow checks, not evidence of content correctness or downstream execution."
+      }
+    },
+    {
+      "id": "GAP-CORE-012",
+      "name": "Dependency baseline",
+      "statement": "Dependency sets MUST preserve the exact source baseline in the authorized payload. Verification MUST identify the intended source system and apply the trust configured for that source. Drift checks MUST NOT change the baseline or report unresolved dependencies as verified.",
+      "coverage": {
+        "executable": [
+          "specification/check-specification.mjs (dependency shape, ordering, source identity, and payload digests are checked against each source’s proof; changing only a source pin changes the parent payload digest)",
+          "demo/test/cms/dependencies.test.ts (local source proofs are checked under configured authority policy; invalid, inaccessible, or unresolved sources remain unverified without rewriting records)",
+          "demo/test/research/research.test.ts (explicit old sources stay pinned; study and methods updates produce drift; newer drafts, altered source bytes, and missing releases are distinguished; every sweep leaves the workspace bytes unchanged)",
+          "demo/test/research/mcp.test.ts (source correction produces drift; the sweep changes no record and does not automatically withdraw the paper)"
+        ],
+        "notes": "The demos resolve dependencies inside one workspace. Research papers pin released source material and review reports under distinct profiles. Cited sources are verified under their own cited-works trust store, separate from the journal store, though both live in the same workspace. A report’s reference to a draft manuscript is domain content, not a dependency entry. Transfer between systems and ambiguous source contexts remain unexercised."
+      }
+    },
+    {
+      "id": "GAP-CORE-013",
+      "name": "Additive decisions",
+      "statement": "A release withdrawal or release rejection MUST add a record and preserve existing records unchanged, including the artifact version, its authorization, and its release proof. A withdrawal MUST NOT make another version current. A rejection MUST NOT release, withdraw, or alter anything, or by itself prevent a later decision on the same subject.",
+      "coverage": {
+        "executable": [
+          "demo/test/cms/approvals.test.ts (rejection records no authorization or release; the same version can later be approved and released with its rejection in the proof)",
+          "specification/check-specification.mjs (the separate withdrawal conformance fixture preserves the original records and editorial approval plus the withdrawal; the CMS proof carries both rejection and approval of its released subject)",
+          "demo/test/research/research.test.ts (withdrawal and rejection preserve all pre-existing records; selected reads do not fall back; the same rejected subject can later be approved and released)",
+          "demo/test/research/signed-authority.test.ts (a standalone signed withdrawal claims only withdrawal of the named release)"
+        ],
+        "notes": "Research tests compare every other ledger before and after a first rejection or withdrawal; the appended ledger had no prior entries. The CMS rejection test checks counts and version numbers, not every pre-existing record field. CMS tests also cover rejection followed by release. Serving withdrawal alone on a selected read and attaching it to exact-version proofs is local application policy."
+      }
+    },
+    {
+      "id": "GAP-CORE-014",
+      "name": "Preserved releases",
+      "statement": "A released version's evidence is its release proof and every approval, rejection, and withdrawal recorded for its subject. That evidence MUST be preserved unchanged and MUST remain verifiable without relying on any later release. Releasing a later version, recording a withdrawal, or ratifying a later profile revision MUST NOT alter or delete it.",
+      "coverage": {
+        "executable": [
+          "demo/test/issue-tracking/bug-tickets.test.ts (releasing ticket version 2 leaves version 1's proof in the ticket history unchanged)",
+          "demo/test/cms/locale.test.ts (ratifying a later blog-post profile revision leaves an earlier release's proof and the stored artifacts unchanged)",
+          "demo/test/research/research.test.ts (later publication and withdrawal preserve an earlier exact-version proof; releasing corrected study version 2 leaves version 1’s proof unchanged)",
+          "demo/test/research/signed-authority.test.ts (the earlier proof verifies from its own bytes and reader trust after later release, withdrawal, and workspace deletion)"
+        ],
+        "notes": "Research tests compare and independently verify an earlier proof after later publication and withdrawal. Issue tracking checks earlier ticket history, and CMS checks preservation after profile ratification. No test attempts direct deletion of preserved evidence. Exact historical retrieval is local application policy."
+      }
+    },
+    {
+      "id": "GAP-CORE-015",
+      "name": "Sequential revisions",
+      "statement": "A profile's ratified revisions MUST be numbered 1, 2, 3, and so on, each number ratified once and none skipped. An implementation MUST refuse to ratify a proposal unless its revision is one greater than the highest ratified revision of that profile, or 1 if none is ratified.",
+      "coverage": {
+        "executable": [
+          "demo/test/cms/cms.test.ts (a first proposal that names revision 2 is refused; after revision 1 is ratified, a stored proposal for revision 3 is refused at ratification, the profile keeps one ratified revision, and no proposal is altered or deleted; a second ratified record for one revision makes profile discovery fail closed)",
+          "demo/test/cms/locale.test.ts (a blog-post proposal for revision 2 is ratified after revision 1)"
+        ],
+        "notes": "Only the CMS has a profile proposal step; the research and issue-tracking implementations ship fixed ratified profiles, so they have nothing to number. The CMS accepts one unratified proposal per profile at a time, which is local policy, so no test ratifies one of two proposals that name the same revision. The skipped-revision test writes its proposal to the store directly, because the CMS refuses it when it is proposed."
+      }
+    }
+  ]
+}

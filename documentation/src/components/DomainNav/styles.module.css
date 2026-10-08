@@ -1,0 +1,24 @@
+/* The two views of a domain, as tabs under the title. The selectors outrank
+   the site's .markdown link rules so the tabs carry no text underline. */
+.nav {
+  display: flex;
+  gap: 1.5rem;
+  margin: -0.5rem 0 2rem;
+  border-bottom: 1px solid var(--gap-line);
+}
+:global(.markdown) .nav a.tab:not(.hash-link) {
+  padding: 0.5rem 0 0.6rem;
+  margin-bottom: -1px;
+  border-bottom: 2px solid transparent;
+  color: var(--ifm-font-color-base);
+  font-weight: 700;
+  text-decoration: none;
+  outline: none;
+}
+:global(.markdown) .nav a.tab:not(.hash-link):hover,
+:global(.markdown) .nav a.tab:not(.hash-link):focus-visible,
+:global(.markdown) .nav a.active:not(.hash-link) {
+  color: var(--gap-ink);
+  border-bottom-color: var(--ifm-color-primary);
+  text-decoration: none;
+}

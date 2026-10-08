@@ -1,0 +1,1168 @@
+/**
+ * Global styles. Docusaurus Infima variables are overridden here.
+ *
+ * The visual system: a warm-neutral page, near-black text, Bungee for the
+ * wordmark and document headings, Karla for body text, and one accent
+ * used for the current item, hover, and emphasis.
+ */
+
+:root {
+  --gap-display: "Bungee", "Arial Black", Impact, sans-serif;
+  --gap-sans: "Karla", "Helvetica Neue", Arial, sans-serif;
+  --gap-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+  /*
+   * Bone and vermilion: a warm-neutral page, near-black ink, one bright
+   * red-orange accent. Because the accent is red, rejection and warning
+   * markers use a neutral dark gray (--gap-alert) rather than a second red.
+   */
+  --gap-line: #dcd8d0;
+  --gap-line-soft: #e7e4de;
+  --gap-muted: #74706a;
+  --gap-nav-text: #3a3732;   /* the header's items and the sidebar's headings: near ink */
+  --gap-nav-strong: #000;    /* and under the pointer, or the current page */
+  --gap-accent-soft: #fbe3dc;
+  --gap-code-bg: var(--ifm-background-surface-color);
+  /* Syntax tokens for src/prism/gapTheme.ts. The muted and accent steps are
+     one shade darker than --gap-muted and the primary, which fall short of
+     4.5:1 on the code surface. */
+  --gap-code-ink: var(--ifm-font-color-base);
+  --gap-code-muted: #66625b;
+  --gap-code-accent: #ab2a16;
+  --gap-code-type: #5a6478;
+  --gap-green: #1f6b45;
+  --gap-blue: #5a6478;
+  --gap-alert: #5f5a52;
+  /* Risograph speckle: a coarse turbulence tile whose specks carry their
+     strength in the alpha channel (ink-like in light mode, light in dark),
+     so it paints at the same density over solid and translucent fills. */
+  --gap-grain: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='turbulence' baseFrequency='0.55' numOctaves='2' seed='7' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/><feComponentTransfer><feFuncR type='linear' slope='-1.4' intercept='1.5'/><feFuncG type='linear' slope='-1.4' intercept='1.5'/><feFuncB type='linear' slope='-1.4' intercept='1.5'/><feFuncA type='linear' slope='0' intercept='1'/></feComponentTransfer><feColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -0.6 0 0 0 0.6'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+
+  --ifm-color-primary: #c8321a;
+  --ifm-color-primary-dark: #b52d17;
+  --ifm-color-primary-darker: #ab2a16;
+  --ifm-color-primary-darkest: #8d2312;
+  --ifm-color-primary-light: #d0391f;
+  --ifm-color-primary-lighter: #d43f24;
+  --ifm-color-primary-lightest: #de4d31;
+
+  --ifm-background-color: #f4f2ee;
+  --ifm-background-surface-color: #faf9f6;
+  --gap-ink: #151412;
+  --ifm-font-color-base: #2b2926;
+  --ifm-font-color-secondary: var(--gap-muted);
+  --ifm-font-weight-bold: 700;
+  --ifm-color-emphasis-300: var(--gap-line);
+  --ifm-toc-border-color: var(--gap-line);
+  --ifm-hr-background-color: var(--gap-line);
+  --ifm-table-border-color: var(--gap-line-soft);
+  --ifm-table-stripe-background: transparent;
+  --ifm-code-background: var(--gap-code-bg);
+  --ifm-code-font-size: 80%;
+  --ifm-font-family-base: var(--gap-sans);
+  --ifm-font-family-monospace: var(--gap-mono);
+  --ifm-font-size-base: 112.5%;
+  --ifm-line-height-base: 1.7;
+  --ifm-heading-font-family: var(--gap-display);
+  --ifm-heading-font-weight: 400;
+  --ifm-heading-line-height: 1.15;
+  --ifm-h1-font-size: 1.9rem;
+  --ifm-h2-font-size: 1.2rem;
+  --ifm-h3-font-size: 1.1rem;
+  --ifm-link-color: var(--ifm-color-primary);
+  --ifm-link-hover-color: var(--ifm-color-primary-darkest);
+  --ifm-link-hover-decoration: underline;
+  --ifm-navbar-background-color: var(--ifm-background-color);
+  --ifm-navbar-shadow: none;
+  --ifm-menu-color: var(--ifm-font-color-base);
+  --ifm-menu-color-active: var(--ifm-color-primary);
+  --ifm-menu-color-background-active: var(--gap-accent-soft);
+  --ifm-menu-color-background-hover: #ebe8e2;
+  --ifm-breadcrumb-color-active: var(--ifm-color-primary);
+  --ifm-breadcrumb-item-background-active: var(--gap-accent-soft);
+  --ifm-pre-background: var(--gap-code-bg);
+  --ifm-blockquote-border-color: var(--gap-line);
+  --ifm-blockquote-color: var(--gap-muted);
+  --ifm-dropdown-background-color: var(--ifm-background-color);
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.08);
+}
+
+html[data-theme="dark"] {
+  --gap-line: #2e2b27;
+  --gap-line-soft: #262320;
+  --gap-muted: #8f8a82;
+  --gap-nav-text: #e4e1db;   /* the header's items and the sidebar's headings: near white */
+  --gap-nav-strong: #fff;    /* and under the pointer, or the current page */
+  --gap-accent-soft: #3a221c;
+  --gap-code-bg: #1e1c19;
+  --gap-code-muted: var(--gap-muted);
+  --gap-code-accent: var(--ifm-color-primary);
+  --gap-code-type: var(--gap-blue);
+  --gap-green: #8fd0aa;
+  --gap-blue: #a3b0c8;
+  --gap-alert: #bdb8ae;
+  --gap-grain: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='turbulence' baseFrequency='0.55' numOctaves='2' seed='7' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/><feComponentTransfer><feFuncR type='linear' slope='1' intercept='-0.4'/><feFuncG type='linear' slope='1' intercept='-0.4'/><feFuncB type='linear' slope='1' intercept='-0.4'/><feFuncA type='linear' slope='0' intercept='1'/></feComponentTransfer><feColorMatrix type='matrix' values='0 0 0 0 0.94 0 0 0 0 0.82 0 0 0 0 0.64 0.6 0 0 0 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+
+  --ifm-color-primary: #ff8a6a;
+  --ifm-color-primary-dark: #f57d5c;
+  --ifm-color-primary-darker: #ee7452;
+  --ifm-color-primary-darkest: #d9623f;
+  --ifm-color-primary-light: #ff977a;
+  --ifm-color-primary-lighter: #ffa08a;
+  --ifm-color-primary-lightest: #ffb3a0;
+
+  --ifm-background-color: #171614;
+  --ifm-background-surface-color: #12110f;
+  --gap-ink: #f3f1ec;
+  --ifm-font-color-base: #d3d0ca;
+  --ifm-link-hover-color: var(--ifm-color-primary-lightest);
+  --ifm-menu-color-background-hover: #26231f;
+  --docusaurus-highlighted-code-line-bg: rgba(255, 255, 255, 0.08);
+}
+
+/* Texture. The speckle is painted on a layer that belongs to the page
+   wrapper (the body is only one viewport tall), so it scrolls with the
+   content like printed stock. The navbar is a lightly translucent, textured sheet
+   that content slides beneath. Surfaces with their own background (cards,
+   code, the record viewer) stay flat on top. */
+html {
+  --gap-grain-size: 300px;
+  background-color: var(--ifm-background-color);
+}
+body {
+  background-color: transparent;
+}
+#__docusaurus {
+  position: relative;
+}
+#__docusaurus::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-color: var(--ifm-background-color);
+  background-image: var(--gap-grain);
+  background-size: var(--gap-grain-size) var(--gap-grain-size);
+}
+/* Paint the header's tint and texture directly on the bar. A little
+   translucency lets content pass beneath it without a backdrop blur layer.
+   Keep filters and transforms off the bar so its fixed mobile menu remains
+   anchored to the viewport. */
+.navbar {
+  background-color: var(--ifm-background-color);
+  background-color: color-mix(in srgb, var(--ifm-background-color) 98%, transparent);
+  background-image: var(--gap-grain);
+  background-size: var(--gap-grain-size) var(--gap-grain-size);
+}
+
+/* Keep the original tile scale on lower-density displays and the tuned
+   scale on denser ones. Resolution includes the effect of browser zoom. */
+@media (min-resolution: 2dppx) {
+  html {
+    --gap-grain-size: 260px;
+  }
+}
+
+/* Type */
+/*
+ * Prose runs a comfortable measure; paragraphs that hold an image, plus
+ * tables, code blocks, and the interactive components, span the full column.
+ */
+.markdown > p,
+.markdown > ul,
+.markdown > ol,
+.markdown > blockquote,
+.markdown > h1,
+.markdown > h2,
+.markdown > h3,
+.markdown > h4,
+.markdown > h5,
+.markdown > h6,
+.markdown > details,
+.markdown > .theme-admonition,
+.theme-doc-markdown header,
+.theme-blog-markdown > p,
+.theme-blog-markdown > ul,
+.theme-blog-markdown > ol,
+.theme-blog-markdown > blockquote,
+.theme-blog-markdown > h2,
+.theme-blog-markdown > h3 {
+  max-width: 38rem;
+}
+.markdown > p:has(> img),
+.markdown > p:has(> button > img),
+.markdown > p:has(> a > img),
+.markdown > p:has(> svg.gap-diagram),
+.markdown > p:has(> .gap-diagram-figure),
+.theme-blog-markdown > p:has(> img),
+.theme-blog-markdown > p:has(> button > img) {
+  max-width: none;
+}
+/*
+ * The production CSS minifier (cssnano's discard-unused) drops @font-face rules
+ * whose family is only named inside a custom property. Name both faces
+ * literally here so the self-hosted fonts survive the build.
+ */
+body {
+  font-family: Karla, "Helvetica Neue", Arial, sans-serif;
+}
+h1,
+h2 {
+  font-family: Bungee, "Arial Black", Impact, sans-serif;
+}
+.markdown h1,
+.markdown > h2,
+h1[class*="docTitle"],
+.theme-doc-markdown header h1 {
+  letter-spacing: -0.035em;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+.markdown h1,
+.markdown h2,
+h1[class*="docTitle"],
+.theme-doc-markdown header h1,
+.theme-blog-markdown h2 {
+  letter-spacing: -0.035em;
+}
+/* The theme raises heading sizes inside markdown; Bungee needs them smaller. */
+.markdown h1:first-child,
+h1[class*="docTitle"] {
+  --ifm-h1-font-size: 1.75rem;
+}
+.markdown > h2 {
+  --ifm-h2-font-size: 1.15rem;
+}
+.markdown > h2 {
+  margin-top: 2.75rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--gap-line);
+  /* Jumping to a section lands its rule on the navbar's hairline, so the
+     two lines read as one. The theme's default leaves a 0.5rem gap. */
+  scroll-margin-top: calc(var(--ifm-navbar-height) - 1px);
+}
+.markdown h1,
+.markdown h2,
+.markdown h3,
+.markdown h5,
+.markdown h6,
+h1[class*="docTitle"],
+.theme-doc-markdown header h1 {
+  color: var(--gap-ink);
+}
+.markdown h3,
+.markdown h4,
+.markdown h5,
+.markdown h6 {
+  font-family: var(--gap-sans);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.markdown strong,
+.markdown b,
+.theme-blog-markdown strong {
+  font-weight: 700;
+  color: var(--gap-ink);
+}
+.markdown h4 {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--gap-muted);
+}
+/* Prose headings share one family; titles inside components keep their own styles. */
+.markdown > h3,
+.markdown > h4,
+.gap-diagram-figure .gap-diagram-title {
+  font-family: var(--gap-display);
+  font-weight: 400;
+  color: var(--gap-ink);
+  line-height: 1.35;
+  text-transform: none;
+  text-wrap: balance;
+}
+.markdown > h3,
+.gap-diagram-figure .gap-diagram-title {
+  font-size: 1.05rem;
+  letter-spacing: -0.025em;
+  margin-top: 2rem;
+  margin-bottom: 0.8rem;
+}
+.markdown > h4 {
+  font-size: 0.9rem;
+  letter-spacing: -0.01em;
+  margin-top: 1.6rem;
+  margin-bottom: 0.55rem;
+}
+.markdown > h3 + h4 {
+  margin-top: 1rem;
+}
+.markdown {
+  --ifm-h1-font-size: 1.75rem;
+}
+.markdown p,
+.markdown li {
+  font-size: 1rem;
+}
+
+.markdown a:not(.hash-link):not(.card),
+.theme-blog-markdown a,
+.theme-admonition a {
+  color: var(--ifm-color-primary);
+  text-decoration: underline;
+  text-decoration-skip-ink: auto;
+  text-underline-offset: 0.12em;
+  text-decoration-thickness: 1px;
+  text-decoration-color: color-mix(in srgb, var(--ifm-color-primary) 55%, transparent);
+}
+.markdown a:not(.hash-link):not(.card):hover,
+.theme-blog-markdown a:hover,
+.theme-admonition a:hover {
+  color: var(--ifm-link-hover-color);
+  text-decoration-color: currentColor;
+  text-decoration-thickness: 1.5px;
+}
+.markdown a code,
+.theme-blog-markdown a code {
+  color: inherit;
+}
+.markdown :not(pre) > code,
+.theme-blog-markdown :not(pre) > code {
+  padding-left: 0.5ch;
+  padding-right: 0.5ch;
+}
+
+/* Lists share the text column's left edge: the marker sits where a paragraph
+   starts and the text is indented from it. Chip-led lists (see the Step
+   component) provide their own markers and are left alone. */
+.markdown ul:not(:has(> li > a[class*="chip"]:first-child)),
+.markdown ol:not(:has(> li > a[class*="chip"]:first-child)),
+.theme-blog-markdown ul,
+.theme-blog-markdown ol {
+  padding-left: 0;
+  list-style: none;
+}
+.markdown ul:not(:has(> li > a[class*="chip"]:first-child)) > li,
+.theme-blog-markdown ul > li {
+  position: relative;
+  padding-left: 1.25em;
+}
+.markdown ul:not(:has(> li > a[class*="chip"]:first-child)) > li::before,
+.theme-blog-markdown ul > li::before {
+  content: "•";
+  position: absolute;
+  left: 0.1em;
+  color: var(--gap-muted);
+}
+.markdown ol:not(:has(> li > a[class*="chip"]:first-child)),
+.theme-blog-markdown ol {
+  counter-reset: list;
+}
+.markdown ol:not(:has(> li > a[class*="chip"]:first-child)) > li,
+.theme-blog-markdown ol > li {
+  position: relative;
+  padding-left: 1.75em;
+  counter-increment: list;
+}
+.markdown ol:not(:has(> li > a[class*="chip"]:first-child)) > li::before,
+.theme-blog-markdown ol > li::before {
+  content: counter(list) ".";
+  position: absolute;
+  left: 0;
+  color: var(--gap-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------------------------------------------------------------------------
+ * Tables
+ *
+ * Rule-only, in both color modes: a 2px rule under the header, a hairline
+ * between rows, no fills. Cells run a tighter line height than prose, the
+ * first column sits on the prose's left edge, and inline code tokens stay
+ * unbroken. In tables of three or more columns, the first, label, column gets
+ * about a quarter of the width. Otherwise the browser's auto layout sizes
+ * columns around their content, including prose with inline code.
+ * Below the sidebar breakpoint a table scrolls sideways inside its column.
+ * ------------------------------------------------------------------------- */
+.markdown table {
+  display: table;
+  width: 100%;
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+/* Infima paints its stripe color behind <thead>. The dark theme sets that
+   variable on <html>, which outranks the transparent value in :root, so the
+   header got a filled block in dark mode only. Clear it on the elements. */
+.markdown table thead,
+.markdown table tr {
+  background: transparent;
+  border-top: 0;
+}
+.markdown table thead tr {
+  border-bottom: 0;
+}
+.markdown table th,
+.markdown table td {
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
+  padding: 0.6rem 1.25rem 0.6rem 0;
+  text-align: left;
+  vertical-align: top;
+}
+.markdown table th:last-child,
+.markdown table td:last-child {
+  padding-right: 0;
+}
+.markdown table th {
+  font-size: 0.72rem;
+  line-height: 1.3;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--gap-muted);
+  font-weight: 600;
+  background: transparent;
+  border-bottom: 2px solid var(--gap-line);
+  padding-top: 0;
+  padding-bottom: 0.5rem;
+  vertical-align: bottom;
+}
+.markdown table td {
+  text-wrap: pretty;
+}
+.markdown table code {
+  white-space: nowrap;
+}
+.markdown table:has(th:nth-child(3)) th:first-child {
+  width: 26%;
+}
+@media (max-width: 996px) {
+  .markdown table {
+    display: block;
+    overflow-x: auto;
+  }
+}
+
+/* Diagram prose is authored in the page; the SVG contains the drawing. */
+.gap-diagram-figure {
+  width: 100%;
+  margin: 2rem 0;
+}
+.gap-diagram-figure .gap-diagram-header {
+  display: grid;
+  max-width: none;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 0.5rem 1rem;
+}
+.gap-diagram-figure .gap-diagram-title {
+  margin: 0;
+}
+.gap-diagram-header > p {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: var(--ifm-font-color-base);
+  font-family: var(--gap-sans);
+  font-size: 1rem;
+  line-height: var(--ifm-line-height-base);
+}
+.gap-diagram-figure svg.gap-diagram {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  margin: 0;
+}
+.gap-diagram-trigger {
+  display: block;
+  width: 100%;
+  margin: 1rem 0 0.5rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: zoom-in;
+}
+.gap-diagram-figure figcaption {
+  padding-top: 0.4rem;
+  border-top: 1px solid var(--gap-line);
+  font-family: var(--gap-sans);
+  font-size: 0.8rem;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--gap-muted);
+}
+.gap-diagram-figure figcaption p {
+  font: inherit;
+  margin: 0 0 0.15rem;
+}
+.gap-diagram-figure figcaption p:last-child {
+  margin-bottom: 0;
+}
+.gap-diagram-expand,
+.gap-diagram-close {
+  font-family: var(--gap-sans);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1;
+  padding: 0.45em 0.9em;
+  border-radius: 999px;
+  border: 1px solid var(--gap-line);
+  background: var(--ifm-background-surface-color);
+  color: var(--gap-muted);
+  cursor: pointer;
+  transition: color 120ms ease, border-color 120ms ease;
+}
+.gap-diagram-expand {
+  grid-column: 2;
+  grid-row: 1;
+}
+.gap-diagram-expand:hover,
+.gap-diagram-close:hover {
+  color: var(--ifm-color-primary);
+  border-color: var(--ifm-color-primary);
+}
+.gap-diagram-expand:focus-visible,
+.gap-diagram-close:focus-visible,
+.gap-diagram-trigger:focus-visible {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: 4px;
+}
+dialog.gap-diagram-dialog {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  max-width: none;
+  max-height: none;
+  overflow: auto;
+  margin: 0;
+  padding: 4rem 2rem 2rem;
+  border: 0;
+  background: var(--ifm-background-color);
+  color: var(--ifm-font-color-base);
+}
+dialog.gap-diagram-dialog::backdrop {
+  background: transparent;
+}
+dialog.gap-diagram-dialog .gap-diagram-figure {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+dialog.gap-diagram-dialog svg.gap-diagram {
+  margin: 1rem 0 0.5rem;
+}
+.gap-diagram-close {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+}
+@media (max-width: 768px) {
+  dialog.gap-diagram-dialog {
+    padding: 3.5rem 0.75rem 0.75rem;
+  }
+  .gap-diagram-figure .gap-diagram-header {
+    column-gap: 0.5rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gap-diagram-expand,
+  .gap-diagram-close {
+    transition: none;
+  }
+}
+/*
+ * The domain pages' diagrams are still SVG images authored on a light canvas.
+ * Until they carry their own theme-aware colors, give them a light surface in
+ * dark mode so the text stays legible. Docusaurus inlines small SVGs as data
+ * URLs, so match both.
+ */
+.markdown img[src$=".svg"],
+.markdown img[src^="data:image/svg+xml"],
+.markdown button > img[src*=".svg"] {
+  background-color: #ffffff;
+  border: 1px solid var(--gap-line-soft);
+  border-radius: 8px;
+  padding: 0.75rem;
+}
+
+/* Navbar: hairline, no shadow, quiet items. */
+.navbar {
+  border-bottom: 1px solid var(--gap-line);
+}
+.navbar__brand {
+  color: var(--gap-nav-strong);   /* the wordmark, as strong as the header goes */
+}
+.navbar__link {
+  color: var(--gap-nav-text);
+  font-size: 0.9rem;
+}
+.navbar__link:hover,
+.navbar__link--active {
+  color: var(--gap-nav-strong);
+}
+
+/* Draft-specification status beside the wordmark. A version selector can replace
+   this link when the project publishes more than one specification version. */
+.navbar__items:not(.navbar__items--right) .version-menu {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--gap-nav-text);
+  border: 1px solid var(--gap-line);
+  border-radius: 999px;
+  line-height: 1;
+  padding: 0.6em 0.9em 0.49em;
+  background: var(--ifm-background-surface-color);
+  margin-left: 0.25rem;
+}
+.navbar__items:not(.navbar__items--right) .version-menu:hover {
+  color: var(--gap-nav-strong);
+  border-color: var(--gap-muted);
+}
+.version-menu-note {
+  padding: 0.5rem 0.75rem 0.25rem;
+  margin-top: 0.35rem;
+  border-top: 1px solid var(--gap-line-soft);
+  font-size: 0.8rem;
+  color: var(--gap-muted);
+}
+
+/* Sidebar: the same heading and link hierarchy as the page contents. */
+.theme-doc-sidebar-container {
+  border-right-color: var(--gap-line) !important;
+}
+/* The sticky sidebar viewport and the sticky table of contents (docs and
+   blog share the component) each carry their own page-colored sheet of
+   speckle, so they hold still while the body's texture scrolls past. */
+.theme-doc-sidebar-container > div::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-color: var(--ifm-background-color);
+  background-image: var(--gap-grain);
+  background-size: var(--gap-grain-size) var(--gap-grain-size);
+}
+/* The contents box grows to fill its column (edge to edge, navbar to the
+   bottom of the viewport) so the sheet and its border run the full height.
+   The page's bottom spacing moves from the container onto the article
+   column, so the row (and the contents column with it) reaches the footer
+   and the border meets it. The list's own left rule goes; the column border
+   takes its place. */
+div[class*="tableOfContents_"] {
+  top: var(--ifm-navbar-height);
+  margin: -1rem -1rem 0;
+  padding: 1rem 1rem 0;
+  min-height: calc(100vh - var(--ifm-navbar-height));
+  max-height: calc(100vh - var(--ifm-navbar-height));
+  /* Paint on the scroll container so the sheet and rule stay in place. */
+  border-left: 1px solid var(--gap-line);
+  background-color: var(--ifm-background-color);
+  background-image: var(--gap-grain);
+  background-size: var(--gap-grain-size) var(--gap-grain-size);
+}
+main[class*="docMainContainer"] > .container {
+  padding-bottom: 0 !important; /* Infima's spacing utility is !important */
+}
+main[class*="docMainContainer"] > .container > .row > .col:first-child {
+  padding-bottom: 2rem;
+}
+/* The blog post layout wraps its row in a 2rem top and bottom margin. The
+   docs layout gives its container 1rem of top padding instead, which the
+   contents box's -1rem margin cancels so the rail meets the navbar. Give
+   the blog container the same 1rem of padding and move the rest of the
+   spacing onto the article column, so the article keeps its 2rem gap
+   below the navbar while the rail runs up to it. */
+.blog-post-page .container.margin-vert--lg {
+  margin-top: 0 !important; /* Infima's spacing utility is !important */
+  margin-bottom: 0 !important;
+  padding-top: 1rem;
+}
+.blog-post-page .container.margin-vert--lg > .row > main {
+  padding-top: 1rem;
+  padding-bottom: 2rem;
+}
+[class*="tableOfContents_"] .table-of-contents__left-border {
+  border-left: 0;
+}
+.theme-doc-sidebar-menu > .theme-doc-sidebar-item-category > .menu__list-item-collapsible > .menu__link {
+  text-transform: none;
+  letter-spacing: normal;
+  color: var(--gap-nav-text);   /* as the header's items; a label, not a link, so it has no hover */
+  font-family: var(--gap-display);
+  font-size: 0.78rem;
+  font-weight: 400;
+  cursor: default;
+}
+.theme-doc-sidebar-menu > .theme-doc-sidebar-item-category > .menu__list-item-collapsible:hover {
+  background: none;
+}
+.theme-doc-sidebar-menu > .theme-doc-sidebar-item-category {
+  margin-bottom: 0;
+}
+.theme-doc-sidebar-menu > .theme-doc-sidebar-item-category + .theme-doc-sidebar-item-category {
+  margin-top: 1rem;
+}
+.theme-doc-sidebar-menu > .theme-doc-sidebar-item-category > .menu__list {
+  margin-top: 0.1rem;
+}
+.menu__link {
+  font-size: 0.9rem;
+  font-weight: 400;
+  padding: 0.3rem 0.5rem;
+}
+.menu__list .menu__list {
+  border-left: 0;
+  margin-left: 0;
+  padding-left: 0;
+}
+.theme-doc-sidebar-menu .menu__list {
+  padding-left: 0;
+}
+/* Current and hovered links use the same accent as the page contents. */
+.menu__link.menu__link--active,
+.menu__list-item-collapsible--active {
+  background: none;
+}
+.menu__link--active:not(.theme-doc-sidebar-item-category-level-1 > .menu__list-item-collapsible > .menu__link) {
+  font-weight: 600;
+}
+.theme-doc-sidebar-menu .menu__link:hover,
+.theme-doc-sidebar-menu .menu__list-item-collapsible:hover {
+  background: none;
+}
+.theme-doc-sidebar-menu .menu__link[href]:hover {
+  color: var(--ifm-color-primary);
+}
+.menu__link--sublist-caret:after,
+.menu__caret {
+  display: none;
+}
+
+/* Navigation scrollbars blend into the page, with a clearer handle on hover. */
+:is(.theme-doc-sidebar-container .thin-scrollbar, [class*="tableOfContents_"]) {
+  --ifm-scrollbar-size: 5px;
+  --ifm-scrollbar-track-background-color: transparent;
+  --ifm-scrollbar-thumb-background-color: color-mix(in srgb, var(--gap-muted) 45%, transparent);
+  --ifm-scrollbar-thumb-hover-background-color: var(--gap-muted);
+  scrollbar-width: thin;
+  scrollbar-color: var(--ifm-scrollbar-thumb-background-color) transparent;
+}
+:is(.theme-doc-sidebar-container .thin-scrollbar, [class*="tableOfContents_"]):hover,
+:is(.theme-doc-sidebar-container .thin-scrollbar, [class*="tableOfContents_"]):focus-within {
+  scrollbar-color: var(--ifm-scrollbar-thumb-hover-background-color) transparent;
+}
+
+/* Table of contents */
+@media (min-width: 997px) {
+  html:root {
+    --doc-sidebar-width: 200px;
+    --gap-toc-width: clamp(240px, 20vw, 288px);
+  }
+
+  .theme-doc-sidebar-menu .menu__link {
+    font-size: 0.8rem;
+    line-height: 1.45;
+    padding: 0.2rem 0.4rem;
+  }
+
+  .theme-doc-sidebar-menu > .theme-doc-sidebar-item-category > .menu__list-item-collapsible > .menu__link {
+    font-size: 0.72rem;
+  }
+
+  .theme-doc-sidebar-menu .menu__list-item {
+    margin-top: 0;
+  }
+
+  /* Reserve readable navigation widths; let the article use the remainder. */
+  main[class*="docMainContainer"] > .container > .row > [class*="docItemCol_"] {
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: none !important; /* Override the theme's 75% column cap. */
+  }
+
+  main[class*="docMainContainer"] > .container > .row > .col--3 {
+    flex: 0 0 var(--gap-toc-width);
+    max-width: var(--gap-toc-width);
+  }
+}
+
+.table-of-contents {
+  padding: 0.5rem 0;
+  font-size: 0.8rem;
+  line-height: 1.45;
+}
+.table-of-contents ul {
+  padding-left: 0.65rem;
+}
+.table-of-contents li {
+  margin: 0.4rem 0;
+}
+.table-of-contents > li > .table-of-contents__link {
+  font-weight: 600;
+}
+.table-of-contents__link {
+  color: var(--ifm-font-color-base);
+  overflow-wrap: normal;
+  word-break: normal;
+}
+.table-of-contents__link--active,
+.table-of-contents__link:hover {
+  color: var(--ifm-color-primary);
+}
+
+/* Breadcrumbs and pagination */
+.breadcrumbs__item--active .breadcrumbs__link {
+  background: none;
+  color: var(--gap-muted);
+}
+.breadcrumbs__link {
+  color: var(--gap-muted);
+}
+/* The home icon sits flush with the text column. */
+.breadcrumbs__item:first-child .breadcrumbs__link {
+  margin-left: calc(-1 * var(--ifm-breadcrumb-padding-horizontal));
+}
+/* Previous / next: typography only. A rule above, a small label, the
+   destination title in the display face. Infima's arrows are replaced. */
+.pagination-nav {
+  margin-top: 3.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--gap-line);
+  gap: 2rem;
+}
+.pagination-nav:empty {
+  display: none;
+}
+.pagination-nav__link {
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  background: none;
+}
+.pagination-nav__link:hover {
+  border: 0;
+}
+.pagination-nav__sublabel {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--gap-muted);
+  margin-bottom: 0.4rem;
+}
+.pagination-nav__label {
+  font-family: var(--gap-display);
+  font-weight: 400;
+  font-size: 1.15rem;
+  letter-spacing: -0.035em;
+  line-height: 1.25;
+  color: var(--gap-ink);
+  transition: color 0.15s;
+}
+.pagination-nav__link:hover .pagination-nav__label {
+  color: var(--ifm-color-primary);
+}
+.pagination-nav__link--prev .pagination-nav__label::before,
+.pagination-nav__link--next .pagination-nav__label::after {
+  content: none;
+}
+.pagination-nav__link--prev .pagination-nav__sublabel::before {
+  content: "\2190\00a0";
+}
+.pagination-nav__link--next .pagination-nav__sublabel::after {
+  content: "\00a0\2192";
+}
+
+/* Back to top: a squared-off hairline box on the page surface, like the
+   mobile contents box and the version pill, with the chevron in the muted
+   ink and vermilion on hover. The theme's module CSS loads after this file
+   and styles the button with one class, so these rules pair
+   .theme-back-to-top-button with .clean-btn to outrank it. The shown state
+   is the theme's hashed class; it is matched by substring, as the contents
+   column is above, and the hidden state is written as its negation so the
+   theme's own shown rule keeps winning. */
+.clean-btn.theme-back-to-top-button {
+  right: 1.25rem;
+  bottom: calc(1.25rem + env(safe-area-inset-bottom, 0px));
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 8px;
+  background-color: var(--ifm-background-surface-color);
+  border: 1px solid var(--gap-line);
+  box-shadow: none;
+  transition:
+    opacity 0.2s var(--ifm-transition-timing-default),
+    transform 0.2s var(--ifm-transition-timing-default),
+    visibility 0.2s,
+    border-color 0.15s,
+    background-color 0.15s;
+}
+/* Appears and leaves as a short rise and fade rather than the theme's
+   scale from nothing; same 0.2s and easing as its other transitions. */
+.clean-btn.theme-back-to-top-button:not([class*="backToTopButtonShow"]) {
+  transform: translateY(0.5rem);
+}
+.clean-btn.theme-back-to-top-button::after {
+  mask-size: 1.5rem 1.5rem;
+  -webkit-mask-size: 1.5rem 1.5rem;
+  background-color: var(--gap-muted);
+  transition:
+    transform 0.15s var(--ifm-transition-timing-default),
+    background-color 0.15s;
+}
+.clean-btn.theme-back-to-top-button:focus-visible {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: 2px;
+}
+/* The one moment of delight: on hover the border and chevron turn
+   vermilion and the chevron nudges upward, the direction it will scroll.
+   Hover-capable pointers only, so a thumb on a phone gets no stuck state. */
+@media (hover: hover) {
+  .clean-btn.theme-back-to-top-button:hover {
+    background-color: var(--ifm-background-surface-color);
+    border-color: var(--ifm-color-primary);
+  }
+  .clean-btn.theme-back-to-top-button:hover::after {
+    background-color: var(--ifm-color-primary);
+    transform: translateY(-2px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .clean-btn.theme-back-to-top-button,
+  .clean-btn.theme-back-to-top-button::after {
+    transition: none;
+  }
+  .clean-btn.theme-back-to-top-button:not([class*="backToTopButtonShow"]),
+  .clean-btn.theme-back-to-top-button:hover::after {
+    transform: none;
+  }
+}
+
+/* Mobile "On this page": a plain hairline box, no accent fill. */
+.theme-doc-toc-mobile {
+  /* The theme reads this token for its fill; the override must be on the
+     element itself because the theme's module CSS loads after this file. */
+  --ifm-menu-color-background-active: transparent;
+  border: 1px solid var(--gap-line);
+  border-radius: 8px;
+}
+.theme-doc-toc-mobile > button {
+  color: var(--ifm-font-color-base);
+}
+.theme-doc-toc-mobile .table-of-contents {
+  padding: 0.2rem 0.8rem;
+}
+.theme-doc-toc-mobile .table-of-contents li {
+  margin: 0.4rem 0;
+}
+.theme-doc-toc-mobile .table-of-contents ul {
+  padding-left: 0.5rem;
+}
+
+/* Admonitions: hairline box with a colored left rule, no fill. */
+.theme-admonition {
+  background: var(--ifm-background-surface-color);
+  border: 1px solid var(--gap-line);
+  border-left-width: 3px;
+  border-radius: 0 8px 8px 0;
+  box-shadow: none;
+  color: var(--ifm-font-color-base);
+}
+.theme-admonition-warning {
+  border-left-color: var(--gap-alert);
+}
+.theme-admonition-note {
+  border-left-color: var(--gap-blue);
+}
+.theme-admonition-tip {
+  border-left-color: var(--gap-green);
+}
+.theme-admonition-info {
+  border-left-color: var(--gap-muted);
+}
+.theme-admonition > div:first-child {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--gap-muted);
+}
+.theme-admonition-warning > div:first-child {
+  color: var(--gap-alert);
+}
+/* No icon. Hiding the whole icon span, not just the SVG, keeps its margin
+   from pushing the heading off the text's left edge. */
+.theme-admonition > div:first-child > span[class*="admonitionIcon"] {
+  display: none;
+}
+
+/* Code blocks */
+.theme-code-block {
+  --ifm-code-font-size: 70%;
+  box-shadow: none;
+  border: 1px solid var(--gap-line-soft);
+}
+/* A shell command is a line or two to copy, not a record to read across the
+   column, so it keeps to the prose measure. */
+.markdown > .theme-code-block:has([class*="language-bash"]),
+.markdown > .theme-code-block:has([class*="language-sh"]) {
+  max-width: 38rem;
+}
+
+/* Footer: same background as the page, separated by a hairline. */
+.footer {
+  --ifm-footer-background-color: transparent;
+  background-color: transparent;
+  --ifm-footer-color: var(--gap-muted);
+  --ifm-footer-link-color: var(--gap-muted);
+  --ifm-footer-title-color: var(--ifm-font-color-base);
+  border-top: 1px solid var(--gap-line);
+  padding: 1.5rem 0;
+  font-size: 0.85rem;
+}
+.footer__copyright {
+  font-size: 0.85rem;
+}
+.footer__link-item > svg {
+  display: none;
+}
+
+/* Blog: its own layout. A landing list, then a post page with a narrow measure. */
+.blog-list-page main,
+.blog-post-page main {
+  max-width: 48rem;
+}
+.blog-list-page header h1,
+.blog-post-page header h1 {
+  font-size: 2.5rem;
+}
+.blog-post-page article {
+  --ifm-h2-font-size: 1.55rem;
+}
+.blog-post-page article > header h1 {
+  margin-bottom: 0.75rem;
+}
+.blog-post-page article > header > div.margin-vert--md {
+  margin-top: 0 !important;
+  margin-bottom: 1.25rem !important;
+  color: var(--gap-muted);
+}
+.blog-post-page article > header > .row {
+  row-gap: 1rem;
+  margin-top: 0 !important;
+  margin-bottom: 1.75rem !important;
+  padding-bottom: 1.4rem;
+  border-bottom: 1px solid var(--gap-line);
+}
+.blog-post-page article > header .avatar {
+  align-items: center;
+  margin-bottom: 0 !important;
+}
+.blog-post-page article > header .avatar__photo {
+  --ifm-avatar-photo-size: 2.75rem;
+}
+.blog-post-page article > header .avatar__intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: 1rem;
+  row-gap: 0.15rem;
+  align-items: center;
+  width: 100%;
+}
+.blog-post-page article > header .avatar__name {
+  grid-column: 1;
+  line-height: 1.2;
+}
+.blog-post-page article > header .avatar__intro > small {
+  grid-column: 1;
+  line-height: 1.25;
+  color: var(--gap-muted);
+}
+.blog-post-page article > header .avatar__intro > [class*="authorSocials"] {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  height: auto;
+  gap: 0.55rem;
+}
+.blog-post-page article > header [class*="authorSocialLink"] {
+  margin-right: 0;
+  color: var(--gap-muted);
+}
+.blog-post-page article > header [class*="authorSocialLink"]:hover {
+  color: var(--ifm-color-primary);
+}
+html[data-theme="light"].blog-post-page article > header [class*="authorSocialIcon"] {
+  fill: currentColor;
+}
+html[data-theme="light"].blog-post-page article > header [class*="authorSocialLink"]:is(:hover, :focus-visible) {
+  color: var(--gap-ink);
+}
+
+/* Keep desktop coauthors within the prose measure, with one clear row each. */
+@media (min-width: 997px) {
+  .blog-post-page article > header > .row {
+    max-width: 38rem;
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .blog-post-page article > header > .row > .col {
+    --ifm-col-width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .blog-post-page article > header .avatar__intro > small {
+    display: block;
+    overflow: visible;
+  }
+}
+
+@media (max-width: 576px) {
+  .blog-post-page header h1 {
+    font-size: 2rem;
+  }
+  .blog-post-page article > header .avatar__intro {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .blog-post-page article > header .avatar__intro > [class*="authorSocials"] {
+    grid-column: 1;
+    grid-row: 3;
+    margin-top: 0.4rem;
+  }
+}
+
+/* Keep the GitHub and appearance icons at the same quiet size. */
+.navbar__items--right {
+  --gap-navbar-icon-size: 1.25rem;
+}
+.navbar-github::before {
+  content: "";
+  display: inline-block;
+  width: var(--gap-navbar-icon-size);
+  height: var(--gap-navbar-icon-size);
+  vertical-align: middle;
+  background-color: currentColor;
+  mask: url("/img/github.svg") no-repeat center / contain;
+}
+.navbar__items--right > div > button.clean-btn > svg {
+  width: var(--gap-navbar-icon-size);
+  height: var(--gap-navbar-icon-size);
+}
+.navbar__items--right > div > button.clean-btn {
+  color: var(--gap-nav-text);
+}
+.navbar__items--right > div > button.clean-btn:hover {
+  color: var(--gap-nav-strong);
+}
+
+/* Keep native doc-card descriptions readable rather than ellipsized. */
+.theme-doc-markdown .card .text--truncate {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+/* File links reveal native disclosures below the sticky navbar. */
+.theme-doc-markdown details[id^="json-"] {
+  scroll-margin-top: calc(var(--ifm-navbar-height) + 1rem);
+}

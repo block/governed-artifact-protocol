@@ -1,0 +1,77 @@
+{
+  "profileId": "blog-post",
+  "revision": 1,
+  "digest": "sha256:e35800ae49f6649be07f9c95a4168ac468095de71974cf05ea7edcfe4016e61c",
+  "ratification": {
+    "ratifiedAt": "2026-08-26T00:00:00Z",
+    "actorId": "human:content-model-owner",
+    "actorKind": "human",
+    "reason": "The model supports English and Spanish for readers in the US and Mexico, requiring US English and Mexican Spanish, with fallback within each country."
+  },
+  "payloadContract": {
+    "type": "object",
+    "fields": {
+      "audience": {
+        "type": "string",
+        "enum": [
+          "public",
+          "members",
+          "internal"
+        ]
+      },
+      "author": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 5000
+      },
+      "content": {
+        "type": "localeMap",
+        "allowed": [
+          "en-US",
+          "es-US",
+          "en-MX",
+          "es-MX"
+        ],
+        "required": [
+          "en-US",
+          "es-MX"
+        ],
+        "fallback": {
+          "es-US": "en-US",
+          "en-MX": "es-MX"
+        },
+        "items": {
+          "type": "object",
+          "fields": {
+            "headline": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 5000
+            },
+            "body": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 5000
+            }
+          },
+          "required": [
+            "headline",
+            "body"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "date": {
+        "type": "string",
+        "format": "date-time"
+      }
+    },
+    "required": [
+      "audience",
+      "author",
+      "content",
+      "date"
+    ],
+    "additionalProperties": false
+  }
+}

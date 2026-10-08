@@ -1,0 +1,229 @@
+---
+title: "Issue tracking demo"
+slug: /domains/issue-tracking/demo
+description: "Run the issue tracking app in the GAP demo: create a ticket, iterate on a working copy, save it as a released version, and complete it."
+displayed_sidebar: docsSidebar
+pagination_prev: domains/issue-tracking
+pagination_next: domains/research
+---
+
+<DomainNav domain="issue-tracking" />
+
+Create a bug ticket, edit it as a working copy, save revised acceptance criteria, and mark it done. Each save creates, authorizes, and releases a version immediately; editing creates no GAP record. Read the selected version or its complete history afterward.
+
+:::note[Things to know]
+
+- The demo runs on your computer for one user. It is not a production system.
+- You play the roles in the walkthrough by telling the agent who you are acting as. The agent uses the participant configured for that role, and the application checks that participant's permissions.
+- Choosing a role does not sign you in or verify your identity. The demo's permission checks and audience labels do not protect access to the local files.
+- The examples use made-up data. Use fictional content when you try your own examples.
+
+:::
+
+## Before you start
+
+[Set up the demo](../run-the-demos.md) once: install, start the server, and connect your client. One server hosts every application, so this walkthrough needs no separate install or port. It uses the tools of the **Issue tracking** application; the [tool reference](../how-the-demos-work.mdx#issue-tracking) lists them with the lifecycle steps each declares. The server provides tools, not a graphical ticket board. New to this domain? The [modeling guide](../issue-tracking.mdx) explains the content, roles, and records first.
+
+## What you start with
+
+`get_ticket_workflow` returns the approved `bug-ticket` revision 1 and its local permissions. Content model setup is already done. Its fields match the guide: `title`, `description`, `acceptanceCriteria`, and `status` (`to_do`, `in_progress`, or `done`).
+
+- `agent:requester` can create tickets.
+- `agent:assignee` can update and complete tickets.
+- `human:workflow-owner` can do all three.
+
+Permissions are configured explicitly; being the author or assignee does not grant them. The same participant acts as Author and Authority when saving. Any configured participant can edit a working copy; saving it needs update authority. Marking a ticket Done requires a description of the check performed, which the application records without testing the fix itself. Any other save that includes one is refused.
+
+## Start the conversation
+
+Open one conversation with your agent and send this first. It sets the scene once, so every later message can be a plain request:
+
+<Chat>
+
+<You>
+
+I'm working in the connected Issue Tracking demo, on synthetic data. I'll switch between the requester and the assignee and tell you when. Use the participant configured for each role, and keep the ticket IDs and version numbers the tools give back.
+
+</You>
+
+</Chat>
+
+If your client has project or system instructions, put that text there instead and skip it in the chat.
+
+Then send the messages below in order. A line such as “I'm the assignee now.” is its own message: send it, then the request. Creating or saving is the decision; there is no separate review step. A working copy is where you iterate before that decision. If you have run this before, ask for a fresh ticket ID in step 1. Where the agent’s side is shown, it is one reply an agent could give; yours will word things differently and may call tools in another order. Each “What happens” note says what the tools record either way.
+
+## Walk through the bug
+
+### 1. Create the ticket
+
+<Chat>
+
+<You>
+
+I'm the requester.
+
+</You>
+
+<You>
+
+File a bug: “Fix the subtraction button”. Description: “The calculator adds numbers when subtraction is selected.” No acceptance criteria yet; leave it in To do.
+
+</You>
+
+<Expect>
+
+`create_ticket` returns version 1, under an ID such as `ticket:subtraction`, with its authorization and release, and `list_current_tickets` includes it immediately. Creating the ticket also authorizes its release, using the requester's configured permission. The user does not need to approve it in a separate interaction. If an earlier run already used that ID, `create_ticket` fails with `ticket already exists: choose a new ticket ID, or read and update the existing ticket` and records nothing; ask for a fresh ID and send this message again.
+
+</Expect>
+
+</Chat>
+
+### 2. Edit before saving
+
+<Chat>
+
+<You>
+
+I'm the assignee now.
+
+</You>
+
+<You>
+
+Start a working copy of that ticket. Add “Subtracting 2 from 5 must display 3.” to the acceptance criteria and move it to In progress. Leave the title blank for now.
+
+</You>
+
+<Agent>
+
+The working copy has your new acceptance criterion and is In progress, but it needs a title before it can be saved. Readers still see version 1, and the ticket's history is unchanged.
+
+</Agent>
+
+<You>
+
+Put the title back.
+
+</You>
+
+<Agent>
+
+I've restored “Fix the subtraction button” as the title. The working copy is valid now. Compared with version 1, it adds “Subtracting 2 from 5 must display 3.” and changes the status to In progress.
+
+</Agent>
+
+<Expect>
+
+The first `stage_ticket_changes` call returns `saveCount: 1` and `validation.valid: false` because the title is blank. Restoring the title produces `saveCount: 2` and a valid result. These counts track updates to the working copy, not ticket versions. No artifact version, digest, or authorization has been created for those edits. `list_current_tickets` and `get_ticket_history` still return only version 1.
+
+</Expect>
+
+</Chat>
+
+### 3. Save the working copy
+
+<Chat>
+
+<You>
+
+Looks good. Save it. Then show me the ticket, its history, and whether the working copy is still around.
+
+</You>
+
+<Expect>
+
+`save_ticket_changes` returns released version 2 with the new criteria and `in_progress`. Its authorization has no `reason`, because only a save that marks the ticket Done carries a description of a check. Editing the working copy twice still created only one saved version. `get_ticket_working_copy` now reports that no working copy exists. `get_ticket_history` contains versions 1 and 2 with their exact release evidence, and neither contains the unfinished edit with an empty title. As an alternative to staging and saving, you could submit the changes directly with `update_ticket` and `expectedVersion: 1` while version 1 is current.
+
+</Expect>
+
+</Chat>
+
+### 4. Complete the ticket
+
+<Chat>
+
+<You>
+
+Mark it Done, with “5 minus 2 displayed 3.” as the check performed. Record that sentence word for word, without adding a note that it's made up; everything in this demo is synthetic. Then show me the current ticket and all three versions.
+
+</You>
+
+<Expect>
+
+The issue tracking app releases version 3 with its status set to `done`. The authorization records the assignee, and its `reason` field holds the check exactly as quoted, with nothing added: “5 minus 2 displayed 3.” Readers can find that description in version 3's release proof. It is stored on the authorization rather than in the ticket payload, and GAP excludes it from digest calculations.
+
+Versions 1 and 2 remain available with their original authorizations. The check is made up, and this walkthrough does not test a real calculator: the issue tracking app records the assignee's report without running the check itself. A request to mark a ticket Done without describing a check fails.
+
+</Expect>
+
+</Chat>
+
+### 5. Try a stale save
+
+<Chat>
+
+<You>
+
+Try saving another update to the ticket as if version 1 were still the latest.
+
+</You>
+
+<Expect>
+
+The issue tracking app returns a stale-version error. Version 3 remains current, and no new records are created.
+
+</Expect>
+
+<You>
+
+I'm the requester again.
+
+</You>
+
+<You>
+
+Use the current ticket fields unchanged to stage a working copy, then try to save it as the requester. This is an intentional synthetic permission check; do not switch to the assignee.
+
+</You>
+
+<Expect>
+
+Any configured participant can edit a working copy, so `stage_ticket_changes` succeeds for `agent:requester`: the working copy is based on version 3, keeps all four fields unchanged, and is valid with no changes listed. `save_ticket_changes` then fails with `actor lacks configured ticket update authority`, because the requester can create tickets but not update existing ones. The agent stays the requester rather than switching roles to get the save through. No version or record is created: version 3 is still current, `get_ticket_history` still returns versions 1 to 3, and the requester's working copy remains. If the agent only explains the rule or asks what to change, the check has not run; ask it to make both calls.
+
+</Expect>
+
+</Chat>
+
+## Tools and local policy
+
+| Action | Tool | Result |
+| --- | --- | --- |
+| Inspect setup | `get_ticket_workflow` | Exact model and configured permissions |
+| Create | `create_ticket` | Authorize and release version 1 |
+| Update or complete | `update_ticket` | Authorize and release the next version with an expected-version check |
+| Edit the ticket as a working copy | `stage_ticket_changes` | Hold or replace mutable content; no version and no record |
+| Review the working copy | `get_ticket_working_copy` | Validation against the content model, differences from the current version, and staleness |
+| Save the working copy | `save_ticket_changes` | Create, authorize, and release the next version from the working copy, then remove it |
+| Discard the working copy | `discard_ticket_working_copy` | Remove the working copy; nothing is created |
+| Read selected tickets | `list_current_tickets` | Verified releases selected by successful saves |
+| Read history | `get_ticket_history` | Every exact released version and its evidence |
+
+The `bugTickets` section of the workspace keeps every release and a record of which version is selected as current. A successful save writes the artifact, authorization, release, and selection together in one file replacement, along with any completion check in the application's own `bugCompletionChecks`; saving a working copy removes it in that same replacement. The workspace stores unfinished edits in `bugWorkingCopies`. Those edits are not GAP records, so the current-ticket and history tools return saved releases without including them. Choosing the current version this way is a local choice; GAP leaves [current release selection](/specification/working-draft#current-release-selection) to the application, and how a consumer discovers the current version is [deferred](https://github.com/block/governed-artifact-protocol/blob/main/DEFERRED.md#artifact-lineage-and-supersession). Withdrawal, rollback, and multiple writers are unsupported.
+
+Overlapping saves are rejected using a `workspace.json.bug-lock` directory beside the workspace file. If a process dies mid-save, stop the application and check the workspace before removing it. Run one server process at a time.
+
+## Reset
+
+To discard this application’s runtime changes, send:
+
+<Chat>
+
+<You>
+
+Reset the connected Issue Tracking demo to its included example data. I understand this discards the current Issue Tracking workspace’s changes.
+
+</You>
+
+</Chat>
+
+The agent calls `reset_demo_workspace` with `application: "issue-tracking"` and `confirm: "reset synthetic demo workspace"`. The other applications' workspaces are untouched, and normal startup never resets data. To stop the server or fix a connection problem, see [Set up the demo](../run-the-demos.md#stop-or-troubleshoot).

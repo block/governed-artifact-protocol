@@ -1,0 +1,102 @@
+---
+title: How the demos work
+slug: /domains/how-the-demos-work
+sidebar_label: How the demos work
+description: "How the local GAP demo connects a client to three applications, what its tools return, and the complete generated tool reference."
+---
+
+import ToolReference, { StepLegend } from "@site/src/components/ToolReference";
+
+The demos run three applications behind one local [Model Context Protocol](https://modelcontextprotocol.io) (MCP) server. An AI agent calls their actions as tools through its client and reports the results in conversation. MCP is only the demo's interface. [GAP works with any interface](../specification/draft/README.md#scope-and-boundaries): an implementation can use another interface and another way of storing records while producing the same GAP records.
+
+To connect a client, follow [Run the demos](./run-the-demos.md). To understand the content and roles without running anything, pick a [domain guide](./index.mdx).
+
+:::note[Things to know]
+
+- The demo runs on your computer for one user. It is not a production system.
+- You play the roles in the walkthrough by telling the agent who you are acting as. The agent uses the participant configured for that role, and the application checks that participant's permissions.
+- Choosing a role does not sign you in or verify your identity. The demo's permission checks and audience labels do not protect access to the local files.
+- The examples use made-up data. Use fictional content when you try your own examples.
+
+:::
+
+## Client, tools, and application state
+
+The client connects over Streamable HTTP and finds every registered tool. Each tool's description names its application and the lifecycle steps and release decisions it declares. The same declarations appear in the MCP metadata and in the generated reference below. Connecting to the server grants no GAP permission; each application checks the actor and action against its own configuration.
+
+Call `describe_demo` to see the applications and their tools grouped by purpose. It returns server information, lifecycle and decision labels, and the application groups with action names, titles, and declarations. Input schemas arrive through MCP tool discovery and are shown in the reference below.
+
+Each application keeps its own JSON workspace. The first start creates any missing workspace from made-up seed data, and later restarts keep it. No database, cloud account, or internal service is needed. Each application writes its own records, checks its own permissions, and runs its own verification. The layer they share describes and validates each action's declarations and exposes actions as tools; it performs no lifecycle step and verifies no record.
+
+### Start with a domain's workflow
+
+| Application | Initial configuration | Walkthrough |
+| --- | --- | --- |
+| Blog website (`cms`) | Propose the blog-post model, preview it, and ratify that exact revision before saving a post. The workspace also includes example data for the generic CMS tools. | [Draft, review, release, and read a post](./blog-website/demo.mdx) |
+| Issue tracking (`issue-tracking`) | `get_ticket_workflow` returns the already ratified bug-ticket model, participant permissions, and the app's rules for choosing the current version. | [Create, edit, and complete a ticket](./issue-tracking/demo.mdx) |
+| Research publishing (`research`) | `get_research_workflow` returns the already ratified models, participant permissions, the journal and cited-works trust stores, and the app's rules for choosing the current version. | [Review, publish, and verify a gummy-worm recall paper](./research/demo.mdx) |
+
+The CMS's derived-content tools include experiments with dependencies beyond what the draft requires. The tool descriptions identify these experiments.
+
+## Identifiers in the examples
+
+The demo uses readable strings to distinguish kinds of records and participants:
+
+| Example | What it identifies |
+| --- | --- |
+| `cms.article` or `blog-post` | A profile: the rules for one kind of content. |
+| `blog-post:monarch-migration` | An artifact whose saved versions share that ID. |
+| `agent:writer` or `human:publisher` | A participant configured in this application. The actor record also carries its kind explicitly. |
+
+These prefixes are local naming conventions. A string such as `human:publisher` grants no permission on its own; the application checks its participant configuration. The profile ID and revision identify the rules, while the digest pins their exact contents.
+
+When authoring your own examples, choose an ID that is unambiguous in the application’s record store, retain the same artifact ID for later versions of the same content, and keep profile IDs separate from artifact IDs. Use the participant IDs configured by the demo. GAP’s record schemas require non-empty ID strings; they do not prescribe these prefixes.
+
+## What tools return
+
+Successful tool calls return the action's result in two MCP forms: a text block containing JSON, and `structuredContent`. Objects remain objects in `structuredContent`; arrays are wrapped as `{ items: [...] }`, and scalar values as `{ value: ... }`. Those wrappers are interface details, not GAP records.
+
+A successful call does not always mean a release occurred. Read the returned record and the action's declarations:
+
+| Result | What it establishes |
+| --- | --- |
+| A proposal, working copy, list, or preview | Application state or material for a decision. A preview grants no authority. A working copy is not an artifact version. |
+| An artifact version from a draft save | The saved content and a reference to the exact profile revision it follows. The version cannot be edited in place, and this record alone does not establish whether it has been released. |
+| An approval or rejection | An authority's decision about an exact version. Neither decision releases it. |
+| A release proof | The released content, exact profile revision, authorization, and any recorded approvals or rejections included for that version. The consumer checks the content against profile rules it supports and the decisions against its configured trust. |
+| A verification result | The checks that verifier performed, within its stated limits. It is not evidence of content accuracy or downstream delivery. |
+
+For actions that use a preview, the client keeps the returned confirmation and any expected-version value. The person reviews the content and decides in ordinary language, without copying digests or confirmation strings. Those strings tie a request to its preview; they don't identify the person using the client.
+
+### Outputs in the walkthroughs
+
+- Blog website: `read_post` returns the selected headline and body, locale selection and fallback details, and the full release proof. Authorization covers all locales in the payload. `displayOutcome` is `not-performed-or-proved`: the demo has not published or displayed a website. The records name the configured actors who made each decision, but they are unsigned and cannot independently authenticate those actors.
+- Issue tracking: create and save actions return a release proof. `list_current_tickets` returns a proof for each ticket's most recently saved version; `get_ticket_history` returns proofs for every released version of that ticket. A working-copy read instead returns staged content, validation problems, changed fields, the current version, and a stale flag. It has no release proof. The completion reason records the assignee's account of a check, not evidence that the bug is fixed. The app records the configured actor who saved the change; it does not authenticate the participant or sign the decision.
+- Research publishing: `read_research` returns an array of release proofs. When a request for the selected publication finds a withdrawn release, that entry contains only the withdrawal record. A request for a specific version returns its proof with any withdrawal attached. `verify_research_proof` takes one returned record, not the whole array, and reports `verified` or `withdrawn` with the subject and signer information; failed checks raise an error. The verifier uses the supplied records and trust store without reading the workspace. If no trust store is supplied, it uses the demo's configured store. The reader chooses which keys to trust separately from the proof being checked.
+- Source checks: `sweep_research_sources` reports `aligned`, `drift`, `integrity-failure`, or `unresolved` for a paper's source references. It edits no paper or release decision. Verifying a paper's own proof does not verify its dependencies; source proofs must be obtained and checked separately. A drift finding does not prove the paper's wording is wrong.
+
+The research verifier exercises checking signed records without access to the workspace. All these tools still come from one local demo built by one team. They do not demonstrate interoperability between independently built systems or production key management.
+
+## Tool reference
+
+Every registered tool appears below, grouped by application and then by workflow. The list is generated from the demo's own manifest when the site is built. Open a tool for its description and input fields. Tool names and application IDs are the ones the client sees; the blog website application's ID is `cms`.
+
+### Lifecycle steps and release decisions
+
+<StepLegend />
+
+## Demo server {#demo}
+
+<ToolReference application="demo" />
+
+## Blog website {#cms}
+
+<ToolReference application="cms" />
+
+## Issue tracking {#issue-tracking}
+
+<ToolReference application="issue-tracking" />
+
+## Research publishing {#research}
+
+<ToolReference application="research" />

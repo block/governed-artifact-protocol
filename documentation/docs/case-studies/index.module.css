@@ -1,0 +1,49 @@
+.studies {
+  max-width: 38rem;
+  margin: 2rem 0;
+  border-top: 2px solid var(--gap-ink);
+}
+
+:global(.markdown) .studies a.study {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.5rem 1.5rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--gap-line);
+  color: var(--gap-ink);
+  text-decoration: none;
+}
+
+.title {
+  font-family: var(--gap-display);
+  font-size: 1.1rem;
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: -0.035em;
+}
+
+.description {
+  grid-column: 1;
+  max-width: 65ch;
+  color: var(--ifm-font-color-base);
+}
+
+.arrow {
+  grid-column: 2;
+  grid-row: 1;
+  font-size: 1.25rem;
+  line-height: 1.3;
+  color: var(--gap-muted);
+}
+
+:global(.markdown) .studies a.study:hover .title,
+:global(.markdown) .studies a.study:focus-visible .title,
+:global(.markdown) .studies a.study:hover .arrow,
+:global(.markdown) .studies a.study:focus-visible .arrow {
+  color: var(--ifm-color-primary);
+}
+
+:global(.markdown) .studies a.study:focus-visible {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: 5px;
+}

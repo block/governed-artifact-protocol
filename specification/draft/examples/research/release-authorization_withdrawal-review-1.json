@@ -1,0 +1,20 @@
+{
+  "artifactId": "review:withdrawal-coverage",
+  "artifactVersion": 1,
+  "payloadDigest": "sha256:8a044e4566144d0c3f7ae27f9029b96ffd1a9b632e5f20416f2c1cb743fff136",
+  "profile": {
+    "profileId": "research-peer-review",
+    "revision": 1,
+    "digest": "sha256:9442eff7ff852018222c670a8d8261d191bb062ba2346f8e9975cd51c4d2a601"
+  },
+  "authorizedAt": "2026-10-10T09:00:00Z",
+  "authorizedBy": {
+    "actorId": "human:journal-publisher",
+    "actorKind": "human"
+  },
+  "authorizationSubjectDigest": "sha256:0c55bf9b7f8f10a2db3469e16a6d96ff8ab392f4cc42c3e8eb322ce54e289ded",
+  "authoritySignature": {
+    "signerId": "human:journal-publisher",
+    "signature": "x4RmzTCnhQtBWoUpkQBL2VDQdeIyNKGbC_83uNRUf2r0_VJ0RQLV-WvHvtuNZNBvCQG9dmCujrQoks4AzOLfAA"
+  }
+}

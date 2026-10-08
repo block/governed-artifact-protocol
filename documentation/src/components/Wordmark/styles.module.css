@@ -1,0 +1,9 @@
+.mark {
+  display: inline-block;
+  font-family: Bungee, var(--gap-display);
+  font-weight: 400;
+  letter-spacing: -0.035em;
+  line-height: 1;
+  color: var(--gap-ink);
+  white-space: nowrap;
+}

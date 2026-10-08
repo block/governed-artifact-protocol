@@ -1,0 +1,84 @@
+{
+  "release": {
+    "artifactId": "ticket:subtraction",
+    "artifactVersion": 2,
+    "profile": {
+      "profileId": "bug-ticket",
+      "revision": 1,
+      "digest": "sha256:137831275b47219dbd4343e028a6ece15067744813da0e464429b4e5162046d7"
+    },
+    "payload": {
+      "title": "Fix the subtraction button",
+      "description": "The calculator adds numbers when subtraction is selected.",
+      "acceptanceCriteria": [
+        "Subtracting 2 from 5 must display 3."
+      ],
+      "status": "in_progress"
+    }
+  },
+  "profile": {
+    "profileId": "bug-ticket",
+    "revision": 1,
+    "digest": "sha256:137831275b47219dbd4343e028a6ece15067744813da0e464429b4e5162046d7",
+    "ratification": {
+      "ratifiedAt": "2026-09-10T00:00:00.000Z",
+      "actorId": "human:workflow-owner",
+      "actorKind": "human"
+    },
+    "payloadContract": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 5000
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 5000
+        },
+        "acceptanceCriteria": {
+          "type": "array",
+          "maxItems": 20,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 5000
+          }
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "to_do",
+            "in_progress",
+            "done"
+          ]
+        }
+      },
+      "required": [
+        "title",
+        "description",
+        "acceptanceCriteria",
+        "status"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "authorization": {
+    "artifactId": "ticket:subtraction",
+    "artifactVersion": 2,
+    "payloadDigest": "sha256:d6a83009eb9b1b68523b845f4dd846b36a64dcf9b403d951a9cfdc98eeb55235",
+    "profile": {
+      "profileId": "bug-ticket",
+      "revision": 1,
+      "digest": "sha256:137831275b47219dbd4343e028a6ece15067744813da0e464429b4e5162046d7"
+    },
+    "authorizedAt": "2026-09-11T10:00:00Z",
+    "authorizedBy": {
+      "actorId": "agent:assignee",
+      "actorKind": "agent"
+    },
+    "authorizationSubjectDigest": "sha256:4f3fbf1c61b768e0ce2aa0ec531e9bb17e69ac9812be2d8302652b45b65836c3"
+  }
+}

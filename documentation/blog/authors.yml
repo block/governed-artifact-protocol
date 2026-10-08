@@ -1,0 +1,26 @@
+# Blog authors.
+#
+# Reference an author from a post's front matter with `authors: [aharvard]`.
+# Each person gets a headshot (image_url), a title, and social links. Setting
+# `page: true` gives the author a page at /blog/authors/<key> listing their
+# posts. Supported socials keys include github, x, linkedin, bluesky,
+# mastodon, threads, instagram, youtube, twitch, newsletter, and email.
+
+aharvard:
+  name: Andrew Harvard
+  title: Principal Design Engineer, Block
+  image_url: https://avatars.githubusercontent.com/u/10472610?v=4
+  page: true
+  socials:
+    github: aharvard
+    x: aharvard
+    linkedin: aharvard
+
+davidhamilton:
+  name: David Hamilton
+  title: Design infrastructure and intelligence, Block
+  image_url: https://avatars.githubusercontent.com/u/256802042?v=4
+  page: true
+  socials:
+    github: daveh-beep
+    linkedin: writesdavid

@@ -1,0 +1,74 @@
+/*
+ * A Markdown disclosure, drawn like one tool in the tool reference
+ * (src/components/ToolReference/styles.module.css). Closed, a row on the
+ * surface color. Open, the row becomes a heading over a well of the page
+ * color, ruled off beneath it.
+ */
+
+.details {
+  margin: 0 0 var(--ifm-leading);
+  border: 1px solid var(--gap-line);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--ifm-background-surface-color);
+  scroll-margin-top: calc(var(--ifm-navbar-height) + 1rem);
+}
+.details:target {
+  box-shadow: inset 3px 0 0 var(--ifm-color-primary);
+}
+.summary {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  cursor: pointer;
+  list-style: none;
+  color: var(--gap-ink);
+  font-size: 0.92rem;
+  line-height: 1.4;
+}
+.details[open] > .summary {
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+.summary::-webkit-details-marker {
+  display: none;
+}
+.summary::before {
+  content: "";
+  flex: 0 0 auto;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-right: 1.5px solid var(--gap-muted);
+  border-bottom: 1.5px solid var(--gap-muted);
+  transform: rotate(-45deg);
+  transition: transform 120ms ease;
+  margin-right: 2px;
+}
+.details[open] > .summary::before {
+  transform: rotate(45deg);
+}
+.details[open] .label {
+  font-weight: 700;
+}
+.body {
+  padding: 18px 20px 18px 36px;
+  border-top: 1px solid var(--gap-line);
+  background: var(--ifm-background-color);
+  font-size: 0.95rem;
+}
+.body > :last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 640px) {
+  .body {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .summary::before {
+    transition: none;
+  }
+}

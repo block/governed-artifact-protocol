@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="gap-diagram" width="760" height="634.4" viewBox="0 54 760 634.4" role="img" aria-labelledby="roles-title roles-desc">
+<title id="roles-title">Who acts at each step</title>
+<desc id="roles-desc">Who acts at each lifecycle step. Authors propose a profile and create versions, authorities ratify the revision and authorize the version, the implementation commits the release, and consumers read and verify. An authority may also approve a version before authorization, and may withdraw a released version afterwards; each record binds the same exact subject. The implementation enforces every step.</desc>
+<style>.gap-diagram{--gd-ink:var(--gap-ink,#151412);--gd-text:var(--ifm-font-color-base,#2b2926);--gd-muted:var(--gap-muted,#74706a);--gd-line:var(--gap-line,#dcd8d0);--gd-surface:var(--ifm-background-surface-color,#faf9f6);--gd-accent:var(--ifm-color-primary,#c8321a);--gd-alert:var(--gap-alert,#5f5a52)}
+@media (prefers-color-scheme:dark){.gap-diagram{--gd-ink:var(--gap-ink,#f3f1ec);--gd-text:var(--ifm-font-color-base,#d3d0ca);--gd-muted:var(--gap-muted,#8f8a82);--gd-line:var(--gap-line,#2e2b27);--gd-surface:var(--ifm-background-surface-color,#1e1c19);--gd-accent:var(--ifm-color-primary,#ff8a6a);--gd-alert:var(--gap-alert,#bdb8ae)}}
+.gap-diagram text{font-family:Karla, 'Helvetica Neue', Arial, sans-serif;fill:var(--gd-text)}
+.gap-diagram .gd-disp{font-family:Bungee, 'Arial Black', Impact, sans-serif}
+.gap-diagram .gd-ink{fill:var(--gd-ink)}
+.gap-diagram .gd-mu{fill:var(--gd-muted)}
+.gap-diagram .gd-ac{fill:var(--gd-accent)}
+.gap-diagram .gd-al{fill:var(--gd-alert)}
+.gap-diagram .gd-box{fill:var(--gd-surface);stroke:var(--gd-line);stroke-width:1}
+.gap-diagram .gd-dash{stroke-dasharray:4 3}
+.gap-diagram .gd-rule{stroke:var(--gd-line);stroke-width:1;fill:none}
+.gap-diagram .gd-rule2{stroke:var(--gd-line);stroke-width:2;fill:none}
+.gap-diagram .gd-ln{stroke:var(--gd-muted);stroke-width:1.25;fill:none}
+.gap-diagram .gd-ln-ac{stroke:var(--gd-accent);stroke-width:1.5;fill:none}
+.gap-diagram .gd-x{stroke:var(--gd-alert);stroke-width:1.5;fill:none}</style>
+<defs><marker id="roles-head" viewBox="0 0 8 8" refX="6.5" refY="4" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M1.5 1L6.5 4L1.5 7" class="gd-ln"/></marker><marker id="roles-head-ac" viewBox="0 0 8 8" refX="6.5" refY="4" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M1.5 1L6.5 4L1.5 7" class="gd-ln-ac"/></marker></defs>
+<text x="160" y="74" font-size="12" class="gd-disp gd-ink">Author</text>
+<text x="160" y="88" font-size="10.5" class="gd-mu">Human or agent</text>
+<text x="312.5" y="74" font-size="12" class="gd-disp gd-ink">Authority</text>
+<text x="312.5" y="88" font-size="10.5" class="gd-mu">Configured human</text>
+<text x="312.5" y="101" font-size="10.5" class="gd-mu">or agent</text>
+<text x="465" y="74" font-size="12" class="gd-disp gd-ink">Implementation</text>
+<text x="465" y="88" font-size="10.5" class="gd-mu">Software; enforces</text>
+<text x="465" y="101" font-size="10.5" class="gd-mu">every step</text>
+<text x="617.5" y="74" font-size="12" class="gd-disp gd-ink">Consumer</text>
+<text x="617.5" y="88" font-size="10.5" class="gd-mu">Person, agent,</text>
+<text x="617.5" y="101" font-size="10.5" class="gd-mu">or application</text>
+<path d="M0 118H760" class="gd-rule2"/>
+<rect x="160" y="130" width="142.5" height="64.2" rx="6" class="gd-box"/>
+<text x="174" y="148.3" font-size="11.5" font-weight="700" class="gd-ink">Proposes a profile</text>
+<text x="174" y="163.8" font-size="11.5">revision; gains no</text>
+<text x="174" y="179.3" font-size="11.5">ratification authority</text>
+<text x="0" y="143.9" font-size="17" class="gd-disp gd-mu">1</text>
+<text x="30" y="141.3" font-size="12.5" font-weight="700" class="gd-ink">Propose a profile</text>
+<path d="M0 206.2H760" class="gd-rule"/>
+<rect x="312.5" y="218.2" width="142.5" height="48.7" rx="6" class="gd-box"/>
+<text x="326.5" y="236.6" font-size="11.5" font-weight="700" class="gd-ink">Ratifies the exact</text>
+<text x="326.5" y="252.1" font-size="11.5">revision digest</text>
+<text x="0" y="232.2" font-size="17" class="gd-disp gd-mu">2</text>
+<text x="30" y="229.5" font-size="12.5" font-weight="700" class="gd-ink">Ratify the revision</text>
+<path d="M0 278.9H760" class="gd-rule"/>
+<rect x="160" y="290.9" width="142.5" height="79.8" rx="6" class="gd-box"/>
+<text x="174" y="309.3" font-size="11.5" font-weight="700" class="gd-ink">Creates an</text>
+<text x="174" y="324.8" font-size="11.5">immutable draft</text>
+<text x="174" y="340.3" font-size="11.5">version; gains no</text>
+<text x="174" y="355.8" font-size="11.5">release authority</text>
+<rect x="312.5" y="290.9" width="142.5" height="79.8" rx="6" class="gd-box gd-dash"/>
+<text x="326.5" y="309.3" font-size="11.5" font-weight="700" class="gd-ink">May approve the</text>
+<text x="326.5" y="324.8" font-size="11.5">exact version first;</text>
+<text x="326.5" y="340.3" font-size="11.5">the record binds</text>
+<text x="326.5" y="355.8" font-size="11.5">the subject</text>
+<text x="0" y="304.9" font-size="17" class="gd-disp gd-mu">3</text>
+<text x="30" y="302.2" font-size="12.5" font-weight="700" class="gd-ink">Create a version</text>
+<path d="M0 382.7H760" class="gd-rule"/>
+<rect x="312.5" y="394.7" width="142.5" height="64.2" rx="6" class="gd-box"/>
+<text x="326.5" y="413.0" font-size="11.5" font-weight="700" class="gd-ink">Authorizes the exact</text>
+<text x="326.5" y="428.5" font-size="11.5">version, payload,</text>
+<text x="326.5" y="444.0" font-size="11.5">and profile pin</text>
+<text x="0" y="408.6" font-size="17" class="gd-disp gd-mu">4</text>
+<text x="30" y="405.9" font-size="12.5" font-weight="700" class="gd-ink">Authorize the version</text>
+<path d="M0 470.9H760" class="gd-rule"/>
+<rect x="465" y="482.9" width="142.5" height="79.7" rx="6" class="gd-box"/>
+<text x="479" y="501.3" font-size="11.5" font-weight="700" class="gd-ink">Records</text>
+<text x="479" y="516.8" font-size="11.5">authorization and</text>
+<text x="479" y="532.3" font-size="11.5">release as one</text>
+<text x="479" y="547.8" font-size="11.5">transition</text>
+<text x="0" y="496.8" font-size="17" class="gd-disp gd-mu">5</text>
+<text x="30" y="494.1" font-size="12.5" font-weight="700" class="gd-ink">Commit the release</text>
+<path d="M0 584.6H760" class="gd-ln-ac" stroke-dasharray="4.99 3.99"/>
+<text x="0" y="578.6" font-size="9.5" font-weight="700" class="gd-ac" letter-spacing="1.2">RELEASE BOUNDARY</text>
+<rect x="312.5" y="596.6" width="142.5" height="79.8" rx="6" class="gd-box gd-dash"/>
+<text x="326.5" y="615.0" font-size="11.5" font-weight="700" class="gd-ink">May withdraw the</text>
+<text x="326.5" y="630.5" font-size="11.5">exact version later;</text>
+<text x="326.5" y="646.0" font-size="11.5">the record binds</text>
+<text x="326.5" y="661.5" font-size="11.5">the subject</text>
+<rect x="617.5" y="596.6" width="142.5" height="79.8" rx="6" class="gd-box"/>
+<text x="631.5" y="615.0" font-size="11.5" font-weight="700" class="gd-ink">Reads the release</text>
+<text x="631.5" y="630.5" font-size="11.5">proof and verifies</text>
+<text x="631.5" y="646.0" font-size="11.5">it against</text>
+<text x="631.5" y="661.5" font-size="11.5">configured trust</text>
+<text x="0" y="610.6" font-size="17" class="gd-disp gd-mu">6</text>
+<text x="30" y="607.9" font-size="12.5" font-weight="700" class="gd-ink">Read and verify</text>
+</svg>

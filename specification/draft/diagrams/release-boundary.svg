@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="gap-diagram" width="760" height="495.6" viewBox="0 54 760 495.6" role="img" aria-labelledby="release-boundary-title release-boundary-desc">
+<title id="release-boundary-title">What crosses the release boundary</title>
+<desc id="release-boundary-desc">Inside the implementation, working copies, unratified proposals, and draft artifact versions stay behind the release boundary. Only the authorized, released version crosses it, as a release proof that carries any approvals and any withdrawal, and the consumer accepts it only after recomputing digests and verifying evidence against configured trust. After withdrawal, the boundary may return only the withdrawal record or refuse the release. If it returns the proof, the withdrawal must accompany it; the original released records stay preserved.</desc>
+<style>.gap-diagram{--gd-ink:var(--gap-ink,#151412);--gd-text:var(--ifm-font-color-base,#2b2926);--gd-muted:var(--gap-muted,#74706a);--gd-line:var(--gap-line,#dcd8d0);--gd-surface:var(--ifm-background-surface-color,#faf9f6);--gd-accent:var(--ifm-color-primary,#c8321a);--gd-alert:var(--gap-alert,#5f5a52)}
+@media (prefers-color-scheme:dark){.gap-diagram{--gd-ink:var(--gap-ink,#f3f1ec);--gd-text:var(--ifm-font-color-base,#d3d0ca);--gd-muted:var(--gap-muted,#8f8a82);--gd-line:var(--gap-line,#2e2b27);--gd-surface:var(--ifm-background-surface-color,#1e1c19);--gd-accent:var(--ifm-color-primary,#ff8a6a);--gd-alert:var(--gap-alert,#bdb8ae)}}
+.gap-diagram text{font-family:Karla, 'Helvetica Neue', Arial, sans-serif;fill:var(--gd-text)}
+.gap-diagram .gd-disp{font-family:Bungee, 'Arial Black', Impact, sans-serif}
+.gap-diagram .gd-ink{fill:var(--gd-ink)}
+.gap-diagram .gd-mu{fill:var(--gd-muted)}
+.gap-diagram .gd-ac{fill:var(--gd-accent)}
+.gap-diagram .gd-al{fill:var(--gd-alert)}
+.gap-diagram .gd-box{fill:var(--gd-surface);stroke:var(--gd-line);stroke-width:1}
+.gap-diagram .gd-dash{stroke-dasharray:4 3}
+.gap-diagram .gd-rule{stroke:var(--gd-line);stroke-width:1;fill:none}
+.gap-diagram .gd-rule2{stroke:var(--gd-line);stroke-width:2;fill:none}
+.gap-diagram .gd-ln{stroke:var(--gd-muted);stroke-width:1.25;fill:none}
+.gap-diagram .gd-ln-ac{stroke:var(--gd-accent);stroke-width:1.5;fill:none}
+.gap-diagram .gd-x{stroke:var(--gd-alert);stroke-width:1.5;fill:none}</style>
+<defs><marker id="release-boundary-head" viewBox="0 0 8 8" refX="6.5" refY="4" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M1.5 1L6.5 4L1.5 7" class="gd-ln"/></marker><marker id="release-boundary-head-ac" viewBox="0 0 8 8" refX="6.5" refY="4" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M1.5 1L6.5 4L1.5 7" class="gd-ln-ac"/></marker></defs>
+<path d="M0 78H350" class="gd-rule2"/>
+<path d="M410 78H760" class="gd-rule2"/>
+<text x="0" y="104" font-size="12" class="gd-disp gd-ink">Implementation</text>
+<text x="0" y="118" font-size="10.5" class="gd-mu">Behind the release boundary</text>
+<text x="418" y="104" font-size="12" class="gd-disp gd-ink">Consumer</text>
+<text x="418" y="118" font-size="10.5" class="gd-mu">Read-only</text>
+<rect x="0" y="140" width="270" height="48.7" rx="6" class="gd-box gd-dash"/>
+<text x="14" y="158.3" font-size="11.5" font-weight="700" class="gd-ink">Working copies</text>
+<text x="14" y="173.8" font-size="11.5">not GAP records; not readable</text>
+<path d="M270 164.4H380" class="gd-ln" stroke-dasharray="4.04 3.03"/>
+<path d="M375 159.4l10 10M375 169.4l10-10" class="gd-x"/>
+<rect x="0" y="200.7" width="270" height="48.7" rx="6" class="gd-box"/>
+<text x="14" y="219.1" font-size="11.5" font-weight="700" class="gd-ink">Unratified proposals</text>
+<text x="14" y="234.6" font-size="11.5">not readable by consumers</text>
+<path d="M270 225.1H380" class="gd-ln" stroke-dasharray="4.04 3.03"/>
+<path d="M375 220.1l10 10M375 230.1l10-10" class="gd-x"/>
+<rect x="0" y="261.4" width="270" height="48.8" rx="6" class="gd-box"/>
+<text x="14" y="279.8" font-size="11.5" font-weight="700" class="gd-ink">Draft artifact versions</text>
+<text x="14" y="295.3" font-size="11.5">not readable by consumers</text>
+<path d="M270 285.8H380" class="gd-ln" stroke-dasharray="4.04 3.03"/>
+<path d="M375 280.8l10 10M375 290.8l10-10" class="gd-x"/>
+<text x="394" y="222.5" font-size="10.5" class="gd-al">never readable</text>
+<text x="394" y="235.5" font-size="10.5" class="gd-al">through the boundary</text>
+<rect x="0" y="334.2" width="270" height="79.7" rx="6" class="gd-box"/>
+<text x="14" y="352.5" font-size="11.5" font-weight="700" class="gd-ink">Authorized, released version</text>
+<text x="14" y="368.0" font-size="11.5">crosses as a release proof: payload,</text>
+<text x="14" y="383.5" font-size="11.5">profile revision, authorization,</text>
+<text x="14" y="399.0" font-size="11.5">evidence, approvals and withdrawal</text>
+<rect x="418" y="334.2" width="140" height="79.7" rx="6" class="gd-box"/>
+<text x="432" y="352.5" font-size="11.5" font-weight="700" class="gd-ink">Receives the proof</text>
+<text x="432" y="368.0" font-size="11.5">read-only</text>
+<rect x="578" y="334.2" width="170" height="79.7" rx="6" class="gd-box"/>
+<text x="592" y="352.5" font-size="11.5" font-weight="700" class="gd-ink">Accepts it only after</text>
+<text x="592" y="368.0" font-size="11.5">recomputing digests and</text>
+<text x="592" y="383.5" font-size="11.5">verifying configured trust</text>
+<path d="M270 354.2H418" class="gd-ln-ac" marker-end="url(#release-boundary-head-ac)"/>
+<text x="344" y="371.6" font-size="10.5" class="gd-ac" text-anchor="middle">release proof</text>
+<path d="M558 354.2H578" class="gd-ln" marker-end="url(#release-boundary-head)"/>
+<rect x="418" y="441.9" width="342" height="79.7" rx="6" class="gd-box gd-dash"/>
+<text x="432" y="460.3" font-size="11.5" font-weight="700" class="gd-ink">After withdrawal: boundary may refuse content</text>
+<text x="432" y="475.8" font-size="11.5">or return only the withdrawal record.</text>
+<text x="432" y="491.3" font-size="11.5">Any proof served must carry the withdrawal.</text>
+<text x="432" y="506.8" font-size="11.5">Original released records stay preserved.</text>
+<path d="M380 461.9H418" class="gd-ln-ac" marker-end="url(#release-boundary-head-ac)" stroke-dasharray="3.9 2.92"/>
+<path d="M380 74V537.6" class="gd-ln-ac" stroke-dasharray="5 4"/>
+<text x="380" y="66" font-size="9.5" font-weight="700" class="gd-ac" text-anchor="middle" letter-spacing="1.2">RELEASE BOUNDARY</text>
+</svg>

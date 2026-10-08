@@ -1,0 +1,407 @@
+{
+  "release": {
+    "artifactId": "paper:withdrawal-coverage",
+    "artifactVersion": 2,
+    "profile": {
+      "profileId": "research-paper",
+      "revision": 1,
+      "digest": "sha256:0544153315de25681df647c9295d13e25d97332a5d5ad8d8192d6547b7df63bb"
+    },
+    "payload": {
+      "title": "Withdrawal conformance fixture",
+      "authors": [
+        "Fictional Gummy-Worm Storytelling Crew"
+      ],
+      "abstract": "Earlier work found that gummy worms tell stories faster in zero gravity. We asked whether floating listeners also remember more. Twelve new groups of gummy worms aboard the fictional spaceship Sugar Comet heard the same tale, and we tested their memory with the Jellybean Quiz. Recall was nearly equal with and without gravity. All characters, settings, and results are invented.",
+      "sections": [
+        {
+          "id": "background",
+          "heading": "Background",
+          "text": "A previous study found that floating groups finish a tale in 45 seconds, against 60 seconds with gravity. It did not test whether listeners remembered more of the faster stories.",
+          "citations": [
+            "pace-study"
+          ]
+        },
+        {
+          "id": "methods",
+          "heading": "Methods",
+          "text": "Six groups with gravity and six floating groups heard the same marshmallow-moon tale. One minute after each story, listeners answered the ten questions of the Jellybean Quiz. We did not re-measure story pace.",
+          "citations": [
+            "jellybean-quiz"
+          ]
+        },
+        {
+          "id": "results",
+          "heading": "Results",
+          "text": "Listeners with gravity averaged 7.1 out of 10 on the quiz; floating listeners averaged 7.0. All results are invented.",
+          "citations": []
+        },
+        {
+          "id": "conclusion",
+          "heading": "Conclusion",
+          "text": "In this synthetic comparison, floating listeners and listeners with gravity recalled stories almost equally. The faster pace reported in earlier work did not come with better recall. These fictional results do not establish that zero gravity makes stories more memorable.",
+          "citations": [
+            "pace-study",
+            "jellybean-quiz"
+          ]
+        }
+      ],
+      "bibliography": [
+        {
+          "id": "pace-study",
+          "title": "Story pace of gummy worms in zero gravity",
+          "authors": [
+            "Fictional Orbital Confectionery Group"
+          ],
+          "journal": "Fictional Journal of Orbital Confectionery",
+          "year": 2024,
+          "sourceArtifactId": "paper:zero-gravity-story-pace"
+        },
+        {
+          "id": "jellybean-quiz",
+          "title": "The Jellybean Quiz: ten questions for testing what a listener remembers of any story",
+          "authors": [
+            "Fictional Story Metrics Group"
+          ],
+          "journal": "Fictional Journal of Story Metrics",
+          "year": 2023,
+          "sourceArtifactId": "paper:jellybean-quiz"
+        }
+      ],
+      "reviewResponses": [
+        {
+          "reviewArtifactId": "review:withdrawal-coverage",
+          "feedbackId": "comment-1",
+          "response": "Rewrote the abstract and conclusion to report recall on its own, credit the pace finding to the earlier study, and state the synthetic-data limitation."
+        }
+      ],
+      "editorResponses": [],
+      "dependencySet": {
+        "entries": [
+          {
+            "artifactId": "paper:jellybean-quiz",
+            "artifactVersion": 1,
+            "payloadDigest": "sha256:93b44d0272dc2a1824cc9b43dc2d857910566d0df0ecd7281cb4d353d8a60d7d"
+          },
+          {
+            "artifactId": "paper:zero-gravity-story-pace",
+            "artifactVersion": 2,
+            "payloadDigest": "sha256:59e76cab6c6d2e83c23e88e7a27e40c6064804edc823e647ef59f08eb8747b53"
+          },
+          {
+            "artifactId": "review:withdrawal-coverage",
+            "artifactVersion": 1,
+            "payloadDigest": "sha256:8a044e4566144d0c3f7ae27f9029b96ffd1a9b632e5f20416f2c1cb743fff136"
+          }
+        ]
+      }
+    }
+  },
+  "profile": {
+    "profileId": "research-paper",
+    "revision": 1,
+    "digest": "sha256:0544153315de25681df647c9295d13e25d97332a5d5ad8d8192d6547b7df63bb",
+    "ratification": {
+      "ratifiedAt": "2026-10-08T00:00:00.000Z",
+      "actorId": "human:journal-owner",
+      "actorKind": "human",
+      "authoritySignature": {
+        "signerId": "human:journal-owner",
+        "signature": "6y3JDNCDtD4hmqXM78YN46otzR2ceLzQbK04z1UUa3HZ_FWon2vzjL_X7TGozTtL3xMBZcld4j5uZ6bfo5qqBA"
+      }
+    },
+    "payloadContract": {
+      "$contractLanguage": "json-schema/draft-2020-12",
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "pattern": "\\S",
+          "minLength": 1,
+          "maxLength": 5000
+        },
+        "authors": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 20,
+          "items": {
+            "type": "string",
+            "pattern": "\\S",
+            "minLength": 1,
+            "maxLength": 5000
+          }
+        },
+        "abstract": {
+          "type": "string",
+          "pattern": "\\S",
+          "minLength": 1,
+          "maxLength": 5000
+        },
+        "sections": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 20,
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "\\S",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "heading": {
+                "type": "string",
+                "pattern": "\\S",
+                "minLength": 1,
+                "maxLength": 5000
+              },
+              "text": {
+                "type": "string",
+                "pattern": "\\S",
+                "minLength": 1,
+                "maxLength": 5000
+              },
+              "citations": {
+                "type": "array",
+                "maxItems": 20,
+                "items": {
+                  "type": "string",
+                  "pattern": "\\S",
+                  "minLength": 1,
+                  "maxLength": 200
+                }
+              }
+            },
+            "required": [
+              "id",
+              "heading",
+              "text",
+              "citations"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "bibliography": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 20,
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "\\S",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "title": {
+                "type": "string",
+                "pattern": "\\S",
+                "minLength": 1,
+                "maxLength": 5000
+              },
+              "authors": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 20,
+                "items": {
+                  "type": "string",
+                  "pattern": "\\S",
+                  "minLength": 1,
+                  "maxLength": 5000
+                }
+              },
+              "journal": {
+                "type": "string",
+                "pattern": "\\S",
+                "minLength": 1,
+                "maxLength": 5000
+              },
+              "year": {
+                "type": "integer",
+                "minimum": 1900,
+                "maximum": 2100
+              },
+              "sourceArtifactId": {
+                "type": "string",
+                "pattern": "\\S",
+                "minLength": 1,
+                "maxLength": 200
+              }
+            },
+            "required": [
+              "id",
+              "title",
+              "authors",
+              "journal",
+              "year",
+              "sourceArtifactId"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "reviewResponses": {
+          "type": "array",
+          "maxItems": 40,
+          "items": {
+            "type": "object",
+            "properties": {
+              "reviewArtifactId": {
+                "type": "string",
+                "pattern": "\\S",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "feedbackId": {
+                "type": "string",
+                "pattern": "\\S",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "response": {
+                "type": "string",
+                "pattern": "\\S",
+                "minLength": 1,
+                "maxLength": 5000
+              }
+            },
+            "required": [
+              "reviewArtifactId",
+              "feedbackId",
+              "response"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "editorResponses": {
+          "type": "array",
+          "maxItems": 40,
+          "items": {
+            "type": "object",
+            "properties": {
+              "notesArtifactId": {
+                "type": "string",
+                "pattern": "\\S",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "feedbackId": {
+                "type": "string",
+                "pattern": "\\S",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "response": {
+                "type": "string",
+                "pattern": "\\S",
+                "minLength": 1,
+                "maxLength": 5000
+              }
+            },
+            "required": [
+              "notesArtifactId",
+              "feedbackId",
+              "response"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "dependencySet": {
+          "type": "object",
+          "properties": {
+            "entries": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 20,
+              "items": {
+                "type": "object",
+                "properties": {
+                  "artifactId": {
+                    "type": "string",
+                    "pattern": "\\S",
+                    "minLength": 1,
+                    "maxLength": 200
+                  },
+                  "artifactVersion": {
+                    "type": "integer",
+                    "maximum": 9007199254740991,
+                    "exclusiveMinimum": 0
+                  },
+                  "payloadDigest": {
+                    "type": "string",
+                    "pattern": "^sha256:[0-9a-f]{64}$"
+                  }
+                },
+                "required": [
+                  "artifactId",
+                  "artifactVersion",
+                  "payloadDigest"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "entries"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "title",
+        "authors",
+        "abstract",
+        "sections",
+        "bibliography",
+        "reviewResponses",
+        "editorResponses",
+        "dependencySet"
+      ],
+      "additionalProperties": false,
+      "$schema": "https://json-schema.org/draft/2020-12/schema"
+    }
+  },
+  "authorization": {
+    "artifactId": "paper:withdrawal-coverage",
+    "artifactVersion": 2,
+    "payloadDigest": "sha256:802858ff601fe4abf51164c43c193c4ddc9ed57f7341419e3a71a8ee0395bd53",
+    "profile": {
+      "profileId": "research-paper",
+      "revision": 1,
+      "digest": "sha256:0544153315de25681df647c9295d13e25d97332a5d5ad8d8192d6547b7df63bb"
+    },
+    "authorizedAt": "2026-10-10T11:00:00Z",
+    "authorizedBy": {
+      "actorId": "human:journal-publisher",
+      "actorKind": "human"
+    },
+    "authorizationSubjectDigest": "sha256:368d42d65afbc62a776d9c095cafed1ed2018309c926a24e44c0bd5129b6520e",
+    "authoritySignature": {
+      "signerId": "human:journal-publisher",
+      "signature": "rNegBYD6j48jPqtqFUhrqTNqoqjQxqKrpC-Fpb7Ids1uozA1lAG7szh9VycXnQY9Nj-ymIGLL2-Fif3vp-90Dw"
+    }
+  },
+  "approvals": [
+    {
+      "artifactId": "paper:withdrawal-coverage",
+      "artifactVersion": 2,
+      "payloadDigest": "sha256:802858ff601fe4abf51164c43c193c4ddc9ed57f7341419e3a71a8ee0395bd53",
+      "profile": {
+        "profileId": "research-paper",
+        "revision": 1,
+        "digest": "sha256:0544153315de25681df647c9295d13e25d97332a5d5ad8d8192d6547b7df63bb"
+      },
+      "approvedAt": "2026-10-10T10:00:00Z",
+      "approvedBy": {
+        "actorId": "human:journal-editor",
+        "actorKind": "human"
+      },
+      "authorizationSubjectDigest": "sha256:368d42d65afbc62a776d9c095cafed1ed2018309c926a24e44c0bd5129b6520e",
+      "authoritySignature": {
+        "signerId": "human:journal-editor",
+        "signature": "tp4Z0hzFEbwGuUka7_ejyYF3u-kCTrTjsMKLm6RZ1XeC-uYITbvLNMDK-UAtnDmpnGbjK8QTEJHCkCer7vp4DA"
+      }
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+---
+title: Application actions
+slug: /intro/application-actions
+description: How everyday actions like Save, Approve, and Publish carry out GAP's steps.
+---
+
+GAP specifies the [lifecycle steps](../specification/draft/README.md#lifecycle), not the tools that carry them out. What people and AI agents actually do, such as clicking Save, calling a tool, or pressing Publish, is an [application action](../specification/draft/README.md#application-actions-and-lifecycle-steps), and each application decides which steps its actions perform. One action can carry out one step, several steps, or none, but every step it performs must meet GAP's rules and keep the content connected to its context.
+
+## Three domains, three groupings
+
+The GAP project models three domains so far: a blog website, issue tracking, and research publishing. Each has a demo application, run locally on made-up data, that tests the draft and shows where the specification needs more work. All three follow the same lifecycle steps but group them into actions differently:
+
+- In the [blog website](../domains/blog-website.mdx), each decision is its own action. Setting up the content model [proposes a profile](../specification/draft/README.md#1-propose-a-profile) and [ratifies](../specification/draft/README.md#2-ratify-the-exact-profile-revision) it, once. A writer's Save [creates a version](../specification/draft/README.md#3-draft-immutable-artifact-versions). An editor's Approve or Reject records an [approval](../specification/draft/README.md#release-approval) or [rejection](../specification/draft/README.md#release-rejection) and releases nothing. Publish then [authorizes](../specification/draft/README.md#4-authorize-one-exact-version) the approved version and [releases](../specification/draft/README.md#5-commit-the-release-transition) it in one action.
+- In [issue tracking](../domains/issue-tracking.mdx), one action does it all. Saving a ticket [creates a version](../specification/draft/README.md#3-draft-immutable-artifact-versions), [authorizes](../specification/draft/README.md#4-authorize-one-exact-version) it, and [releases](../specification/draft/README.md#5-commit-the-release-transition) it, as long as the person or AI agent saving holds release authority. Edits to a working copy perform no step until they are saved.
+- In [research publishing](../domains/research.mdx), source material, manuscripts, and review reports have separate versions. A peer releases feedback, an editor records a signed [approval](../specification/draft/README.md#release-approval) or [rejection](../specification/draft/README.md#release-rejection) of an exact manuscript, and a publisher authorizes and releases it. The manuscript stays unpublished until its revisions and source correction are complete. Checking sources performs no step.
+
+In all three, reading released content back is the [read and verify](../specification/draft/README.md#6-read-and-verify) step. Previews, working copies, and checks perform no step and record nothing.
+
+The same word can mean different work. In two of the domains, "Save" only creates a version; in the third, it also authorizes and releases it. The name of an action doesn't tell you what happened; the records do.
+
+## Combined actions keep every check
+
+When one action carries out several steps, each step's checks still run. The content is checked against its profile, the actor's permission is checked, and the authorization covers the exact version as it was saved. If any step fails, nothing is released.
+
+An application can offer "Approve and Publish" as one button to a person or AI agent who holds both permissions. It still records the approval and the authorization separately. A release authorization shows who let a version out, not that anyone else reviewed it. A team that wants a separate review on record requires a release approval and decides who may give it.
+
+The same holds when an AI agent calls a tool. What counts is what the application checked and recorded, not what the agent says it did.
+
+## Designing your own
+
+Start with a change that someone will need to understand or check later. What will the receiver need: which version, which sources, whose authorization, what reason? Then decide which actions save that information, who may take them, and where the receiver will find the records. Ask for reasons at the moment someone decides, while they still remember.
+
+The [domain guides](../domains/index.mdx) compare all three domains in detail. The [evaluation guide](../domains/evaluation-guide.md) helps plan a trial, and the [working draft](../specification/draft/README.md#application-actions-and-lifecycle-steps) gives the full rules for grouping steps into actions.

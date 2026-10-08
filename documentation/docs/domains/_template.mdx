@@ -1,0 +1,120 @@
+---
+title: "GAP for <the domain>"
+slug: /domains/<domain-id>
+sidebar_label: "<Short label>"
+description: "One sentence: how <the domain> uses GAP, naming the actions that create versions, record decisions, and release."
+---
+
+{/*
+  Template for a "GAP for …" page. Docusaurus does not render files whose
+  names start with an underscore, so this file is never published.
+
+  To add a domain:
+    1. Copy this file to documentation/docs/domains/<domain-id>.mdx and fill in
+       every <placeholder>. Keep the section order; readers move between domain
+       pages and expect the same shape.
+    2. Add the page to the "Domains" category in documentation/sidebars.ts and
+       an entry to the list in documentation/docs/domains/index.mdx. The
+       walkthrough is not listed; the sidebar names each domain once.
+    3. If the domain has an application in the demo, add a walkthrough at
+       documentation/docs/domains/<domain-id>/demo.mdx with the same
+       title, slug /domains/<domain-id>/demo, displayed_sidebar:
+       docsSidebar, pagination_prev: null, pagination_next: null, and <DomainNav domain="<domain-id>" /> as its first line.
+       The application's docs.guide and docs.walkthrough fields in
+       demo/src/domains/<domain-id>/application.ts should point at both pages.
+       Without a walkthrough, render <DomainNav domain="<domain-id>" walkthrough={false} />.
+    4. Show records with <Record set="<set>" name="<file>" title="<one line>" />,
+       which renders a file from specification/draft/examples/<set>/ exactly as
+       the checks and tests see it, behind a title bar that folds it. Add
+       `collapsed` to keep long records from interrupting the explanation. Explain
+       the fields before the profile record; a short content example can start open.
+    5. Write the walkthrough as a conversation: <Chat> wraps a run of turns,
+       <You> holds one message to send (plain text, no code fence), <Agent>
+       holds one reply an agent could give, and <Expect> is not a turn: it
+       says what the tools record however the agent phrases things.
+    6. Name lifecycle steps and release decisions only as chips: the `steps`
+       attribute of an <Action>, <Steps block ids="a b" /> on its own line
+       under an action heading, or <Step id="…" /> for one. The ids are those
+       in demo/src/gap/lifecycle.ts. Do not link step anchors from prose.
+    7. Write in the Intro's voice: plain English, "a person or an AI agent",
+       action names as button names without quotes (Save, Approve), what a
+       thing is before what it is not, and no bold labels. Say which choices
+       are this application's own and which are GAP's. Explain concepts through
+       the example: who acts, what gets saved, and what a reader receives. Avoid
+       shorthand such as "keeps one identity" or "has a separate history" when
+       the reader needs to know what changes and what remains available.
+    8. Link to the draft with absolute site paths: /specification/working-draft#anchor.
+       Link to repository files with their GitHub URL.
+  Remove this comment in the copy.
+*/}
+
+<DomainNav domain="<domain-id>" />
+
+<One paragraph explaining what this kind of application does and who uses it.>
+
+<One paragraph introducing a concrete example of the domain's everyday work and the problem its records help someone resolve. Refer to the example, not to the page, and do not rank the domain against the others or call it simple.>
+
+<Build on that example to explain why the application uses GAP: what it records and how those records help someone do the work just described. Link the first mention as [Governed Artifact Protocol (GAP)](/intro/what-is-gap). Keep details for the sections that explain them.>
+
+<Introduce the application's [actions](/intro/application-actions) through the workflow above, and link to GAP's [lifecycle steps](/intro/lifecycle). Distinguish lifecycle steps from release decisions when mentioning both.>
+
+<ActionList>
+
+<Action href="#<action-anchor>" title="<Action>" steps="<step-ids>">
+
+<Who does it and what it does, in plain prose. Leave out `steps` when the action performs no step and records no decision, and say so here.>
+
+</Action>
+
+<Action href="#<action-anchor>" title="<Action>" steps="<step-ids>">
+
+<…>
+
+</Action>
+
+</ActionList>
+
+The <application> decides who may <act>. GAP lets a person or an AI agent hold any of those permissions, and its [roles](/specification/working-draft#protocol-roles) treat both the same. In the records below, <say which actors are AI agents and which are people>. <Name which actions create versions or record release decisions, and what a reader can check. Reads, previews, and working-copy edits need not create records.>
+
+## The <content> and its content model
+
+The <application> stores <the example content> as a GAP [artifact](/specification/working-draft#artifact) with the ID `<artifact-id>`. Saving a change creates a new version under that same ID, and earlier versions remain available. A [profile](/specification/working-draft#profile) defines the content model, including its fields and the rules they must satisfy. The <content> profile requires <N> fields:
+
+- `<field>` <what it is and what rule the profile puts on it>.
+- `<field>` <…, including any locale or dependency rules that live in the profile>.
+
+<Record set="<set>" name="profile-revision" title="The <profile> profile, revision 1" collapsed />
+
+<An everyday edit to this example> creates a new version of <the content> using the same profile. <A concrete change to the required fields or validation rules> would require a new profile revision and ratification. Previously saved versions still reference the profile revision used to create them. Each version's `profile` block records that revision's ID, number, and digest so a reader can identify the rules that applied.
+
+### Example <content>
+
+<One sentence saying which version this is and what state it is in.>
+
+<Record set="<set>" name="artifact-version_<name>" title="<artifact-id>, version 1" />
+
+## From <first action> to <last action>
+
+<One or two sentences setting the scene. Then one `###` heading per action, in order, with the same names as the bullets in the introduction so the deep links resolve. Under each: who does it, what the application records, which lifecycle step or release decision that is, and what the action does not do. End each action that leaves a record with that record, collapsed.>
+
+### <Action>
+
+<Steps block ids="<step-ids>" />
+
+<…>
+
+<Record set="<set>" name="<record>" title="<Whose decision or which record this is>" collapsed />
+
+## Who does what?
+
+<Map each participant onto Author, Authority, Implementation, and Consumer, linking each role into the specification. Say where one participant holds two roles and why that grants nothing extra.>
+
+## Driving the specification
+
+The <domain> demo implements the [working draft](/specification/working-draft) independently of the other demos. Building <name the workflow> helps identify missing or unclear rules. Those findings inform changes to the draft and its [open questions](https://github.com/block/governed-artifact-protocol/blob/main/DEFERRED.md). The examples on this page follow the current draft and are updated when it changes.
+
+## Run the demo
+
+The demo server runs this application beside the others. [Set up the demo](run-the-demos.md) once, then follow the [<domain> walkthrough](<domain-id>/demo.mdx). The demo runs on your computer with made-up data. The [tool reference](how-the-demos-work.mdx#<domain-id>) lists every tool this application offers, with the lifecycle steps and decisions each one declares.
+
+To compare these choices with your own work, use the [evaluation guide](./evaluation-guide.md).

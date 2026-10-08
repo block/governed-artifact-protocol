@@ -1,0 +1,550 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/block/governed-artifact-protocol/specification/draft/schemas/core.schema.json",
+  "title": "Governed Artifact Protocol core records",
+  "description": "Machine-readable definitions of the core GAP records specified in specification/draft/README.md. The prose specification is normative; these schemas are a checked expression of it.",
+  "$defs": {
+    "Payload": {
+      "$comment": "Domain fields, including any locale-keyed structure, are defined by the pinned profile contract; the schema models only the reserved dependencySet member (README.md, Payload and Locale variants).",
+      "type": "object",
+      "properties": {
+        "dependencySet": {
+          "$ref": "#/$defs/DependencySet"
+        }
+      },
+      "additionalProperties": {
+        "$ref": "#/$defs/JsonValue"
+      }
+    },
+    "DependencyEntry": {
+      "$comment": "An entry pins one released artifact version by identity, version, and payload digest. Configuration other than the governing profile that content depends on (disclosure texts, reusable blocks, and the like) is pinned here once released as an artifact under its own profile; GAP defines no other pin kind (README.md, Dependency set, Configuration other than the profile).",
+      "type": "object",
+      "properties": {
+        "artifactId": {
+          "$ref": "#/$defs/NonEmptyString"
+        },
+        "artifactVersion": {
+          "$ref": "#/$defs/PositiveInteger"
+        },
+        "payloadDigest": {
+          "$ref": "#/$defs/Sha256Digest"
+        }
+      },
+      "required": [
+        "artifactId",
+        "artifactVersion",
+        "payloadDigest"
+      ],
+      "additionalProperties": false
+    },
+    "DependencySet": {
+      "$comment": "Core additionally requires strictly ascending UTF-16 artifactId order and unique source artifact IDs; those semantic checks are not expressible here. Profiles bound the entry count.",
+      "type": "object",
+      "properties": {
+        "entries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/DependencyEntry"
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "entries"
+      ],
+      "additionalProperties": false
+    },
+    "Sha256Digest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "NonEmptyString": {
+      "type": "string",
+      "minLength": 1
+    },
+    "PositiveInteger": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 9007199254740991
+    },
+    "Timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "Reason": {
+      "$comment": "The optional plain-language basis for a decision, carried by every decision record: ratification, release approval, release rejection, release authorization, and release withdrawal (README.md, Primitives). It is attributed text, not evidence of what the authority reviewed and not proof of content correctness or any downstream outcome, and no digest domain covers it. Implementations bound its length; the schema requires only a string with at least one non-whitespace character, so a blank reason fails here as it does in every verifier.",
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    },
+    "Base64Url32": {
+      "$comment": "Unpadded base64url (RFC 4648 section 5) of exactly 32 bytes: 43 characters, the last carrying four significant bits and two zero bits. Decoders additionally reject padding, other alphabets, and any text that does not re-encode to itself.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_-]{42}[AEIMQUYcgkosw048]$"
+    },
+    "Base64Url64": {
+      "$comment": "Unpadded base64url of exactly 64 bytes: 86 characters, the last carrying two significant bits and four zero bits.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_-]{85}[AQgw]$"
+    },
+    "AuthorityAction": {
+      "$comment": "The five authority decisions a signature can attest. Each has its own fixed signing domain, governed-artifact.authority.<action>.ed25519.v1 (README.md, Authority signature).",
+      "enum": [
+        "ratify-profile",
+        "approve-release",
+        "reject-release",
+        "authorize-release",
+        "withdraw-release"
+      ]
+    },
+    "AuthoritySignature": {
+      "$comment": "A configured authority's Ed25519 signature over the exact subject of one decision (README.md, Authority signature). signerId names one trust store entry and MUST equal the record's actor ID; signature is 64 bytes. Whether the bytes verify, and whether the signer is trusted for the action, are checks a schema cannot express.",
+      "type": "object",
+      "properties": {
+        "signerId": {
+          "$ref": "#/$defs/NonEmptyString"
+        },
+        "signature": {
+          "$ref": "#/$defs/Base64Url64"
+        }
+      },
+      "required": [
+        "signerId",
+        "signature"
+      ],
+      "additionalProperties": false
+    },
+    "TrustStore": {
+      "$comment": "Consumer configuration, not a GAP record: it never travels in a proof. Each entry names one signer's Ed25519 public key (32 bytes) and the authority actions it is trusted for. One static key per signer; key discovery, rotation, and revocation are deferred (README.md, Trust store).",
+      "type": "object",
+      "propertyNames": {
+        "minLength": 1
+      },
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "publicKey": {
+            "$ref": "#/$defs/Base64Url32"
+          },
+          "actions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/AuthorityAction"
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "publicKey",
+          "actions"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "JsonValue": {
+      "$comment": "Any JSON value. Canonicalization (RFC 8785 as restricted by this repository's implementations) additionally rejects non-integer numbers and unsafe integers when bytes are canonicalized for digests. A schema cannot express that restriction, and check-specification.mjs enforces it only for the digests it recomputes over the maintained examples — schema-valid records with such numbers are not rejected in general.",
+      "type": [
+        "null",
+        "boolean",
+        "number",
+        "string",
+        "array",
+        "object"
+      ]
+    },
+    "Actor": {
+      "type": "object",
+      "properties": {
+        "actorId": {
+          "$ref": "#/$defs/NonEmptyString"
+        },
+        "actorKind": {
+          "enum": [
+            "agent",
+            "human"
+          ]
+        }
+      },
+      "required": [
+        "actorId",
+        "actorKind"
+      ],
+      "additionalProperties": false
+    },
+    "ProfilePin": {
+      "type": "object",
+      "properties": {
+        "profileId": {
+          "$ref": "#/$defs/NonEmptyString"
+        },
+        "revision": {
+          "$ref": "#/$defs/PositiveInteger"
+        },
+        "digest": {
+          "$ref": "#/$defs/Sha256Digest"
+        }
+      },
+      "required": [
+        "profileId",
+        "revision",
+        "digest"
+      ],
+      "additionalProperties": false
+    },
+    "PayloadContract": {
+      "$comment": "Bounded JSON payload contract. GAP reserves the top-level member $contractLanguage (optional non-empty string naming one exact contract language and version); all other members are domain content in whatever contract language the profile uses. The prose specification is normative (README.md, Propose a profile).",
+      "type": "object",
+      "properties": {
+        "$contractLanguage": {
+          "$ref": "#/$defs/NonEmptyString"
+        }
+      }
+    },
+    "ProfileProposal": {
+      "$comment": "Core additionally requires revision to be one greater than the highest ratified revision of the profile, or 1 if none is ratified, both when the proposal is recorded and when it is ratified (README.md, Propose a profile and Ratify the exact profile revision), and every recorded proposal to be preserved unchanged, ratified or not (README.md, Propose a profile); both depend on stored state and are not expressible here.",
+      "type": "object",
+      "properties": {
+        "profileId": {
+          "$ref": "#/$defs/NonEmptyString"
+        },
+        "revision": {
+          "$ref": "#/$defs/PositiveInteger"
+        },
+        "proposedBy": {
+          "$ref": "#/$defs/Actor"
+        },
+        "payloadContract": {
+          "$ref": "#/$defs/PayloadContract"
+        }
+      },
+      "required": [
+        "profileId",
+        "revision",
+        "proposedBy",
+        "payloadContract"
+      ],
+      "additionalProperties": false
+    },
+    "Ratification": {
+"$comment": "The implementation records which configured actor ratified the exact revision (README.md, Authority and permission). reason is the optional decision reason; ratification is outside the profile digest, so neither it nor its reason changes any pin. authoritySignature, when present, is that actor's signature over the profile digest under the ratify-profile domain (README.md, Authority signature).",
+      "type": "object",
+      "properties": {
+        "ratifiedAt": {
+          "$ref": "#/$defs/Timestamp"
+        },
+        "actorId": {
+          "$ref": "#/$defs/NonEmptyString"
+        },
+        "actorKind": {
+          "enum": [
+            "agent",
+            "human"
+          ]
+        },
+        "reason": {
+          "$ref": "#/$defs/Reason"
+        },
+        "authoritySignature": {
+          "$ref": "#/$defs/AuthoritySignature"
+        }
+      },
+      "required": [
+        "ratifiedAt",
+        "actorId",
+        "actorKind"
+      ],
+      "additionalProperties": false
+    },
+    "ProfileRevision": {
+      "type": "object",
+      "properties": {
+        "profileId": {
+          "$ref": "#/$defs/NonEmptyString"
+        },
+        "revision": {
+          "$ref": "#/$defs/PositiveInteger"
+        },
+        "digest": {
+          "$ref": "#/$defs/Sha256Digest"
+        },
+        "ratification": {
+          "$ref": "#/$defs/Ratification"
+        },
+        "payloadContract": {
+          "$ref": "#/$defs/PayloadContract"
+        }
+      },
+      "required": [
+        "profileId",
+        "revision",
+        "digest",
+        "ratification",
+        "payloadContract"
+      ],
+      "additionalProperties": false
+    },
+    "ArtifactVersion": {
+      "$comment": "An artifact version exists from lifecycle step 3 and is immutable from then on. A working copy held before step 3 is not a GAP record and deliberately has no schema here (README.md, Working copy).",
+      "type": "object",
+      "properties": {
+        "artifactId": {
+          "$ref": "#/$defs/NonEmptyString"
+        },
+        "artifactVersion": {
+          "$ref": "#/$defs/PositiveInteger"
+        },
+        "profile": {
+          "$ref": "#/$defs/ProfilePin"
+        },
+        "authoredBy": {
+          "$ref": "#/$defs/Actor"
+        },
+        "payload": {
+          "$ref": "#/$defs/Payload"
+        }
+      },
+      "required": [
+        "artifactId",
+        "artifactVersion",
+        "profile",
+        "authoredBy",
+        "payload"
+      ],
+      "additionalProperties": false
+    },
+    "ReleaseAuthorization": {
+"$comment": "authorizedBy names the configured actor; reason and authorizationSubjectDigest MAY be present (README.md, Release authorization). The subject digest covers only the four subject fields, so a reason never changes it. authoritySignature, when present, is that actor's signature over the recomputed authorization subject digest under the authorize-release domain (README.md, Authority signature).",
+      "type": "object",
+      "properties": {
+        "artifactId": {
+          "$ref": "#/$defs/NonEmptyString"
+        },
+        "artifactVersion": {
+          "$ref": "#/$defs/PositiveInteger"
+        },
+        "payloadDigest": {
+          "$ref": "#/$defs/Sha256Digest"
+        },
+        "profile": {
+          "$ref": "#/$defs/ProfilePin"
+        },
+        "authorizedAt": {
+          "$ref": "#/$defs/Timestamp"
+        },
+        "authorizedBy": {
+          "$ref": "#/$defs/Actor"
+        },
+        "reason": {
+          "$ref": "#/$defs/Reason"
+        },
+        "authorizationSubjectDigest": {
+          "$ref": "#/$defs/Sha256Digest"
+        },
+        "authoritySignature": {
+          "$ref": "#/$defs/AuthoritySignature"
+        }
+      },
+      "required": [
+        "artifactId",
+        "artifactVersion",
+        "payloadDigest",
+        "profile",
+        "authorizedAt",
+        "authorizedBy"
+      ],
+      "additionalProperties": false
+    },
+    "ReleaseApproval": {
+"$comment": "approvedBy names the configured approval authority; authorizationSubjectDigest is REQUIRED so the approval and the authorization can be shown to bind the identical subject (README.md, Release approval). Equality with the authorization's subject is a semantic check not expressible here. reason is the optional decision reason and is outside the subject digest. authoritySignature, when present, is the approver's signature over the same subject digest under the approve-release domain.",
+      "type": "object",
+      "properties": {
+        "artifactId": {
+          "$ref": "#/$defs/NonEmptyString"
+        },
+        "artifactVersion": {
+          "$ref": "#/$defs/PositiveInteger"
+        },
+        "payloadDigest": {
+          "$ref": "#/$defs/Sha256Digest"
+        },
+        "profile": {
+          "$ref": "#/$defs/ProfilePin"
+        },
+        "approvedAt": {
+          "$ref": "#/$defs/Timestamp"
+        },
+        "approvedBy": {
+          "$ref": "#/$defs/Actor"
+        },
+        "reason": {
+          "$ref": "#/$defs/Reason"
+        },
+        "authorizationSubjectDigest": {
+          "$ref": "#/$defs/Sha256Digest"
+        },
+        "authoritySignature": {
+          "$ref": "#/$defs/AuthoritySignature"
+        }
+      },
+      "required": [
+        "artifactId",
+        "artifactVersion",
+        "payloadDigest",
+        "profile",
+        "approvedAt",
+        "approvedBy",
+        "authorizationSubjectDigest"
+      ],
+      "additionalProperties": false
+    },
+    "ReleaseRejection": {
+      "$comment": "A configured approval authority's decision that the exact version is not approved (README.md, Release rejection). rejectedBy names that authority; authorizationSubjectDigest is REQUIRED so the rejection and the authorization can be shown to bind the identical subject. A rejection releases, withdraws, and blocks nothing, and is not evidence that the content is incorrect; equality with the authorization's subject is a semantic check not expressible here. reason is the optional decision reason and is outside the subject digest. authoritySignature, when present, is the rejecting authority's signature over the same subject digest under the reject-release domain.",
+      "type": "object",
+      "properties": {
+        "artifactId": {
+          "$ref": "#/$defs/NonEmptyString"
+        },
+        "artifactVersion": {
+          "$ref": "#/$defs/PositiveInteger"
+        },
+        "payloadDigest": {
+          "$ref": "#/$defs/Sha256Digest"
+        },
+        "profile": {
+          "$ref": "#/$defs/ProfilePin"
+        },
+        "rejectedAt": {
+          "$ref": "#/$defs/Timestamp"
+        },
+        "rejectedBy": {
+          "$ref": "#/$defs/Actor"
+        },
+        "reason": {
+          "$ref": "#/$defs/Reason"
+        },
+        "authorizationSubjectDigest": {
+          "$ref": "#/$defs/Sha256Digest"
+        },
+        "authoritySignature": {
+          "$ref": "#/$defs/AuthoritySignature"
+        }
+      },
+      "required": [
+        "artifactId",
+        "artifactVersion",
+        "payloadDigest",
+        "profile",
+        "rejectedAt",
+        "rejectedBy",
+        "authorizationSubjectDigest"
+      ],
+      "additionalProperties": false
+    },
+    "ReleaseWithdrawal": {
+"$comment": "Binds the existing authorization subject (README.md, Release withdrawal); authorizationSubjectDigest is REQUIRED so the withdrawn subject is stated, not only recomputable. Verification compares it with the subject digest recomputed from the authorization’s own fields (README.md, step 6), so a release whose authorization omits its optional stored digest can still be withdrawn. withdrawnBy names the configured actor; reason is the optional decision reason. authoritySignature, when present, is the withdrawing actor's signature over the same subject digest under the withdraw-release domain.",
+      "type": "object",
+      "properties": {
+        "artifactId": {
+          "$ref": "#/$defs/NonEmptyString"
+        },
+        "artifactVersion": {
+          "$ref": "#/$defs/PositiveInteger"
+        },
+        "payloadDigest": {
+          "$ref": "#/$defs/Sha256Digest"
+        },
+        "profile": {
+          "$ref": "#/$defs/ProfilePin"
+        },
+        "withdrawnAt": {
+          "$ref": "#/$defs/Timestamp"
+        },
+        "withdrawnBy": {
+          "$ref": "#/$defs/Actor"
+        },
+        "reason": {
+          "$ref": "#/$defs/Reason"
+        },
+        "authorizationSubjectDigest": {
+          "$ref": "#/$defs/Sha256Digest"
+        },
+        "authoritySignature": {
+          "$ref": "#/$defs/AuthoritySignature"
+        }
+      },
+      "required": [
+        "artifactId",
+        "artifactVersion",
+        "payloadDigest",
+        "profile",
+        "withdrawnAt",
+        "withdrawnBy",
+        "authorizationSubjectDigest"
+      ],
+      "additionalProperties": false
+    },
+    "Release": {
+      "type": "object",
+      "properties": {
+        "artifactId": {
+          "$ref": "#/$defs/NonEmptyString"
+        },
+        "artifactVersion": {
+          "$ref": "#/$defs/PositiveInteger"
+        },
+        "profile": {
+          "$ref": "#/$defs/ProfilePin"
+        },
+        "payload": {
+          "$ref": "#/$defs/Payload"
+        }
+      },
+      "required": [
+        "artifactId",
+        "artifactVersion",
+        "profile",
+        "payload"
+      ],
+      "additionalProperties": false
+    },
+    "ReleaseProof": {
+"$comment": "The release proof a consumer verifies: released payload, exact profile revision, and authorization, plus any release approvals and release rejections recorded for the same subject and, when recorded, the withdrawal (README.md, step 6 requires each carried approval or rejection and the withdrawal to bind the identical subject as the authorization; a proof that carries approvals carries every rejection of the same subject, and a boundary never serves the proof of a withdrawn release without its withdrawal). A consumer verifying against a trust store requires an authority signature on the ratification, the authorization, every carried approval and rejection, and any withdrawal (README.md, step 6, rule 7).",
+      "type": "object",
+      "properties": {
+        "release": {
+          "$ref": "#/$defs/Release"
+        },
+        "profile": {
+          "$ref": "#/$defs/ProfileRevision"
+        },
+        "authorization": {
+          "$ref": "#/$defs/ReleaseAuthorization"
+        },
+        "approvals": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ReleaseApproval"
+          },
+          "uniqueItems": true
+        },
+        "rejections": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ReleaseRejection"
+          },
+          "uniqueItems": true
+        },
+        "withdrawal": {
+          "$ref": "#/$defs/ReleaseWithdrawal"
+        }
+      },
+      "required": [
+        "release",
+        "profile",
+        "authorization"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

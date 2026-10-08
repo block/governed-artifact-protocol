@@ -1,0 +1,418 @@
+{
+  "release": {
+    "artifactId": "paper:floating-gummy-worm-recall",
+    "artifactVersion": 3,
+    "profile": {
+      "profileId": "research-paper",
+      "revision": 1,
+      "digest": "sha256:0544153315de25681df647c9295d13e25d97332a5d5ad8d8192d6547b7df63bb"
+    },
+    "payload": {
+      "title": "Do floating gummy worms remember stories better?",
+      "authors": [
+        "Fictional Gummy-Worm Storytelling Crew"
+      ],
+      "abstract": "Earlier work found that gummy worms tell stories faster in zero gravity. We asked whether floating listeners also remember more. Twelve new groups of gummy worms aboard the fictional spaceship Sugar Comet heard the same tale, and we tested their memory with the Jellybean Quiz. Recall was nearly equal with and without gravity. All characters, settings, and results are invented.",
+      "sections": [
+        {
+          "id": "background",
+          "heading": "Background",
+          "text": "A previous study found that floating groups finish a tale in 45 seconds, against 60 seconds with gravity. It did not test whether listeners remembered more of the faster stories.",
+          "citations": [
+            "pace-study"
+          ]
+        },
+        {
+          "id": "methods",
+          "heading": "Methods",
+          "text": "Six groups with gravity and six floating groups heard the same marshmallow-moon tale. One minute after each story, listeners answered the ten questions of the Jellybean Quiz. We did not re-measure story pace.",
+          "citations": [
+            "jellybean-quiz"
+          ]
+        },
+        {
+          "id": "results",
+          "heading": "Results",
+          "text": "Listeners with gravity averaged 7.1 out of 10 on the quiz; floating listeners averaged 7.0. All results are invented.",
+          "citations": []
+        },
+        {
+          "id": "conclusion",
+          "heading": "Conclusion",
+          "text": "In this synthetic comparison, floating listeners and listeners with gravity recalled stories almost equally. The faster pace reported in earlier work did not come with better recall. These fictional results do not establish that zero gravity makes stories more memorable.",
+          "citations": [
+            "pace-study",
+            "jellybean-quiz"
+          ]
+        }
+      ],
+      "bibliography": [
+        {
+          "id": "pace-study",
+          "title": "Story pace of gummy worms in zero gravity",
+          "authors": [
+            "Fictional Orbital Confectionery Group"
+          ],
+          "journal": "Fictional Journal of Orbital Confectionery",
+          "year": 2024,
+          "sourceArtifactId": "paper:zero-gravity-story-pace"
+        },
+        {
+          "id": "jellybean-quiz",
+          "title": "The Jellybean Quiz: ten questions for testing what a listener remembers of any story",
+          "authors": [
+            "Fictional Story Metrics Group"
+          ],
+          "journal": "Fictional Journal of Story Metrics",
+          "year": 2023,
+          "sourceArtifactId": "paper:jellybean-quiz"
+        }
+      ],
+      "reviewResponses": [
+        {
+          "reviewArtifactId": "review:floating-gummy-worm-recall",
+          "feedbackId": "comment-1",
+          "response": "Rewrote the abstract and conclusion to report recall on its own, credit the pace finding to the earlier study, and state the synthetic-data limitation."
+        }
+      ],
+      "editorResponses": [
+        {
+          "notesArtifactId": "editor-notes:floating-gummy-worm-recall",
+          "feedbackId": "editor-comment-1",
+          "response": "Updated the background to 45 seconds and pinned corrected study version 2 before publication."
+        }
+      ],
+      "dependencySet": {
+        "entries": [
+          {
+            "artifactId": "editor-notes:floating-gummy-worm-recall",
+            "artifactVersion": 1,
+            "payloadDigest": "sha256:116bd5278bf3beba41dd636c7aef2453b0129f34d9e672cc28c8d1584df07b47"
+          },
+          {
+            "artifactId": "paper:jellybean-quiz",
+            "artifactVersion": 1,
+            "payloadDigest": "sha256:93b44d0272dc2a1824cc9b43dc2d857910566d0df0ecd7281cb4d353d8a60d7d"
+          },
+          {
+            "artifactId": "paper:zero-gravity-story-pace",
+            "artifactVersion": 2,
+            "payloadDigest": "sha256:59e76cab6c6d2e83c23e88e7a27e40c6064804edc823e647ef59f08eb8747b53"
+          },
+          {
+            "artifactId": "review:floating-gummy-worm-recall",
+            "artifactVersion": 1,
+            "payloadDigest": "sha256:b77f5b18cf837660755f20b3c3b7fbfab4cc135c55af550b639b7b3dbe4d3cb5"
+          }
+        ]
+      }
+    }
+  },
+  "profile": {
+    "profileId": "research-paper",
+    "revision": 1,
+    "digest": "sha256:0544153315de25681df647c9295d13e25d97332a5d5ad8d8192d6547b7df63bb",
+    "ratification": {
+      "ratifiedAt": "2026-10-08T00:00:00.000Z",
+      "actorId": "human:journal-owner",
+      "actorKind": "human",
+      "authoritySignature": {
+        "signerId": "human:journal-owner",
+        "signature": "6y3JDNCDtD4hmqXM78YN46otzR2ceLzQbK04z1UUa3HZ_FWon2vzjL_X7TGozTtL3xMBZcld4j5uZ6bfo5qqBA"
+      }
+    },
+    "payloadContract": {
+      "$contractLanguage": "json-schema/draft-2020-12",
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "pattern": "\\S",
+          "minLength": 1,
+          "maxLength": 5000
+        },
+        "authors": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 20,
+          "items": {
+            "type": "string",
+            "pattern": "\\S",
+            "minLength": 1,
+            "maxLength": 5000
+          }
+        },
+        "abstract": {
+          "type": "string",
+          "pattern": "\\S",
+          "minLength": 1,
+          "maxLength": 5000
+        },
+        "sections": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 20,
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "\\S",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "heading": {
+                "type": "string",
+                "pattern": "\\S",
+                "minLength": 1,
+                "maxLength": 5000
+              },
+              "text": {
+                "type": "string",
+                "pattern": "\\S",
+                "minLength": 1,
+                "maxLength": 5000
+              },
+              "citations": {
+                "type": "array",
+                "maxItems": 20,
+                "items": {
+                  "type": "string",
+                  "pattern": "\\S",
+                  "minLength": 1,
+                  "maxLength": 200
+                }
+              }
+            },
+            "required": [
+              "id",
+              "heading",
+              "text",
+              "citations"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "bibliography": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 20,
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "\\S",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "title": {
+                "type": "string",
+                "pattern": "\\S",
+                "minLength": 1,
+                "maxLength": 5000
+              },
+              "authors": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 20,
+                "items": {
+                  "type": "string",
+                  "pattern": "\\S",
+                  "minLength": 1,
+                  "maxLength": 5000
+                }
+              },
+              "journal": {
+                "type": "string",
+                "pattern": "\\S",
+                "minLength": 1,
+                "maxLength": 5000
+              },
+              "year": {
+                "type": "integer",
+                "minimum": 1900,
+                "maximum": 2100
+              },
+              "sourceArtifactId": {
+                "type": "string",
+                "pattern": "\\S",
+                "minLength": 1,
+                "maxLength": 200
+              }
+            },
+            "required": [
+              "id",
+              "title",
+              "authors",
+              "journal",
+              "year",
+              "sourceArtifactId"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "reviewResponses": {
+          "type": "array",
+          "maxItems": 40,
+          "items": {
+            "type": "object",
+            "properties": {
+              "reviewArtifactId": {
+                "type": "string",
+                "pattern": "\\S",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "feedbackId": {
+                "type": "string",
+                "pattern": "\\S",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "response": {
+                "type": "string",
+                "pattern": "\\S",
+                "minLength": 1,
+                "maxLength": 5000
+              }
+            },
+            "required": [
+              "reviewArtifactId",
+              "feedbackId",
+              "response"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "editorResponses": {
+          "type": "array",
+          "maxItems": 40,
+          "items": {
+            "type": "object",
+            "properties": {
+              "notesArtifactId": {
+                "type": "string",
+                "pattern": "\\S",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "feedbackId": {
+                "type": "string",
+                "pattern": "\\S",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "response": {
+                "type": "string",
+                "pattern": "\\S",
+                "minLength": 1,
+                "maxLength": 5000
+              }
+            },
+            "required": [
+              "notesArtifactId",
+              "feedbackId",
+              "response"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "dependencySet": {
+          "type": "object",
+          "properties": {
+            "entries": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 20,
+              "items": {
+                "type": "object",
+                "properties": {
+                  "artifactId": {
+                    "type": "string",
+                    "pattern": "\\S",
+                    "minLength": 1,
+                    "maxLength": 200
+                  },
+                  "artifactVersion": {
+                    "type": "integer",
+                    "maximum": 9007199254740991,
+                    "exclusiveMinimum": 0
+                  },
+                  "payloadDigest": {
+                    "type": "string",
+                    "pattern": "^sha256:[0-9a-f]{64}$"
+                  }
+                },
+                "required": [
+                  "artifactId",
+                  "artifactVersion",
+                  "payloadDigest"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "entries"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "title",
+        "authors",
+        "abstract",
+        "sections",
+        "bibliography",
+        "reviewResponses",
+        "editorResponses",
+        "dependencySet"
+      ],
+      "additionalProperties": false,
+      "$schema": "https://json-schema.org/draft/2020-12/schema"
+    }
+  },
+  "authorization": {
+    "artifactId": "paper:floating-gummy-worm-recall",
+    "artifactVersion": 3,
+    "payloadDigest": "sha256:0061c55517e6eebee4869be89195b4b0d327940c1e7ee020d9633eb7fec120aa",
+    "profile": {
+      "profileId": "research-paper",
+      "revision": 1,
+      "digest": "sha256:0544153315de25681df647c9295d13e25d97332a5d5ad8d8192d6547b7df63bb"
+    },
+    "authorizedAt": "2026-10-09T14:00:00Z",
+    "authorizedBy": {
+      "actorId": "human:journal-publisher",
+      "actorKind": "human"
+    },
+    "authorizationSubjectDigest": "sha256:880ecdf8f4677905ce833515b360b3f4ce84b141ae61572b929c7dab606e0c4e",
+    "authoritySignature": {
+      "signerId": "human:journal-publisher",
+      "signature": "9P5r_4fKIZXOoOFRsbstSYvgTPwLHgnoMCaFy6m426kufbN3mXDiplesLdpPaJthMF-tjQ7S42iH6f1jADmnCw"
+    }
+  },
+  "approvals": [
+    {
+      "artifactId": "paper:floating-gummy-worm-recall",
+      "artifactVersion": 3,
+      "payloadDigest": "sha256:0061c55517e6eebee4869be89195b4b0d327940c1e7ee020d9633eb7fec120aa",
+      "profile": {
+        "profileId": "research-paper",
+        "revision": 1,
+        "digest": "sha256:0544153315de25681df647c9295d13e25d97332a5d5ad8d8192d6547b7df63bb"
+      },
+      "approvedAt": "2026-10-09T13:00:00Z",
+      "approvedBy": {
+        "actorId": "human:journal-editor",
+        "actorKind": "human"
+      },
+      "authorizationSubjectDigest": "sha256:880ecdf8f4677905ce833515b360b3f4ce84b141ae61572b929c7dab606e0c4e",
+      "authoritySignature": {
+        "signerId": "human:journal-editor",
+        "signature": "iKRXTJaqR_hLCXQcuoYu6WusMPtHdYbjikKYV_-Js85Snyni-pS8xdEfQYaHD3Uyte8DvIu16FV-_2iyDAsJBQ"
+      }
+    }
+  ]
+}

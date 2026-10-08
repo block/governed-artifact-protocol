@@ -1,0 +1,51 @@
+---
+title: Intro
+slug: /intro
+description: What GAP is, why it matters, and where to go deeper.
+---
+
+Governed Artifact Protocol (GAP) defines how applications keep content connected to its rules, source references, and release decisions. A person or an AI agent receiving a release can check those records.
+
+## What is GAP?
+
+A shared set of rules that applications follow as content is created, reviewed, and released. GAP covers the whole path: approving the rules for each kind of content, saving every version without changing earlier ones, recording the sources each version used and the decisions made about it, releasing only the exact versions authorized by someone with permission, a person or an AI agent, and delivering the records a receiver needs to check that release.
+
+[What is GAP?](what-is-gap.md) explains the pieces.
+
+## Why build it?
+
+Content moves between tools, people, and AI agents. The answers to "was this approved?" and "why does it say this?" usually stay behind, in a review thread or someone's memory. When an AI agent receives content through a file, a copied answer, or another tool, its available context may differ from the context in which that content was created.
+
+[Why GAP?](why-gap.md) follows one change and shows what its records tell the next reader.
+
+## What travels with the content?
+
+Each released version connects its content to the rules it follows, the exact versions of its sources, and the decisions made about it, such as who authorized it and the reasons they gave. Together these make a proof the receiver can check.
+
+[Anatomy of GAP](anatomy-of-gap.mdx) describes each part.
+
+## What happens from start to finish?
+
+GAP defines six steps, from writing the rules to checking a release:
+
+<Steps block ids="propose-profile ratify-profile create-version authorize-release release verify" />
+
+Along the way, an authority can also make three decisions about a version, and each one is kept on record:
+
+<Steps block ids="approve-release reject-release withdraw-release" />
+
+[Lifecycle](lifecycle.mdx) walks through each step.
+
+## How does it fit the tools I already use?
+
+GAP defines the lifecycle steps and what each one must check and record, not how your tools work. Each application decides how those steps map to familiar actions like Save, Approve, and Publish, while keeping content connected to its context.
+
+[Application actions](application-actions.mdx) shows how actions map to steps.
+
+## Where to go next
+
+- See where GAP could help in the [case studies](../case-studies/index.mdx).
+- Explore three representative [domains](../domains/index.mdx) with GAP.
+- Read the rules in the [working draft](../specification/draft/README.md).
+
+GAP is a working draft. Its demos try the ideas out on made-up data and show where more work is needed.

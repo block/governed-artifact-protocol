@@ -1,0 +1,146 @@
+---
+title: "Issue tracking"
+slug: /domains/issue-tracking
+sidebar_label: "Issue tracking"
+description: "How an issue tracking app uses GAP: creating or saving a ticket creates, authorizes, and releases a version in one action, and a working copy lets an assignee iterate first."
+---
+
+<DomainNav domain="issue-tracking" />
+
+An issue tracking app helps a team organize work as tickets. A ticket describes a problem or task, records its progress, and defines what needs to happen before it is complete.
+
+Someone reports a bug in a calculator app: the subtraction button adds numbers instead of subtracting them. The person assigned to the ticket records how the button should behave, checks that the fix produces that result, and marks the ticket done. In this example, the team sees each saved update right away. There is no separate review step: a participant with permission authorizes the update by saving it.
+
+The issue tracking app uses [Governed Artifact Protocol (GAP)](/intro/what-is-gap) to record what was saved and who authorized each update. Each saved version also identifies the content rules it follows. A person or an AI agent reading the ticket can use those records to check that the content they received matches the authorized update.
+
+Creating a ticket and saving changes each perform several GAP [lifecycle steps](/intro/lifecycle) together. The issue tracking app organizes those steps into these [actions](/intro/application-actions):
+
+<ActionList>
+
+<Action href="#set-up-the-content-model" title="Set up the content model" steps="propose-profile ratify-profile">
+
+A workflow designer proposes the ticket's fields and validation rules as a profile. The workflow owner ratifies that revision so it can be used for new tickets without repeating the model approval.
+
+</Action>
+
+<Action href="#create-the-ticket" title="Create the ticket" steps="create-version authorize-release release">
+
+The requester creates a ticket. That action saves version 1, records the requester's authorization, and makes the ticket available to the team.
+
+</Action>
+
+<Action href="#edit-the-ticket" title="Edit the ticket">
+
+The assignee edits a [working copy](/specification/working-draft#working-copy), and the issue tracking app checks the changes as they go. Editing the working copy performs no GAP step and creates no GAP record. Readers continue to see the saved ticket.
+
+</Action>
+
+<Action href="#save-changes" title="Save changes" steps="create-version authorize-release release">
+
+The assignee saves the working copy. The issue tracking app creates a new ticket version, records the assignee's authorization, and makes the update available to the team.
+
+</Action>
+
+<Action href="#complete-the-ticket" title="Complete the ticket" steps="create-version authorize-release release">
+
+The assignee sets the status to Done and describes how they checked the fix. Saving creates another version, with that description recorded as the [reason](/specification/working-draft#reason) on its authorization.
+
+</Action>
+
+<Action href="#read-the-ticket-or-its-history" title="Read the ticket or its history" steps="verify">
+
+A reader requests the current ticket or an earlier version and checks its release proof to confirm that the saved content matches the authorized update.
+
+</Action>
+
+</ActionList>
+
+The issue tracking app decides who may create, update, and complete a ticket. GAP lets a person or an AI agent hold any of those permissions, and its [roles](/specification/working-draft#protocol-roles) treat both the same. In the records below, the requester is an AI agent and the workflow owner is a person. Every successful save creates a version and records its authorization and release. Readers receive those records together as a release proof.
+
+## The ticket and its content model
+
+The issue tracking app stores the calculator bug as a GAP [artifact](/specification/working-draft#artifact) with the ID `ticket:subtraction`. Saving a change creates a new version of the ticket under that same ID, and earlier versions remain available. A [profile](/specification/working-draft#profile) defines the ticket's content model, including its fields and the rules they must satisfy. The bug ticket profile requires four fields:
+
+- `title` and `description` are text, and neither may be blank.
+- `acceptanceCriteria` is a list of up to twenty entries, each one text. It may be empty when a ticket is filed.
+- `status` is `to_do`, `in_progress`, or `done`. Saving a status change creates a new ticket version, just as saving a changed title does. The issue tracking app decides which status changes are allowed and what a participant must provide before marking a ticket Done.
+
+<Record set="issue-tracking" name="profile-revision" title="The bug-ticket profile, revision 1" collapsed />
+
+Adding an acceptance criterion creates a new ticket version using the same content model. Requiring a new field changes the model itself, so the workflow owner must ratify a new profile revision. Earlier ticket versions still reference the revision they were created under. Each ticket record's `profile` block includes the profile ID, revision number, and digest, so a reader can identify the exact rules used to check that version.
+
+### Example ticket content
+
+This is version 1 of `ticket:subtraction`, exactly as the issue tracking app stores it: the requester's first save, with no acceptance criteria yet. The assignee adds one later.
+
+<Record set="issue-tracking" name="artifact-version_new-ticket" title="ticket:subtraction, version 1" />
+
+## Create, update, and complete a ticket
+
+The subtraction bug moves through three saved versions: the initial report, the assignee's acceptance criteria, and the completed ticket. Each save makes the update available to the team.
+
+### Set up the content model
+
+<Steps block ids="propose-profile ratify-profile" />
+
+A workflow designer proposes the ticket's fields, and the workflow owner approves them. New tickets can use that approved [profile revision](/specification/working-draft#profile-revision). In the demo, this profile comes already ratified.
+
+### Create the ticket
+
+<Steps block ids="create-version authorize-release release" />
+
+The requester chooses Create ticket, with the status "To do." The issue tracking app saves an [artifact version](/specification/working-draft#artifact-version), records the requester's [release authorization](/specification/working-draft#release-authorization) for that exact content, and records its [release](/specification/working-draft#release), all in one action. The ticket is available right away, with no separate approval.
+
+<Record set="issue-tracking" name="release-authorization_new-ticket" title="The requester's authorization of version 1, recorded in the same save" collapsed />
+
+<Record set="issue-tracking" name="release_new-ticket" title="The release of version 1: the payload and its profile revision" collapsed />
+
+### Edit the ticket
+
+The assignee opens the current version and edits it. The issue tracking app keeps the edits as a working copy, checks them against the profile, and lets the assignee change them as often as needed. Until the assignee saves, the current-ticket view and history continue to show the released versions. The unfinished edits stay in the application’s local workspace, separate from the released ticket. Restarting the demo preserves that working copy.
+
+### Save changes
+
+<Steps block ids="create-version authorize-release release" />
+
+The assignee adds "Subtracting 2 from 5 must display 3" to the acceptance criteria and sets the status to "In progress." The assignee has permission to update the ticket, so saving creates, authorizes, and releases a new version. Only the saved result becomes a ticket version; the intermediate edits to the working copy are not added to the ticket's history. Readers can retrieve the update immediately or request any earlier released version.
+
+<Record set="issue-tracking" name="artifact-version_criteria-update" title="ticket:subtraction, version 2: acceptance criteria and In progress" collapsed />
+
+<Record set="issue-tracking" name="release-authorization_criteria-update" title="The assignee's authorization of version 2" collapsed />
+
+<Record set="issue-tracking" name="release_criteria-update" title="The release of version 2" collapsed />
+
+### Complete the ticket
+
+<Steps block ids="create-version authorize-release release" />
+
+After checking that the calculator subtracts correctly, the assignee marks the ticket Done. If the assignee has permission to make that change, the issue tracking app creates, authorizes, and releases another version. The issue tracking app decides what a ticket needs before it can be marked done; GAP records the authorized change. Here, the authorization's [reason](/specification/working-draft#reason) contains the assignee's description of the check. Readers can find it in the release proof. The issue tracking app records what the assignee reported; it does not run the calculator or test the fix itself.
+
+### Read the ticket or its history
+
+<Steps block ids="verify" />
+
+Readers can request the current ticket or any earlier released version. Each response includes a [release proof](/specification/working-draft#release-proof) with the saved content, its profile revision, and its authorization. Readers can verify those records and compare versions to see what changed.
+
+<Record set="issue-tracking" name="release-proof_new-ticket" title="The release proof of version 1: the release, its profile revision, and the authorization" collapsed />
+
+<Record set="issue-tracking" name="release-proof_criteria-update" title="The release proof of version 2" collapsed />
+
+Because status is part of the ticket's content, every release carries whatever status the ticket had at the time. A released ticket can be "To do," "In progress," or "Done"; release means the version is available, and only the status says whether the work is finished.
+
+## Who does what?
+
+A participant who saves a ticket acts as both [Author](/specification/working-draft#author) and [Authority](/specification/working-draft#authority). The authorization shows they had permission to make the update available; it isn't a review of the content. Editing a working copy creates no GAP record. When the participant tries to save it as a ticket version, the issue tracking app checks whether they have permission to make that update.
+
+The issue tracking app is the [Implementation](/specification/working-draft#implementation): it checks content, keeps every version, and records each authorization and release together. A participant reading the ticket acts as [Consumer](/specification/working-draft#consumer). For the content model, the workflow designer is the Author and the workflow owner is the Authority.
+
+## Driving the specification
+
+The issue tracking demo implements the [working draft](/specification/working-draft) independently of the other demos. Building the ticket workflow helps identify rules that are missing or unclear. Those findings lead to draft changes or are recorded as [open questions](https://github.com/block/governed-artifact-protocol/blob/main/DEFERRED.md). The example records are updated when the draft changes.
+
+## Run the demo
+
+The demo server runs this application beside the others. [Set up the demo](run-the-demos.md) once, then follow the [issue tracking walkthrough](issue-tracking/demo.mdx): create a ticket, work on a copy, save it, and complete it. The demo runs on your computer with made-up data. The [tool reference](how-the-demos-work.mdx#issue-tracking) lists every tool this application offers, with the lifecycle steps each one declares.
+
+To compare these choices with your own work, use the [evaluation guide](./evaluation-guide.md).

@@ -1,0 +1,238 @@
+---
+title: "Research publishing demo"
+slug: /domains/research/demo
+description: "Publish a fictional gummy-worm recall paper built on two earlier publications, with exact citations, section-level feedback, a source correction, signed editorial approval, and publication."
+displayed_sidebar: docsSidebar
+pagination_prev: domains/research
+pagination_next: domains/run-the-demos
+---
+
+<DomainNav domain="research" />
+
+Publish a fictional paper asking whether floating gummy worms remember stories better. Release the two earlier publications it builds on, a pace study and a recall-quiz methods paper, then save a submitted manuscript, record peer feedback, and revise its conclusion. Correct a source while the manuscript is still a draft, then have an editor approve the final version and a separate publisher authorize its publication. Independently verify the resulting evidence.
+
+Every research group and result is invented. This is a local, single-user demonstration with public demonstration signing keys, JSON storage, and no connection to an actual journal. The server exposes tools rather than a graphical document editor. [Set up the demo](../run-the-demos.md) once and read the [modeling guide](../research.mdx) for the profiles and roles.
+
+## Before you start
+
+The application is Research journal, with ID `research`. `get_research_workflow` returns four signed, pre-ratified models and configured participants. You select a role in conversation; the demo does not authenticate your identity. Ordinary startup preserves existing work. Use the reset at the end only when you want to discard this application's local changes.
+
+The client keeps IDs, digests, source entries, and preview confirmations. You review content in ordinary language; you do not need to transcribe machine values. When the agent saves a complete manuscript, it must preserve all fields and the exact sources actually used. See [the tool reference](../how-the-demos-work.mdx#research) for input schemas.
+
+<Chat>
+<You>
+I'm working in the connected Research journal demo on fictional data. I'll switch between the source author, cited-works editor, paper author, peer reviewer, journal editor, and publisher. Use their configured participants. Keep the IDs, versions, payload digests, and profile pins returned by the tools. Before an authority decision, show me the exact content and wait for my decision. Show me the workflow first.
+</You>
+<Agent>
+The journal has source, manuscript, peer-review, and editor-notes models. The cited-works editor releases sources. The peer and editor save feedback, and the editor approves or rejects a manuscript. The publisher releases review reports, editor notes, and approved papers. Readers keep two trust stores: the journal store for papers, reports, and notes, and the cited-works store for sources. Every study and result in this walkthrough is invented.
+</Agent>
+</Chat>
+
+<Expect>
+The agent calls `get_research_workflow`. Discovery performs no lifecycle step. Keep both trust stores separate from any proof being checked.
+</Expect>
+
+## 1. Release the source material
+
+<Steps block ids="create-version authorize-release release" />
+
+Two fictional, previously published papers will appear in the new paper's bibliography. Each answers a different question from the new paper: the study measured story pace, and the methods paper defines a recall test. Their required payload fields are `kind`, `title`, `authors`, `journal`, `year`, and `body`. The demo releases local representations of these publications so the new manuscript can pin their exact versions.
+
+<Chat>
+<You>
+As source author, save paper:zero-gravity-story-pace. Its kind is study, title is “Story pace of gummy worms in zero gravity,” and credited authors are “Fictional Orbital Confectionery Group.” Journal is “Fictional Journal of Orbital Confectionery” and publication year is 2024. Body: “Aboard the spaceship Sugar Comet, twenty fictional groups of gummy worms told the same tale of a marshmallow moon, half with gravity switched on and half floating. Groups with gravity finished in an average of 60 seconds; floating groups finished in 40 seconds. Floating storytellers paused less because nobody had to climb back onto the story rug. The study measured pace only; it did not test what listeners remembered. All results are invented demonstration data.”
+</You>
+<You>
+Switch to the cited-works editor and preview that exact study for release.
+</You>
+<Agent>
+The study reports invented story pace only: 60 seconds with gravity and 40 seconds floating. Releasing this version will make its exact source proof available. The cited-works editor is the only participant configured to release sources.
+</Agent>
+<You>
+Release that study version.
+</You>
+<You>
+As cited-works editor, save paper:jellybean-quiz. Its kind is methods-paper, title is “The Jellybean Quiz: ten questions for testing what a listener remembers of any story,” and credited authors are “Fictional Story Metrics Group.” Journal is “Fictional Journal of Story Metrics” and publication year is 2023. Body: “The quiz is ten questions asked one minute after a story ends: five about the plot, three about the characters, and two about the setting. Each correct answer earns one jellybean, for a score from 0 to 10. It works for any story and any audience; ask every listener the same questions in the same order. These demonstration methods describe no real experiment.” Preview it for release.
+</You>
+<Agent>
+This previously published methods paper is its own artifact. It defines a memory quiz for any story and says nothing about gravity. A paper will pin its released version alongside the study, rather than put its wording into the paper's profile.
+</Agent>
+<You>
+Release that methods-paper version.
+</You>
+</Chat>
+
+<Expect>
+`save_research_source` creates each immutable draft. `preview_research_release` creates no record. `release_research` uses `human:cited-works-editor`, its preview confirmation, and expected current version to record signed authorization and release together. Saving or reading the sources grants no publication authority for a paper based on them.
+</Expect>
+
+## 2. Save the submitted manuscript
+
+<Steps block ids="create-version" />
+
+<Chat>
+<You>
+As paper author, save paper:floating-gummy-worm-recall with title “Do floating gummy worms remember stories better?” and credited authors “Fictional Gummy-Worm Storytelling Crew.” Abstract: “Earlier work found that gummy worms tell stories faster in zero gravity. We ask whether floating listeners also remember more, using twelve new groups of gummy worms aboard the fictional spaceship Sugar Comet.” Give it four sections. Background, ID background: “A previous study found that floating groups finish a tale in 40 seconds, against 60 seconds with gravity. It did not test whether listeners remembered more of the faster stories.” Cite pace-study there. Methods, ID methods: “Six groups with gravity and six floating groups heard the same marshmallow-moon tale. One minute after each story, listeners answered the ten questions of the Jellybean Quiz. We did not re-measure story pace.” Cite jellybean-quiz there. Results, ID results: “Listeners with gravity averaged 7.1 out of 10 on the quiz; floating listeners averaged 7.0. All results are invented.” Conclusion, ID conclusion: “Because zero gravity speeds up storytelling, it also helps gummy-worm listeners remember more.” Add bibliography entries for both prior papers with labels pace-study and jellybean-quiz, copying their exact titles, authors, journal names, and publication years from the released sources. Capture their exact released versions in the dependency set, ordered by artifact ID, with empty reviewResponses and editorResponses arrays.
+</You>
+<Agent>
+Manuscript version 1 is saved. Its own results show nearly equal recall, yet its conclusion credits zero gravity with better memory. Saving creates an immutable draft; it has no publication authorization.
+</Agent>
+<You>
+Try reading that paper through the released-research tool.
+</You>
+</Chat>
+
+<Expect>
+`save_research_paper` validates the complete payload and captures the exact study and methods entries. `read_research` refuses the unpublished paper. An authoring preview may show the draft for review; it remains outside the consumer read boundary.
+</Expect>
+
+## 3. Record the editorial rejection and peer report
+
+<Steps block ids="reject-release create-version authorize-release release" />
+
+The editor's authority decision and the peer's feedback are separate records.
+
+<Chat>
+<You>
+As journal editor, preview manuscript version 1 for an editorial decision.
+</You>
+<Agent>
+The exact version concludes that floating listeners remember more. Its own results report 7.1 with gravity and 7.0 floating, and the faster pace it relies on comes from the earlier study. An editorial rejection would add a signed decision about this version and release nothing.
+</Agent>
+<You>
+Reject this version. Reason: “The conclusion claims better recall, but the results report nearly equal scores, and the faster pace comes from the earlier study.”
+</You>
+<You>
+As peer reviewer, save review:floating-gummy-worm-recall about that exact submitted manuscript, carrying its identity, version, payload digest, and profile pin. Reviewer attribution is “Fictional Peer Reviewer,” and recommendation is revise. Add comment-1 on section conclusion, quoting “Because zero gravity speeds up storytelling, it also helps gummy-worm listeners remember more.” Comment: “Your own results show nearly equal recall: 7.1 with gravity and 7.0 floating. The faster pace comes from the earlier study, not from your groups, and does not show that listeners remember more.” Requested change: “Report recall on its own and limit the conclusion to what this synthetic comparison measured.”
+</You>
+<Agent>
+The report names manuscript version 1 and quotes its conclusion. Its recommendation is peer advice, separate from the editor's rejection. The peer cannot release it.
+</Agent>
+<You>
+As publisher, preview the review report and release it.
+</You>
+</Chat>
+
+<Expect>
+`reject_research_paper` uses the editor's rejection confirmation and records a signed rejection. `save_research_review` checks the exact manuscript and section quote. The draft reference belongs in the report's `manuscript` field, not a dependency set. The publisher authorizes and releases the report with `release_research`. Releasing the report preserves its feedback bytes without releasing the manuscript.
+</Expect>
+
+## 4. Revise the manuscript
+
+<Steps block ids="create-version" />
+
+<Chat>
+<You>
+As paper author, save another version of the same paper. Preserve its title, authors, background, methods, results, and bibliography. Change the abstract to “Earlier work found that gummy worms tell stories faster in zero gravity. We asked whether floating listeners also remember more. Twelve new groups of gummy worms aboard the fictional spaceship Sugar Comet heard the same tale, and we tested their memory with the Jellybean Quiz. Recall was nearly equal with and without gravity. All characters, settings, and results are invented.” Change the conclusion to “In this synthetic comparison, floating listeners and listeners with gravity recalled stories almost equally. The faster pace reported in earlier work did not come with better recall. These fictional results do not establish that zero gravity makes stories more memorable.” Cite pace-study and jellybean-quiz in the conclusion. Pin the released review report alongside the original sources and respond to comment-1: “Rewrote the abstract and conclusion to report recall on its own, credit the pace finding to the earlier study, and state the synthetic-data limitation.”
+</You>
+<Agent>
+Version 2 reports recall on its own, credits the pace finding to the earlier study, and states its limitations. It carries the original study and methods versions, the released report about version 1, and a response to its comment. It is still an unpublished manuscript.
+</Agent>
+<You>
+Try reading version 2 through the released-research tool.
+</You>
+</Chat>
+
+<Expect>
+`save_research_paper` creates version 2. `read_research` refuses this draft. The peer report has been released as feedback, but the manuscript has no editorial approval or publication authorization.
+</Expect>
+
+## 5. Correct a source during review
+
+<Steps block ids="create-version authorize-release release" />
+
+<Chat>
+<You>
+As source author, save a corrected version of paper:zero-gravity-story-pace. Keep its kind, title, authors, journal, and publication year. Change the floating groups' average from 40 to 45 seconds, keep the groups with gravity at 60 seconds, and end the body with “Correction: a timing error had shortened the floating average, which is 45 seconds, not 40.” As cited-works editor, preview the corrected study for release.
+</You>
+<Agent>
+The corrected study is version 2. Manuscript version 2 still pins study version 1, and neither manuscript version has been published. Saving a new source version has not changed the paper's stored content or references.
+</Agent>
+<You>
+Release the corrected study. Compare its result with the study version pinned by manuscript version 2, using their exact records. Show what the final manuscript needs to change.
+</You>
+</Chat>
+
+<Expect>
+The cited-works editor authorizes and releases study version 2. The agent compares the saved manuscript's dependency entry with the corrected source and identifies the 40-to-45 change in the paper's background. This comparison creates no paper version or decision. `sweep_research_sources` checks published papers, so it is not used to claim a check of this draft.
+</Expect>
+
+<Chat>
+<You>
+As journal editor, save editor-notes:floating-gummy-worm-recall about exact manuscript version 2, carrying its identity, version, payload digest, and profile pin. Editor attribution is “Fictional Journal Editor.” Add editor-comment-1 on section background, quoting “finish a tale in 40 seconds”. Comment: “The cited study has been corrected: floating groups finish in 45 seconds, so the pace gap is 15 seconds, not 20. This draft still cites the earlier figure and source version.” Requested change: “Use 45 seconds and pin corrected study version 2 before the final editorial decision.”
+</You>
+<You>
+As publisher, preview the editor notes and release them. Show the quoted original passage in manuscript version 2 beside the note. Keep this separate from an approval or rejection of the manuscript.
+</You>
+</Chat>
+
+<Expect>
+`save_research_editor_notes` creates an artifact under `research-editor-notes`; `save_research_review` uses `research-peer-review`. Both check their exact manuscript and section quote. The publisher authorizes and releases both with `release_research`; neither the peer nor the editor can release. Neither feedback release publishes the manuscript.
+</Expect>
+
+## 6. Approve the final manuscript and publish once
+
+<Steps block ids="create-version approve-release authorize-release release" />
+
+<Chat>
+<You>
+As paper author, save version 3 using the corrected study's exact released entry. Change the background to 45 seconds for floating groups, preserve the methods and peer-report pins, and keep the qualified conclusion and peer response. Also pin the released editor notes and add editorResponses for editor-comment-1: “Updated the background to 45 seconds and pinned corrected study version 2 before publication.” Then switch to the editor and preview version 3 for approval.
+</You>
+<Agent>
+Version 3 addresses the peer feedback and uses the corrected study. Versions 1 and 2 remain unpublished. The report still discusses version 1; local policy permits that earlier report with the response. The editor now reviews this exact final manuscript before deciding whether it is ready.
+</Agent>
+<You>
+Approve version 3 and preview it as publisher.
+</You>
+<Agent>
+The editorial approval binds version 3's exact subject. Publication will record the publisher's signed authorization and release together. The proof establishes these release decisions; it does not establish research correctness or delivery to an actual journal.
+</Agent>
+<You>
+Publish version 3, then read its release proof.
+</You>
+<You>
+Read the selected paper and try reading exact manuscript versions 1 and 2 through the released-research tool. Explain which version readers receive.
+</You>
+</Chat>
+
+<Expect>
+The editor signs approval of version 3 with `approve_research_paper`. The publisher previews and releases that exact version with `release_research`. The selected read returns version 3's proof. Versions 1 and 2 remain drafts and are refused by the consumer read tool; version 1's rejection remains in the authoring history. This is the paper's only publication.
+</Expect>
+
+## 7. Verify the publication and its sources
+
+<Steps block ids="verify" />
+
+<Chat>
+<You>
+Verify version 3's publication proof against the journal trust store from the workflow. Also obtain and verify the exact peer-review and editor-notes proofs under the journal store, and the study and methods-paper proofs under the cited-works store. Use one returned record at a time and supply the trust store explicitly.
+</You>
+<Agent>
+The final paper verifies as released. Its approval and authorization cover the same exact content and source baseline. Each source proof is checked separately, under the trust store for its context. The consumer verifier uses the supplied bytes and trust configuration, without reading workspace files or signing keys.
+</Agent>
+<You>
+As the sweep agent, check the published paper against its sources. Show whether the check changed any records.
+</You>
+</Chat>
+
+<Expect>
+`verify_research_proof` checks the pinned JSON Schema contract, profile and payload digests, exact decision binding, and all carried authority signatures. A paper checked against the cited-works store, or a source against the journal store, fails because that store does not trust its releaser. MCP wraps array results as `items`; pass one entry as the proof, not the entire wrapper. `sweep_research_sources` reports aligned references to the corrected study, methods paper, peer report, and editor notes. Findings create no records and perform no lifecycle step or release decision. The [automated tests](https://github.com/block/governed-artifact-protocol/blob/main/demo/test/research/signed-authority.test.ts) also verify copied proof bytes after deleting the producing workspace.
+</Expect>
+
+## Tools and interpretation
+
+The cited-works editor releases studies and methods papers. The peer saves reports and the editor saves notes, under distinct profiles; the editor also approves or rejects manuscripts. The publisher releases reports, notes, and approved papers. These are local permissions and content policies. Profiles and authority decisions are signed with public demonstration keys held by the application. Consumers configure trust separately from the proof. Section anchors, bibliography labels, and review responses are domain fields rather than new GAP record types.
+
+This walkthrough keeps one review report. It does not model comment movement, review rounds, external source retrieval, or the evidentiary meaning of peer review. Publication and verification do not establish scientific correctness. The [modeling guide](../research.mdx) explains these limits and the [open questions](https://github.com/block/governed-artifact-protocol/blob/main/DEFERRED.md) preserve protocol questions separately from the demo's local choices.
+
+## Reset the example
+
+<Chat>
+<You>
+Reset the connected Research journal demo to its empty synthetic seed. I understand this discards the research workspace's changes.
+</You>
+</Chat>
+
+<Expect>
+The agent calls `reset_demo_workspace` with `application: "research"` and `confirm: "reset synthetic demo workspace"`. Other applications remain unchanged, and ordinary startup preserves work. See [setup and troubleshooting](../run-the-demos.md#stop-or-troubleshoot) to stop the server or fix a connection.
+</Expect>

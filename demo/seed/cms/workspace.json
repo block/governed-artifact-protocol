@@ -1,0 +1,367 @@
+{
+  "workspaceFormat": "local-reference-v1",
+  "application": "cms",
+  "storage": "local-json",
+  "deploymentMode": "local-evaluation",
+  "productionReady": false,
+  "profileProposals": [
+    {
+      "profileId": "cms.image-gallery",
+      "revision": 1,
+      "payloadContract": {
+        "additionalProperties": false,
+        "fields": {
+          "audience": {
+            "enum": [
+              "public",
+              "members",
+              "internal"
+            ],
+            "type": "string"
+          },
+          "images": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 24,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "fields": {
+                "altText": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500
+                },
+                "assetDigest": {
+                  "type": "string",
+                  "format": "sha256-digest"
+                },
+                "assetRef": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 2048
+                },
+                "caption": {
+                  "type": "string",
+                  "minLength": 0,
+                  "maxLength": 1000
+                }
+              },
+              "required": [
+                "altText",
+                "assetDigest",
+                "assetRef",
+                "caption"
+              ]
+            }
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120
+          }
+        },
+        "required": [
+          "audience",
+          "images",
+          "title"
+        ],
+        "type": "object"
+      },
+      "proposedBy": {
+        "actorId": "agent:gallery-designer",
+        "actorKind": "agent"
+      }
+    },
+    {
+      "profileId": "cms.external-image-gallery",
+      "revision": 1,
+      "payloadContract": {
+        "additionalProperties": false,
+        "fields": {
+          "audience": {
+            "enum": [
+              "public",
+              "members",
+              "internal"
+            ],
+            "type": "string"
+          },
+          "images": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 24,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "fields": {
+                "altText": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500
+                },
+                "caption": {
+                  "type": "string",
+                  "minLength": 0,
+                  "maxLength": 1000
+                },
+                "asset": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "fields": {
+                    "ref": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 2048
+                    },
+                    "contentDigest": {
+                      "type": "string",
+                      "format": "sha256-digest"
+                    }
+                  },
+                  "required": [
+                    "contentDigest",
+                    "ref"
+                  ]
+                }
+              },
+              "required": [
+                "altText",
+                "asset",
+                "caption"
+              ]
+            }
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120
+          }
+        },
+        "required": [
+          "audience",
+          "images",
+          "title"
+        ],
+        "type": "object"
+      },
+      "proposedBy": {
+        "actorId": "agent:dependency-pin-designer",
+        "actorKind": "agent"
+      }
+    },
+    {
+      "profileId": "cms.rendered-article",
+      "revision": 1,
+      "payloadContract": {
+        "type": "object",
+        "additionalProperties": false,
+        "fields": {
+          "audience": {
+            "type": "string",
+            "enum": [
+              "public",
+              "members",
+              "internal"
+            ]
+          },
+          "mediaType": {
+            "type": "string",
+            "enum": [
+              "text/html"
+            ]
+          },
+          "renderedContent": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 20000
+          },
+          "renderer": {
+            "type": "object",
+            "additionalProperties": false,
+            "fields": {
+              "locale": {
+                "type": "string",
+                "enum": [
+                  "en-US"
+                ]
+              },
+              "rendererId": {
+                "type": "string",
+                "enum": [
+                  "cms.local-html"
+                ]
+              },
+              "rendererVersion": {
+                "type": "string",
+                "enum": [
+                  "1"
+                ]
+              },
+              "templateId": {
+                "type": "string",
+                "enum": [
+                  "article-page"
+                ]
+              },
+              "templateVersion": {
+                "type": "string",
+                "enum": [
+                  "1"
+                ]
+              }
+            },
+            "required": [
+              "locale",
+              "rendererId",
+              "rendererVersion",
+              "templateId",
+              "templateVersion"
+            ]
+          },
+          "source": {
+            "type": "object",
+            "additionalProperties": false,
+            "fields": {
+              "artifactId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500
+              },
+              "artifactVersion": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 2147483647
+              },
+              "payloadDigest": {
+                "type": "string",
+                "format": "sha256-digest"
+              }
+            },
+            "required": [
+              "artifactId",
+              "artifactVersion",
+              "payloadDigest"
+            ]
+          }
+        },
+        "required": [
+          "audience",
+          "mediaType",
+          "renderedContent",
+          "renderer",
+          "source"
+        ]
+      },
+      "proposedBy": {
+        "actorId": "agent:local-renderer-designer",
+        "actorKind": "agent"
+      }
+    }
+  ],
+  "profileRatificationAuthorities": [
+    {
+      "audience": "local-cms.configuration",
+      "authority": {
+        "actorId": "*",
+        "actorKind": "human"
+      }
+    }
+  ],
+  "profiles": [
+    {
+      "profileId": "cms.article",
+      "revision": 1,
+      "payloadContract": {
+        "additionalProperties": false,
+        "fields": {
+          "audience": {
+            "enum": [
+              "public",
+              "members",
+              "internal"
+            ],
+            "type": "string"
+          },
+          "body": {
+            "maxLength": 10000,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": {
+            "maxLength": 120,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "audience",
+          "body",
+          "title"
+        ],
+        "type": "object"
+      },
+      "digest": "sha256:faa0e056863960c7b80b428640992f7d26303ffe475c59deaa4c8d196fffdbac",
+      "ratification": {
+        "ratifiedAt": "2026-08-26T00:00:00.000Z",
+        "actorId": "person:local-editor",
+        "actorKind": "human"
+      }
+    }
+  ],
+  "releaseAuthorityPolicies": [
+    {
+      "profile": {
+        "profileId": "cms.article",
+        "revision": 1,
+        "digest": "sha256:faa0e056863960c7b80b428640992f7d26303ffe475c59deaa4c8d196fffdbac"
+      },
+      "authority": {
+        "actorId": "*",
+        "actorKind": "human"
+      },
+      "audiences": [
+        "public",
+        "members",
+        "internal"
+      ]
+    },
+    {
+      "profile": {
+        "profileId": "cms.article",
+        "revision": 1,
+        "digest": "sha256:faa0e056863960c7b80b428640992f7d26303ffe475c59deaa4c8d196fffdbac"
+      },
+      "authority": {
+        "actorId": "agent:local-publisher",
+        "actorKind": "agent"
+      },
+      "audiences": [
+        "public",
+        "members",
+        "internal"
+      ]
+    }
+  ],
+  "releaseApprovalAuthorities": [
+    {
+      "profileId": "blog-post",
+      "authority": {
+        "actorId": "*",
+        "actorKind": "human"
+      }
+    },
+    {
+      "profileId": "blog-post",
+      "authority": {
+        "actorId": "agent:local-reviewer",
+        "actorKind": "agent"
+      }
+    }
+  ],
+  "artifacts": [],
+  "approvals": [],
+  "authorizations": [],
+  "releases": [],
+  "rejections": []
+}

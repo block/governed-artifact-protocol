@@ -1,0 +1,21 @@
+{
+  "artifactId": "paper:floating-gummy-worm-recall",
+  "artifactVersion": 1,
+  "payloadDigest": "sha256:23a375d8b129931bd78d67d02c62e8a678d4e1994d7cb748bc128b5e858dd49d",
+  "profile": {
+    "profileId": "research-paper",
+    "revision": 1,
+    "digest": "sha256:0544153315de25681df647c9295d13e25d97332a5d5ad8d8192d6547b7df63bb"
+  },
+  "rejectedAt": "2026-10-08T10:00:00Z",
+  "rejectedBy": {
+    "actorId": "human:journal-editor",
+    "actorKind": "human"
+  },
+  "reason": "The conclusion claims better recall, but the results report nearly equal scores, and the faster pace comes from the earlier study.",
+  "authorizationSubjectDigest": "sha256:2bf31010ae0e1bcd9e90f7c84720f18b8c275b2a83b72a0a6f30dc9cf5317c48",
+  "authoritySignature": {
+    "signerId": "human:journal-editor",
+    "signature": "uVay0KzmAEhWSPDL7r1xu7xSiz11avi6ViiC3nqQoC8KWPQ4avqsQCKLz1765MjFgulRxVS-6MkqQT3HQB4QAA"
+  }
+}

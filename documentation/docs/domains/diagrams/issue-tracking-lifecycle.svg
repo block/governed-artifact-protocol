@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1518.02197265625" height="675" viewBox="19.97802734375 17 1518.02197265625 675" role="img" aria-labelledby="title description">
+<title id="title">A ticket: immediate updates, preserved history</title><desc id="description">Ticket actions across configuration, authoring, and release. Create the ticket as To do, stage a working copy outside GAP and iterate on it, save it to add criteria and move to In progress, then complete it as Done. Creating, saving, and completing each create, authorize, and release a version; staging creates nothing. Read current or earlier versions after any release.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#52647a"/></marker></defs>
+<g font-family="Arial, Helvetica, sans-serif" fill="#172536">
+
+<text x="20" y="39" font-size="24" font-weight="700" fill="#172536">A ticket: immediate updates, preserved history</text>
+<text x="20" y="65" font-size="15" font-weight="400" fill="#52647a">Application actions across GAP planes</text>
+<path d="M 232 92 H 1520" fill="none" stroke="#b7c2ce" stroke-width="1.5" marker-end="url(#arrow)"/>
+<circle cx="236" cy="123" r="12" fill="#172536"/>
+<text x="232" y="128" font-size="14" font-weight="700" fill="#ffffff">1</text>
+<text x="257" y="128" font-size="17" font-weight="700" fill="#172536">Set up the</text>
+<text x="257" y="149" font-size="17" font-weight="700" fill="#172536">content model</text>
+<circle cx="454" cy="123" r="12" fill="#172536"/>
+<text x="450" y="128" font-size="14" font-weight="700" fill="#ffffff">2</text>
+<text x="475" y="128" font-size="17" font-weight="700" fill="#172536">Create the ticket</text>
+<circle cx="672" cy="123" r="12" fill="#172536"/>
+<text x="668" y="128" font-size="14" font-weight="700" fill="#ffffff">3</text>
+<text x="693" y="128" font-size="17" font-weight="700" fill="#172536">Stage changes</text>
+<circle cx="890" cy="123" r="12" fill="#172536"/>
+<text x="886" y="128" font-size="14" font-weight="700" fill="#ffffff">4</text>
+<text x="911" y="128" font-size="17" font-weight="700" fill="#172536">Save changes</text>
+<circle cx="1108" cy="123" r="12" fill="#172536"/>
+<text x="1104" y="128" font-size="14" font-weight="700" fill="#ffffff">5</text>
+<text x="1129" y="128" font-size="17" font-weight="700" fill="#172536">Complete the ticket</text>
+<circle cx="1326" cy="123" r="12" fill="#172536"/>
+<text x="1322" y="128" font-size="14" font-weight="700" fill="#ffffff">6</text>
+<text x="1347" y="128" font-size="17" font-weight="700" fill="#172536">Read the ticket</text>
+<text x="1347" y="149" font-size="17" font-weight="700" fill="#172536">or its history</text>
+<rect x="20" y="174" width="1518" height="108" rx="10" fill="#f2f4f7"/>
+<text x="40" y="218" font-size="18" font-weight="700" fill="#172536">Configuration</text>
+<text x="40" y="242" font-size="13" font-weight="400" fill="#52647a">Content model</text>
+<rect x="20" y="290" width="1518" height="108" rx="10" fill="#edf4ff"/>
+<text x="40" y="334" font-size="18" font-weight="700" fill="#172536">Authoring</text>
+<text x="40" y="358" font-size="13" font-weight="400" fill="#52647a">Content versions</text>
+<rect x="20" y="406" width="1518" height="108" rx="10" fill="#edf7f2"/>
+<text x="40" y="450" font-size="18" font-weight="700" fill="#172536">Release</text>
+<text x="40" y="474" font-size="13" font-weight="400" fill="#52647a">Available content</text>
+<rect x="20" y="522" width="1518" height="108" rx="10" fill="#ffffff" stroke="#b7c2ce" stroke-width="1.2" stroke-dasharray="6 5"/>
+<text x="40" y="566" font-size="18" font-weight="700" fill="#172536">Outside GAP</text>
+<text x="40" y="590" font-size="13" font-weight="400" fill="#52647a">Application state; no records</text>
+<path d="M 429 174 V 514" stroke="#ffffff" stroke-width="3"/>
+<path d="M 647 174 V 514" stroke="#ffffff" stroke-width="3"/>
+<path d="M 865 174 V 514" stroke="#ffffff" stroke-width="3"/>
+<path d="M 1083 174 V 514" stroke="#ffffff" stroke-width="3"/>
+<path d="M 1301 174 V 514" stroke="#ffffff" stroke-width="3"/>
+<rect x="224" y="190" width="198" height="76" rx="8" fill="#ffffff" stroke="#65758a" stroke-width="1.2"/>
+<text x="236" y="213" font-size="15" font-weight="600" fill="#172536">Propose and approve</text>
+<text x="236" y="233" font-size="15" font-weight="400" fill="#172536">ticket content</text>
+<text x="236" y="253" font-size="15" font-weight="400" fill="#172536">model revision</text>
+<rect x="442" y="306" width="198" height="76" rx="8" fill="#ffffff" stroke="#3567a6" stroke-width="1.2"/>
+<text x="454" y="337" font-size="15" font-weight="600" fill="#172536">Create ticket: To do</text>
+<text x="454" y="357" font-size="15" font-weight="400" fill="#172536">version 1</text>
+<rect x="442" y="422" width="198" height="76" rx="8" fill="#ffffff" stroke="#277452" stroke-width="1.2"/>
+<text x="454" y="453" font-size="15" font-weight="600" fill="#172536">Authorize and release</text>
+<text x="454" y="473" font-size="15" font-weight="400" fill="#172536">ticket version 1</text>
+<path d="M 541 384 V 420" fill="none" stroke="#52647a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="660" y="538" width="198" height="76" rx="8" fill="#ffffff" stroke="#65758a" stroke-width="1.2" stroke-dasharray="5 4"/>
+<text x="672" y="561" font-size="15" font-weight="600" fill="#172536">Working copy</text>
+<text x="672" y="581" font-size="15" font-weight="400" fill="#172536">iterate and validate;</text>
+<text x="672" y="601" font-size="15" font-weight="400" fill="#172536">not a version, not readable</text>
+<path d="M 858 576 L 900 576" fill="none" stroke="#52647a" stroke-width="1.5" stroke-dasharray="6 5" marker-end="url(#arrow)"/>
+<text x="908" y="571" font-size="13" font-weight="400" fill="#52647a">Save changes (step 4) creates</text>
+<text x="908" y="587" font-size="13" font-weight="400" fill="#52647a">version 2 from it and removes it</text>
+<rect x="878" y="306" width="198" height="76" rx="8" fill="#ffffff" stroke="#3567a6" stroke-width="1.2"/>
+<text x="890" y="337" font-size="15" font-weight="600" fill="#172536">Add criteria; start work</text>
+<text x="890" y="357" font-size="15" font-weight="400" fill="#172536">Version 2: In progress</text>
+<rect x="878" y="422" width="198" height="76" rx="8" fill="#ffffff" stroke="#277452" stroke-width="1.2"/>
+<text x="890" y="453" font-size="15" font-weight="600" fill="#172536">Authorize and release</text>
+<text x="890" y="473" font-size="15" font-weight="400" fill="#172536">ticket version 2</text>
+<path d="M 1032 384 V 420" fill="none" stroke="#52647a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="1096" y="306" width="198" height="76" rx="8" fill="#ffffff" stroke="#3567a6" stroke-width="1.2"/>
+<text x="1108" y="337" font-size="15" font-weight="600" fill="#172536">Mark ticket Done</text>
+<text x="1108" y="357" font-size="15" font-weight="400" fill="#172536">Create version 3</text>
+<rect x="1096" y="422" width="198" height="76" rx="8" fill="#ffffff" stroke="#277452" stroke-width="1.2"/>
+<text x="1108" y="453" font-size="15" font-weight="600" fill="#172536">Authorize and release</text>
+<text x="1108" y="473" font-size="15" font-weight="400" fill="#172536">ticket version 3</text>
+<path d="M 1195 384 V 420" fill="none" stroke="#52647a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="1314" y="422" width="198" height="76" rx="8" fill="#ffffff" stroke="#277452" stroke-width="1.2"/>
+<text x="1326" y="453" font-size="15" font-weight="600" fill="#172536">Retrieve current or</text>
+<text x="1326" y="473" font-size="15" font-weight="400" fill="#172536">earlier ticket versions</text>
+<text x="20" y="665" font-size="15" font-weight="600" fill="#172536">Creating, saving, and completing a ticket each span two planes in one action. Staging a working copy touches none.</text>
+<text x="20" y="689" font-size="14" font-weight="400" fill="#52647a">Save changes creates one version however often the working copy changed. Read after any release; earlier versions remain available.</text>
+</g></svg>
