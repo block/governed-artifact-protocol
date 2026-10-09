@@ -88,7 +88,7 @@ const CARDS: Card[] = [
     id: "profile",
     label: "profile",
     question: "Which rules\napply?",
-    answer: "The content model's required fields, its allowed languages, and what to show when a translation is missing.",
+    answer: "The profile sets the required fields, the allowed languages, and what to show when a translation is missing.",
     json: record("profile-revision.json"),
   },
   {
@@ -109,7 +109,7 @@ const CARDS: Card[] = [
     id: "authorization",
     label: "authorization",
     question: "Who gave\nthe go-ahead?",
-    answer: "The publisher's permission to release this exact version. Approval and release authorization are separate decisions.",
+    answer: "The publisher authorized release of this exact version. Approval and release authorization are separate decisions.",
     json: record(`release-authorization${SUFFIX}`),
   },
 ];
