@@ -692,7 +692,7 @@ main[class*="docMainContainer"] > .container {
   padding-bottom: 0 !important; /* Infima's spacing utility is !important */
 }
 main[class*="docMainContainer"] > .container > .row > .col:first-child {
-  padding-bottom: 2rem;
+  padding-bottom: 4rem;   /* the previous and next links stand clear of the footer's hairline */
 }
 /* The blog post layout wraps its row in a 2rem top and bottom margin. The
    docs layout gives its container 1rem of top padding instead, which the
@@ -1043,7 +1043,7 @@ main[class*="docMainContainer"] > .container > .row > .col:first-child {
   --ifm-footer-link-color: var(--gap-muted);
   --ifm-footer-title-color: var(--ifm-font-color-base);
   border-top: 1px solid var(--gap-line);
-  padding: 1.5rem 0;
+  padding: 9rem 0 1.25rem;   /* a wide margin under the hairline; the links end near the page's bottom edge */
   font-size: 0.85rem;
 }
 /* Full width, so the columns line up with the navbar's edges. */
@@ -1089,13 +1089,6 @@ main[class*="docMainContainer"] > .container > .row > .col:first-child {
 .footer__brand .footer__item:last-child {
   margin-top: auto;
 }
-/* Side by side, the brand column is taller than the lists: the tagline at the top, the credit at the
-   bottom, open space between, and room under the links. */
-@media (min-width: 641px) {
-  .footer__col.footer__brand {
-    min-height: 19rem;
-  }
-}
 /* Nothing follows the links, so they end at the footer's padding, the same as above the titles. */
 .footer__links {
   margin-bottom: 0;
@@ -1106,9 +1099,12 @@ main[class*="docMainContainer"] > .container > .row > .col:first-child {
     flex: 1 0 50%;
     margin-bottom: 0;
   }
+  .footer {
+    padding: 5rem 0 1.25rem;
+  }
   .footer__col.footer__brand {
     flex-basis: 100%;
-    margin-bottom: 5rem;
+    margin-bottom: 4rem;
   }
 }
 .built-by {
