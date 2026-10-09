@@ -55,7 +55,7 @@ export default function Home(): React.JSX.Element {
           <section className={styles.close} aria-labelledby="next-heading">
             <div className={styles.closeCopy}>
               <h2 id="next-heading" className={styles.closeTitle}>Explore the protocol.</h2>
-              <p>How does GAP work, where does it help, and what does it require? Start with whichever question is yours.</p>
+              <p>How does GAP work, where does it help, and what does it require?</p>
             </div>
             <nav className={styles.paths} aria-labelledby="next-heading">
               {PATHS.map((path) => (
