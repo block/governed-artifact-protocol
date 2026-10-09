@@ -4,7 +4,7 @@ The GAP site is published at <https://block.github.io/governed-artifact-protocol
 
 ## Run locally
 
-Use Node.js 22 (see [`.nvmrc`](../.nvmrc)) and pnpm. From the repository root:
+Use Node.js 24 (see [`.nvmrc`](../.nvmrc)) and pnpm. From the repository root:
 
 ```bash
 pnpm install

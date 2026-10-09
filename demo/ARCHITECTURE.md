@@ -53,7 +53,7 @@ Each domain lives in `demo/src/domains/<id>/` with its own lifecycle, authority,
 
 ## Checks
 
-From the repository root, with Node.js 22:
+From the repository root, with Node.js 22 or later:
 
 ```bash
 pnpm typecheck:demo
