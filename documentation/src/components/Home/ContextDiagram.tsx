@@ -492,6 +492,110 @@ export default function ContextDiagram(): React.JSX.Element {
     };
   }, [phone]);
 
+  // On a phone the carousel pages itself. Native snapping is the fallback until this runs, but iPhone Safari
+  // carries a flick past the next slide whatever scroll-snap-stop says. So the carousel stops scrolling on its own
+  // (the stylesheet's [data-paged]) and a swipe moves one slide: the drag follows the finger, and on release a
+  // drag that went a quarter of a slide, or was flicked, moves on; anything less springs back. Vertical pans stay
+  // the page's. A sideways trackpad or wheel gesture moves one slide too, however long its momentum runs.
+  useEffect(() => {
+    const element = track.current;
+    if (!phone || !element) return;
+    const slides = () => Array.from(element.children) as HTMLElement[];
+    const offsetOf = (index: number) => {
+      const all = slides();
+      return Math.min(all[index].offsetLeft - all[0].offsetLeft, element.scrollWidth - element.clientWidth);
+    };
+    const nearest = () => slides().reduce((best, _, i) =>
+      Math.abs(offsetOf(i) - element.scrollLeft) < Math.abs(offsetOf(best) - element.scrollLeft) ? i : best, 0);
+    // Where the carousel is: the slide it is on its way to while a move is still easing, and otherwise the slide
+    // in view, in case anything else scrolled it (a screen reader bringing a card into view, say).
+    let index = nearest();
+    let movedAt = 0;
+    const current = () => (performance.now() - movedAt < 700 ? index : nearest());
+    const go = (to: number, animate = true) => {
+      index = Math.max(0, Math.min(slides().length - 1, to));
+      movedAt = performance.now();
+      element.scrollTo({ left: offsetOf(index), behavior: animate && !quick() ? "smooth" : "instant" });
+    };
+
+    type Drag = { id: number; x: number; y: number; left: number; from: number; moving: boolean; samples: [number, number][] };
+    let drag: Drag | null = null;
+    const down = (event: PointerEvent) => {
+      if (!event.isPrimary || event.button !== 0) return;
+      drag = { id: event.pointerId, x: event.clientX, y: event.clientY, left: element.scrollLeft, from: current(), moving: false, samples: [[event.timeStamp, event.clientX]] };
+    };
+    const move = (event: PointerEvent) => {
+      if (!drag || event.pointerId !== drag.id) return;
+      const dx = event.clientX - drag.x;
+      if (!drag.moving) {
+        if (Math.abs(dx) < 6) return;
+        if (Math.abs(event.clientY - drag.y) > Math.abs(dx)) {
+          drag = null;   // a vertical drag; the page scrolls
+          return;
+        }
+        drag.moving = true;
+        element.setPointerCapture(event.pointerId);
+        window.getSelection()?.removeAllRanges();   // a mouse drag across a caption pages; it does not select
+      }
+      element.scrollLeft = drag.left - dx;
+      drag.samples.push([event.timeStamp, event.clientX]);
+      if (drag.samples.length > 5) drag.samples.shift();   // the speed at release is over the last few moves
+    };
+    const up = (event: PointerEvent) => {
+      if (!drag || event.pointerId !== drag.id) return;
+      const { moving, from, x, samples } = drag;
+      drag = null;
+      if (!moving) return;
+      const dx = event.clientX - x;
+      const [since, start] = samples[0];
+      const speed = (event.clientX - start) / Math.max(1, event.timeStamp - since);   // px per ms; rightward is back
+      const width = slides()[from].offsetWidth;
+      const flicked = Math.abs(speed) > 0.4 && Math.abs(dx) > 24;   // a brush of the screen is not a flick
+      go(from + (flicked ? -Math.sign(speed) : Math.abs(dx) > width / 4 ? -Math.sign(dx) : 0));
+    };
+    const cancel = (event: PointerEvent) => {
+      if (!drag || event.pointerId !== drag.id) return;
+      const { moving, from } = drag;
+      drag = null;
+      if (moving) go(from);
+    };
+
+    let sum = 0;
+    let held = false;
+    let quiet = 0;
+    const wheel = (event: WheelEvent) => {
+      if (Math.abs(event.deltaX) <= Math.abs(event.deltaY)) return;
+      event.preventDefault();
+      window.clearTimeout(quiet);
+      quiet = window.setTimeout(() => { held = false; sum = 0; }, 200);   // the gesture, momentum and all, is over
+      if (held) return;
+      sum += event.deltaX;
+      if (Math.abs(sum) < 40) return;
+      held = true;
+      go(current() + Math.sign(sum));
+    };
+    const realign = () => go(current(), false);
+
+    element.dataset.paged = "";
+    element.addEventListener("pointerdown", down);
+    element.addEventListener("pointermove", move);
+    element.addEventListener("pointerup", up);
+    element.addEventListener("pointercancel", cancel);
+    element.addEventListener("wheel", wheel, { passive: false });
+    window.addEventListener("resize", realign);
+    return () => {
+      delete element.dataset.paged;
+      element.removeEventListener("pointerdown", down);
+      element.removeEventListener("pointermove", move);
+      element.removeEventListener("pointerup", up);
+      element.removeEventListener("pointercancel", cancel);
+      element.removeEventListener("wheel", wheel);
+      window.removeEventListener("resize", realign);
+      window.clearTimeout(quiet);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [phone]);
+
   // The focused record's caption, in the left column. The question is the heading above it, so the caption
   // carries it only for screen readers, which hear question and answer together.
   const caption = (

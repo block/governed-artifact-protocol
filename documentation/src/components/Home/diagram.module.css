@@ -596,6 +596,13 @@
     transform: none;
   }
   .space::-webkit-scrollbar { display: none; }
+  /* Once the component pages the carousel, it no longer scrolls or snaps on its own: a sideways drag is the
+     component's to follow, and a vertical one still scrolls the page. The snapping above is for before then. */
+  .space[data-paged] {
+    overflow: hidden;
+    scroll-snap-type: none;
+    touch-action: pan-y;
+  }
   /* A slide taller than the one in view fades out by the line where that one ends; the component sets --cut. */
   .space [data-cut] {
     -webkit-mask-image: linear-gradient(to bottom, #000 calc(var(--cut) - 6rem), transparent var(--cut));
@@ -609,7 +616,7 @@
     grid-template-rows: subgrid;
     min-width: 0;
     scroll-snap-align: start;
-    scroll-snap-stop: always;   /* a quick flick moves one slide, never past the next */
+    scroll-snap-stop: always;   /* a quick flick moves one slide, never past the next (iPhone Safari aside) */
   }
   .post,
   .stage[data-revealed] .post {
