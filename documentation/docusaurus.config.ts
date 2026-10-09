@@ -9,11 +9,14 @@ import { gapTheme } from "./src/prism/gapTheme";
 const repoUrl = (process.env.GAP_REPO_URL ?? "https://github.com/block/governed-artifact-protocol").replace(/\/$/, "");
 const repoBranch = process.env.GAP_REPO_BRANCH ?? "main";
 const baseUrl = process.env.DOCS_BASE_URL ?? "/";
+// The one short description of GAP: the site tagline, the footer, the home
+// page's meta description, and the GitHub repository description all use it.
+const tagline = "An open protocol for keeping context with content across systems and teams.";
 const [organizationName, projectName] = new URL(repoUrl).pathname.split("/").filter(Boolean);
 
 const config: Config = {
   title: "Governed Artifact Protocol",
-  tagline: "An open protocol for keeping content, its rules, and its release evidence connected across systems.",
+  tagline,
   favicon: "img/favicon.svg",
   headTags: [
     { tagName: "link", attributes: { rel: "icon", type: "image/png", sizes: "32x32", href: `${baseUrl}img/favicon-32.png` } },
@@ -131,16 +134,40 @@ const config: Config = {
     },
     footer: {
       style: "light",
+      // Columns: the project, its tagline, and its credit, then two groups of
+      // links. The credit sits at the bottom of its column, level with the
+      // longest list.
       links: [
-        { label: "Contribute", href: `${repoUrl}/blob/${repoBranch}/CONTRIBUTING.md` },
-        { label: "Blog", to: "/blog" },
-        { label: "Discussions", href: `${repoUrl}/discussions` },
-        { label: "Report a problem", href: `${repoUrl}/issues/new/choose` },
-        { label: "Governance", href: `${repoUrl}/blob/${repoBranch}/GOVERNANCE.md` },
-        { label: "Code of conduct", href: "https://github.com/block/.github/blob/main/CODE_OF_CONDUCT.md" },
-        { label: "License", href: `${repoUrl}/blob/${repoBranch}/LICENSE` },
+        {
+          title: "Governed Artifact Protocol",
+          className: "footer__brand",
+          items: [
+            { html: tagline, className: "footer__tagline" },
+            {
+              html:
+                '<a class="built-by" href="https://block.xyz" target="_blank" rel="noreferrer" aria-label="Built by Block">' +
+                'Built by <span class="block-mark" aria-hidden="true"></span></a>',
+            },
+          ],
+        },
+        {
+          title: "Project",
+          items: [
+            { label: "Contribute", href: `${repoUrl}/blob/${repoBranch}/CONTRIBUTING.md` },
+            { label: "Governance", href: `${repoUrl}/blob/${repoBranch}/GOVERNANCE.md` },
+            { label: "License", href: `${repoUrl}/blob/${repoBranch}/LICENSE` },
+          ],
+        },
+        {
+          title: "Community",
+          items: [
+            { label: "Blog", to: "/blog" },
+            { label: "Discussions", href: `${repoUrl}/discussions` },
+            { label: "Report a problem", href: `${repoUrl}/issues/new/choose` },
+            { label: "Code of conduct", href: "https://github.com/block/.github/blob/main/CODE_OF_CONDUCT.md" },
+          ],
+        },
       ],
-      copyright: "Governed Artifact Protocol · draft · Apache-2.0",
     },
     prism: {
       // One theme built from CSS variables; it follows html[data-theme] itself.

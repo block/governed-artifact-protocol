@@ -1,13 +1,15 @@
 import React from "react";
 import Layout from "@theme/Layout";
 import Link from "@docusaurus/Link";
+import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import ContextDiagram from "./ContextDiagram";
 import Wordmark from "@site/src/components/Wordmark";
 import styles from "./styles.module.css";
 
 export default function Home(): React.JSX.Element {
+  const { siteConfig } = useDocusaurusContext();
   return (
-    <Layout description="GAP connects released content to its profile, declared source references, and release authorization.">
+    <Layout description={siteConfig.tagline}>
       {/* The example spills out of the column to the viewport's edge; this keeps it from ever scrolling sideways
           where scrollbars take up room, since viewport units count the scrollbar and the page does not. */}
       <div className={styles.page}>
