@@ -82,6 +82,7 @@
   color: var(--gap-ink);
   text-decoration: none;
 }
+.path:last-child { border-bottom: 0; }   /* the footer's hairline follows; one rule is enough */
 .path:hover { color: var(--gap-ink); text-decoration: none; }
 .pathTitle {
   font-family: var(--gap-display);
