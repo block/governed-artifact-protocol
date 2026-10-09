@@ -1,12 +1,11 @@
 name: Documentation
 
 # Builds the Docusaurus site in documentation/ on every change that affects
-# it, and deploys the result to GitHub Pages when main changes.
+# it, and deploys the result to GitHub Pages when main changes. The site is
+# published at https://block.github.io/governed-artifact-protocol/.
 #
 # Deployment requires GitHub Pages to be enabled for the repository with
 # "GitHub Actions" as the source (Settings → Pages → Build and deployment).
-# Until that is done, the deploy job fails at "Configure GitHub Pages" while
-# the build job still validates the site on pull requests.
 
 on:
   workflow_dispatch:
