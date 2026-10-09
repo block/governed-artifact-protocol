@@ -11,7 +11,7 @@ const PATHS = [
   {
     title: "Case studies",
     to: "/case-studies",
-    description: "Fictional handoffs that show where a release check helps and what still needs judgment.",
+    description: "Fictional stories of content changing hands, and how GAP could help.",
   },
   {
     title: "Domains",
