@@ -140,7 +140,10 @@ const config: Config = {
         { label: "Code of conduct", href: "https://github.com/block/.github/blob/main/CODE_OF_CONDUCT.md" },
         { label: "License", href: `${repoUrl}/blob/${repoBranch}/LICENSE` },
       ],
-      copyright: "Governed Artifact Protocol · draft · Apache-2.0",
+      copyright:
+        'Governed Artifact Protocol · draft · Apache-2.0' +
+        '<a class="built-by" href="https://block.xyz" target="_blank" rel="noreferrer" aria-label="Built by Block">' +
+        'Built by <span class="block-mark" aria-hidden="true"></span></a>',
     },
     prism: {
       // One theme built from CSS variables; it follows html[data-theme] itself.

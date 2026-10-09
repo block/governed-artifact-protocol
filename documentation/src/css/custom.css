@@ -1029,6 +1029,30 @@ main[class*="docMainContainer"] > .container > .row > .col:first-child {
 .footer__link-item > svg {
   display: none;
 }
+.footer__copyright {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem 1.5rem;
+}
+.built-by {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: inherit;
+}
+.built-by:hover {
+  color: var(--ifm-font-color-base);
+  text-decoration: none;
+}
+.block-mark {
+  display: inline-block;
+  width: 0.7rem;
+  height: 0.7rem;
+  background-color: currentColor;
+  mask: url("/img/block.svg") no-repeat center / contain;
+}
 
 /* Blog: its own layout. A landing list, then a post page with a narrow measure. */
 .blog-list-page main,
