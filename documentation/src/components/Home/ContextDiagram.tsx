@@ -148,8 +148,9 @@ const HEADING = "See the protocol\nin action.";
 const lines = (text: string) => text.split("\n").flatMap((line, index) => (index ? [<br key={index} />, line] : [line]));
 const oneLine = (text: string) => text.replace(/\n/g, " ");
 const INVITATION = "What rules shaped this post? Who objected, who approved, who authorized its release? Those records travel with it.";
-// On a phone the post is the carousel's first slide, and it is captioned like the records after it.
-const POST_CAPTION = { question: "What does\nthe reader see?", answer: "The post as it is published. Swipe to see the records that travel with it." };
+// On a phone the post is the carousel's first slide, captioned like the records after it and about as long, so
+// the captions line up. The heading leads straight into it there; the invitation is for the wide layout.
+const POST_CAPTION = { question: "What does\nthe reader see?", answer: "The post as it is published, shown in one of its four locales. Swipe to see the records that travel with it." };
 
 /* --- the outline: the record as a plain list, each field named in words beside its value --- */
 // A key in words: "artifactVersion" reads "Artifact version". A key that is not camelCase, like a locale

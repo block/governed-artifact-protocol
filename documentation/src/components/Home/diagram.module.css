@@ -562,9 +562,15 @@
     --card-height: 26rem;
     --gutter: 5vw;   /* the page's own margin: the home column's padding, which is 20px below 600px */
     --slide: calc(100vw - var(--gutter) - 2.5rem);   /* what is left shows a strip of the next slide */
+    gap: 0.75rem 0;
   }
   .copy { max-width: none; }
   .copyBody { margin-bottom: 0; }
+  /* The heading leads straight into the carousel, whose first caption does the invitation's work; nothing is
+     revealed here, so there is no other pair to make room for. */
+  .stage .sizer,
+  .stage .copyBody .invitation { display: none; }
+  .stage .title { margin-bottom: 0; }
   .resetRow, .control { display: none; }
   .scene { height: auto; }
   .space {
