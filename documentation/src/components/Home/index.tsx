@@ -16,12 +16,12 @@ const PATHS = [
   {
     title: "Domains",
     to: "/domains",
-    description: "GAP modeled for a blog, an issue tracker, and a research journal. Building each one helps shape the draft.",
+    description: "GAP modeled for a blog, an issue tracker, and a research journal, each helping shape the draft.",
   },
   {
     title: "Working draft",
     to: "/specification/working-draft",
-    description: "Every normative rule, with record schemas, example records, and requirements coverage.",
+    description: "The rules themselves, with schemas, example records, and coverage.",
   },
 ];
 
