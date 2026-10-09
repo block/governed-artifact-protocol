@@ -111,8 +111,8 @@ export default function ArtifactExample({ set, artifactId, id }: Props): React.J
   const payload = object((release ?? selected).json.payload);
   if (!payload) throw new Error(`Missing payload for ${artifactId} v${version}`);
   const profilePin = object(selected.json.profile);
-  const profile = data.files.find((file) => kindOf(file) === "profile-revision" &&
-    file.json.profileId === profilePin?.profileId && file.json.revision === profilePin.revision && file.json.digest === profilePin.digest);
+  const profile = profilePin && data.files.find((file) => kindOf(file) === "profile-revision" &&
+    file.json.profileId === profilePin.profileId &&file.json.revision === profilePin.revision && file.json.digest === profilePin.digest);
   const decisions = matches.filter((file) => ["release-rejection", "release-approval"].includes(kindOf(file)))
     .sort((a, b) => (subjectOf(b)?.artifactVersion ?? 0) - (subjectOf(a)?.artifactVersion ?? 0) || (kindOf(a) === "release-rejection" ? 0 : 1) - (kindOf(b) === "release-rejection" ? 0 : 1));
   const evidence = matches.filter((file) => ["release-authorization", "release", "release-proof", "release-withdrawal", "release-proof-withdrawn"].includes(kindOf(file)))
