@@ -1023,33 +1023,35 @@ main[class*="docMainContainer"] > .container > .row > .col:first-child {
   padding: 1.5rem 0;
   font-size: 0.85rem;
 }
+/* Full width, so the columns line up with the navbar's edges. */
+.footer > .container {
+  max-width: none;
+}
 .footer__link-item > svg {
   display: none;
 }
+/* Column titles in Bungee, as the sidebar's section headings. */
 .footer__title {
   margin-bottom: 0.6rem;
-  font-size: 0.7rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--gap-muted);
+  font-family: var(--gap-display);
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: var(--ifm-footer-title-color);
 }
 .footer__item {
   line-height: 1.9;
 }
 
-/* The brand column: its title reads as the project name, and the credit
-   drops to the bottom so it lines up with the last link in the longest list. */
+/* The brand column takes the free space and the link columns sit at the right
+   edge. The credit drops to the bottom so it lines up with the last link in
+   the longest list. */
+.footer__col {
+  flex: 0 0 12rem;
+}
 .footer__col.footer__brand {
   display: flex;
+  flex: 1;
   flex-direction: column;
-  flex-grow: 1.6;
-}
-.footer__brand .footer__title {
-  font-size: 0.85rem;
-  letter-spacing: normal;
-  text-transform: none;
-  color: var(--ifm-footer-title-color);
 }
 .footer__brand .footer__items {
   display: flex;
@@ -1058,6 +1060,15 @@ main[class*="docMainContainer"] > .container > .row > .col:first-child {
 }
 .footer__brand .footer__item:last-child {
   margin-top: auto;
+}
+@media (max-width: 640px) {
+  .footer__col {
+    flex: 1 0 50%;
+  }
+  .footer__col.footer__brand {
+    flex-basis: 100%;
+    margin-bottom: 1.5rem;
+  }
 }
 .built-by {
   display: inline-flex;
