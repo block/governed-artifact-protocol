@@ -1089,13 +1089,19 @@ main[class*="docMainContainer"] > .container > .row > .col:first-child {
 .footer__brand .footer__item:last-child {
   margin-top: auto;
 }
+/* Nothing follows the links, so they end at the footer's padding, the same as above the titles. */
+.footer__links {
+  margin-bottom: 0;
+}
+/* Stacked, the space the link columns would leave under themselves goes between the brand and the links. */
 @media (max-width: 640px) {
   .footer__col {
     flex: 1 0 50%;
+    margin-bottom: 0;
   }
   .footer__col.footer__brand {
     flex-basis: 100%;
-    margin-bottom: 1.5rem;
+    margin-bottom: 5rem;
   }
 }
 .built-by {
