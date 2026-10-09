@@ -75,7 +75,7 @@ test("the four section headings follow #218 without Project or a second Demo sec
 test("header and footer follow #218, with Project destinations in the repository", () => {
   const theme = config.themeConfig as {
     navbar: { items: { to?: string; href?: string; label?: string; title?: string; "aria-label"?: string }[] };
-    footer: { links: { to?: string; href?: string; label: string }[] };
+    footer: { links: { title: string; items: { to?: string; href?: string; label?: string; html?: string }[] }[] };
   };
   assert.deepEqual(theme.navbar.items.filter((item) => item.to).map((item) => [item.label, item.to]), [
     ["Draft specification", "/specification/working-draft"],
@@ -84,9 +84,17 @@ test("header and footer follow #218, with Project destinations in the repository
   const github = theme.navbar.items.find((item) => item.href);
   assert.equal(github?.["aria-label"], "GitHub");
   assert.equal(github?.title, "GitHub");
-  assert.deepEqual(theme.footer.links.map((item) => item.label), ["Contribute", "Blog", "Discussions", "Report a problem", "Governance", "Code of conduct", "License"]);
-  assert(theme.footer.links.find((item) => item.label === "Contribute")?.href?.endsWith("/CONTRIBUTING.md"));
-  assert(!theme.footer.links.some((item) => item.to?.startsWith("/project")));
+  const [brand, ...columns] = theme.footer.links;
+  assert.equal(brand.title, "Governed Artifact Protocol");
+  assert.equal(brand.items[0].html, config.tagline);
+  assert(brand.items.at(-1)?.html?.includes('href="https://block.xyz"'));
+  assert.deepEqual(columns.map((column) => [column.title, column.items.map((item) => item.label)]), [
+    ["Project", ["Contribute", "Governance", "License"]],
+    ["Community", ["Blog", "Discussions", "Report a problem", "Code of conduct"]],
+  ]);
+  const footerLinks = columns.flatMap((column) => column.items);
+  assert(footerLinks.find((item) => item.label === "Contribute")?.href?.endsWith("/CONTRIBUTING.md"));
+  assert(!footerLinks.some((item) => item.to?.startsWith("/project")));
 });
 
 test("on-page-only demos keep native docs navigation on direct visits", () => {
