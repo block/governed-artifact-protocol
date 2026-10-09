@@ -630,7 +630,12 @@
     cursor: auto;
     pointer-events: auto;
   }
-  .stage .tree { --key: 7rem; --indent: 0.6rem; }
+  /* Too narrow for names and values side by side: each field's name sits over its value, which takes the
+     card's whole width, so a reason reads as a paragraph rather than a column a few words wide. */
+  .stage .tree { --indent: 0.75rem; }
+  .stage .leaf { grid-template-columns: minmax(0, 1fr); gap: 0.1rem 0; }
+  .stage .leaf,
+  .stage .group { padding: 0.4rem 0; }
   .measure { display: none; }
   .stage .slot .cardBody { font-size: 0.74rem; }
   .stage .slot .leaf::before, .stage .slot .group::before, .stage .slot .leaf > *, .stage .slot .group > * { animation: none; }
