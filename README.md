@@ -4,7 +4,7 @@
 
 Content moves between tools, people, and AI agents. The answers to "what was this based on?" and "who signed off on it?" usually stay behind, in a review thread, an agent session, or someone's memory. When an AI agent receives content through a file, a copied answer, or another tool, its available context may differ from the context in which that content was created.
 
-**Governed Artifact Protocol (GAP)** defines how applications keep content connected to its rules, source references, and release decisions. Think of them as a context packet that travels with each released version. A person or an AI agent receiving it can check which version was released, who authorized it, and which sources it names, without recreating the original workflow. Checking a source's own content requires retrieving it under the receiver's own access and trust rules.
+**Governed Artifact Protocol (GAP)** defines how applications keep content connected to its rules, source references, and release decisions. Records of all three travel with each released version as a context packet. A person or an AI agent receiving it can check which version was released, who authorized it, and which sources it names, without recreating the original workflow. Checking a source's own content requires retrieving it under the receiver's own access and trust rules.
 
 GAP is for people building and operating applications where a person or an AI agent creates, authorizes, or consumes structured content. Each application chooses its interface, storage, permissions, and review policy.
 
