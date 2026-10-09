@@ -103,6 +103,18 @@ const config: Config = {
   ],
 
   themeConfig: {
+    // Link previews. Docusaurus adds og:image and twitter:image from `image`, as absolute URLs; the tags below are
+    // ones it leaves out. Blog posts replace og:type with "article".
+    image: "img/social-card.png",
+    metadata: [
+      { property: "og:site_name", content: "Governed Artifact Protocol" },
+      { property: "og:type", content: "website" },
+      { property: "og:image:type", content: "image/png" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "og:image:alt", content: "Governed Artifact Protocol" },
+      { name: "twitter:image:alt", content: "Governed Artifact Protocol" },
+    ],
     tableOfContents: {
       minHeadingLevel: 2,
       maxHeadingLevel: 4,
