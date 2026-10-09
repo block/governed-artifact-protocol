@@ -1,0 +1,20 @@
+{
+  "artifactId": "paper:jellybean-quiz",
+  "artifactVersion": 1,
+  "payloadDigest": "sha256:93b44d0272dc2a1824cc9b43dc2d857910566d0df0ecd7281cb4d353d8a60d7d",
+  "profile": {
+    "profileId": "research-source",
+    "revision": 1,
+    "digest": "sha256:290320a5fa218822f9435d90657ce042beb845bdaaaabc62e8148bfa44c338e7"
+  },
+  "authorizedAt": "2026-10-08T09:15:00Z",
+  "authorizedBy": {
+    "actorId": "human:cited-works-editor",
+    "actorKind": "human"
+  },
+  "authorizationSubjectDigest": "sha256:5989df1f63a5861d8f2559d300399dfb1e6793000888043549508cba2e934c1f",
+  "authoritySignature": {
+    "signerId": "human:cited-works-editor",
+    "signature": "grKDw7QhrknPRsah7EVvzYqKDIzmqdklj6Cq1WBxix0FqeXkTFI5b7Q8gQ1XkEBba_DLabcNPbjO8HK4LmCrCw"
+  }
+}

@@ -1,0 +1,626 @@
+/* Two columns. Left: everything a reader reads, aligned with the hero and
+   never moving. Right: everything that moves, in a shallow three-dimensional
+   scene: the post as a publication prints it, shown whole, and the
+   records that travel with that exact version. Both kinds of card are paper,
+   but different paper: the post is a page in proportional type, a record is a
+   key/value table in monospace under a heavy rule. Distance is fog, never
+   transparency: every color on a far card mixes toward the page color and the
+   card softens slightly, but it stays solid. One accent marks whatever is in
+   front; everything else is ink and paper. */
+
+/* Registered so that a change of pose can ease the fog along with the transform. */
+@property --fog {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+/* A card's scale. Every card is laid out once at the focused width; a compact card is the same box scaled
+   down, so changing places never reflows its text. Registered so the scale eases with the flight. */
+@property --k {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+/* How far a tucked card's name steps in past the focused card's edge. */
+@property --shift {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0px;
+}
+
+.stage {
+  /* The focused record is as tall as the viewport allows and the post as tall as its words; the scene is
+     composed 1000 wide and 600 tall at the shortest, grows with whichever is taller, and is scaled down whole
+     to fit its column. The component measures the post. */
+  --card-height: clamp(30rem, calc(100svh - 12rem), 46rem);
+  --scene-height: max(calc(var(--card-height) + 60px), calc(var(--post-height, 0px) + 80px), calc(var(--records-height, 0px) + 60px));
+  --post-top: max(30px, calc((var(--scene-height) - var(--post-height, 0px)) / 2));   /* centered when the scene is taller */
+  --s: 1;                    /* set by the component: how far the composed scene shrinks to fit its column */
+  --ease: 900ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  display: grid;
+  grid-template-columns: clamp(260px, 27%, 360px) minmax(0, 1fr);
+  gap: 0 2.5rem;
+  align-items: center;
+}
+
+/* --- the left column --- */
+.copy { min-width: 0; }
+.resetRow { height: 1.6rem; margin-bottom: 0.35rem; }
+.reset {
+  margin: 0 0 0 -0.2rem;
+  padding: 0.1rem 0.2rem;
+  border: 0;
+  background: none;
+  color: var(--gap-muted);
+  font-family: var(--ifm-font-family-base);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.reset:hover, .reset:focus-visible { color: var(--gap-ink); text-decoration: underline; text-underline-offset: 0.3em; }
+.stage .title {
+  margin: 0 0 1rem;
+  color: var(--gap-ink);
+  font-family: var(--gap-display);
+  font-size: clamp(1.4rem, 1.7vw, 1.75rem);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  text-align: left;
+}
+.question { display: block; animation: caption 350ms ease both; }
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+/* The heading and paragraph are one block as tall as the tallest pair; the pair shown sits at its top, so the
+   paragraph stays close under its heading and the control below never moves when the words change. */
+.copyBody { display: grid; align-items: start; margin-bottom: 1.4rem; }
+.copyBody > * { grid-area: 1 / 1; }
+.stage .sizer { visibility: hidden; }
+.stage .invitation,
+.stage .about {
+  margin: 0;
+  color: var(--gap-ink);
+  font-size: 1rem;
+  line-height: 1.55;
+  text-align: left;
+  text-wrap: pretty;
+}
+.stage .about { animation: caption 350ms ease both; }
+@keyframes caption { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } }
+.control { display: flex; align-items: center; min-height: 2.8rem; -webkit-user-select: none; user-select: none; }   /* paging fast never selects the arrows or the count */
+.revealButton {
+  margin: 0;
+  padding: 0.65rem 1.2rem;
+  border: 1px solid var(--gap-ink);
+  border-radius: 999px;
+  background: var(--gap-ink);
+  color: var(--ifm-background-color);
+  font-family: var(--ifm-font-family-base);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 200ms ease, border-color 200ms ease;
+}
+.revealButton:hover { border-color: var(--ifm-color-primary); background: var(--ifm-color-primary); }
+.pager {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  animation: caption 350ms ease both;
+}
+.count {
+  margin-right: 0.2rem;
+  color: var(--gap-muted);
+  font-family: var(--gap-mono);
+  font-size: 0.72rem;
+}
+.arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  margin: 0;
+  padding: 0 0 0.15rem;
+  border: 1px solid var(--gap-line);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--gap-ink);
+  font-family: var(--gap-mono);
+  font-size: 1.15rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.arrow:hover { border-color: var(--gap-ink); background: var(--ifm-background-surface-color); }
+.revealButton:focus-visible,
+.arrow:focus-visible { outline: 2px solid var(--ifm-color-primary); outline-offset: 2px; }
+
+/* --- the scene --- */
+.scene {
+  position: relative;
+  height: calc(var(--scene-height) * var(--s));
+  min-width: 0;
+}
+.space {
+  position: relative;
+  width: 1000px;
+  height: var(--scene-height);
+  margin-left: max(0px, calc((100% - 1000px) / 2));   /* centered in a column wider than the composition */
+  transform: scale(var(--s));
+  transform-origin: 0 0;
+  /* Deliberately flat: each slot is projected on its own and painted in depth order by z-index. With a
+     shared 3D context, Chrome misses clicks on the rotated cards and they fall through to this element.
+     There is no perspective here either: whatever moves in depth carries its own, from the same eye point a
+     quarter of the way across and halfway down, so the focused record, which never leaves the page's plane,
+     can rest in plain 2D and render crisp. */
+}
+
+/* --- the post: a published page, the anchor at the left of the scene --- */
+/* Before the reveal it sits sharp on top of the pile. The reveal pushes it a little way back and the records
+   float over it, so its colors mix toward the page by the same fog the records use. */
+.post {
+  --fog: 0;
+  --ink2: color-mix(in srgb, var(--gap-ink) calc(100% - var(--fog) * 100%), var(--ifm-background-color));
+  --muted2: color-mix(in srgb, var(--gap-muted) calc(100% - var(--fog) * 100%), var(--ifm-background-color));
+  --line2: color-mix(in srgb, var(--gap-line) calc(100% - var(--fog) * 100%), var(--ifm-background-color));
+  --soft2: color-mix(in srgb, var(--gap-line-soft) calc(100% - var(--fog) * 100%), var(--ifm-background-color));
+  --surface2: color-mix(in srgb, var(--ifm-background-surface-color) calc(100% - var(--fog) * 60%), var(--ifm-background-color));
+  position: absolute;
+  top: var(--post-top);
+  left: 0;
+  z-index: 10;               /* on top of the pile until the records have flown out; then beneath them */
+  display: flex;
+  flex-direction: column;
+  width: 480px;
+  overflow: hidden;
+  border: 1px solid var(--line2);
+  border-radius: 12px;
+  background: var(--surface2);
+  box-shadow: 0 24px 50px -34px rgba(20, 16, 12, 0.5);
+  /* Its perspective's eye point is the scene's: a quarter across, halfway down. */
+  transform-origin: 250px calc(var(--scene-height) / 2 - var(--post-top));
+  transform: none;
+  /* In longhands: the site's minifier cannot read a custom property inside the shorthand, and drops it. */
+  transition-property: transform, --fog, box-shadow, z-index;
+  transition-duration: 650ms, 650ms, 650ms, 0s;   /* the reset's length, as REVEAL in the component */
+  transition-timing-function: cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: 0ms, 0ms, 0ms, 290ms;   /* back on top at the far point of its swing, clear of every card */
+}
+.stage[data-revealed="true"] .post {
+  --fog: 0.22;
+  z-index: 0;
+  box-shadow: 0 16px 36px -30px rgba(20, 16, 12, 0.35);
+  transform: perspective(1500px) translate3d(400px, 0, -200px) rotate(6deg);   /* back, over to peek out on the right of the focused record, tilted */
+  transition-duration: 650ms, 650ms, 650ms, 0s;   /* the reveal's length, as REVEAL in the component */
+  transition-delay: 0ms, 0ms, 0ms, 290ms;   /* beneath the records at the far point of its swing, clear of every card */
+}
+.stage[data-revealed="true"][data-settled="true"] .post { transition-duration: 900ms; transition-delay: 0ms; }
+/* The masthead says only what this is. */
+.stage .masthead {
+  margin: 0;
+  padding: 0.85rem 1.5rem;
+  border-bottom: 1px solid var(--soft2);
+  color: var(--ink2);
+  font-family: var(--ifm-font-family-base);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+.postBody {
+  padding: 1.5rem 1.5rem 0.5rem;
+}
+.stage .kicker {
+  margin: 0 0 0.7rem;
+  color: var(--muted2);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.stage .post h3 {
+  margin: 0 0 0.8rem;
+  color: var(--ink2);
+  font-family: var(--ifm-font-family-base);
+  font-size: 1.8rem;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+.stage .byline {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0 0 1.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--soft2);
+  color: var(--muted2);
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+.byline strong { color: var(--ink2); }
+.avatar {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--ink2);
+  color: var(--surface2);
+  font-size: 0.6rem;
+  font-weight: 700;
+}
+.stage .postBody > p {
+  max-width: 40ch;
+  margin: 0 0 1rem;
+  color: var(--ink2);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+/* --- the records --- */
+/* A slot is a place in the scene. Its card drifts within it; changing places eases the slot itself. */
+.slot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 520px;   /* every card's one width; the pose scales it */
+  /* The scene's perspective, about its eye point; the component's flights write the same prefix. */
+  --depth: translate(250px, calc(var(--scene-height) / 2)) perspective(1500px) translate(-250px, calc(var(--scene-height) / -2));
+  transform: var(--depth) translate3d(var(--x), calc(var(--y) + (var(--scene-height) - 600px) * var(--yf) + (var(--post-top) - 30px) * var(--yp)), var(--z)) rotateX(var(--rx)) rotateY(var(--ry)) rotateZ(var(--rz));
+  transform-origin: 0 0;
+  transform-style: preserve-3d;
+  pointer-events: none;   /* the slot's box is the unscaled card; only the card itself takes the pointer */
+  /* Where a slot is comes from its variables; how it gets there is the component's flight (Web Animations),
+     so a card can go around another instead of through it. Scale, fog, and the name's step ease here. */
+  transition: --fog var(--ease), --k var(--ease), --shift var(--ease), translate var(--ease);
+}
+.slot .card { pointer-events: auto; }
+/* The focused record at rest sits in the page's own plane, so it takes a plain 2D position: no perspective,
+   no depth, no filter. Its card is then nudged onto whole device pixels by the component (--snap-x/y), so
+   its text is drawn sharp on a low-density screen as on a high one. */
+.stage[data-revealed="true"] .slot[data-on] {
+  transform: translate(var(--x), calc(var(--y) + (var(--scene-height) - 600px) * var(--yf) + (var(--post-top) - 30px) * var(--yp)));
+  transform-style: flat;
+}
+.stage[data-revealed="true"] .slot[data-on] .card {
+  filter: none;
+  transform: translate(var(--snap-x, 0px), var(--snap-y, 0px)) scale(var(--k));
+}
+.slot:not([data-on]) .card { cursor: pointer; }
+
+/* --- the teaser and the reveal --- */
+/* Until the button is pressed, the records fan out behind the post (the component gives each slot its place
+   in the pile), deep enough in the fog to be unreadable and drifting a little, their edges showing past it.
+   The press is the reveal: the cards slide out from behind the post, then fly to their places. */
+.stage[data-revealed="false"] .slot .card { pointer-events: none; animation-name: drift; }
+/* Back to the pile at the reveal's pace. */
+.stage[data-revealed="false"] .slot,
+.stage[data-revealed="false"] .card { transition-duration: 650ms; }
+.stage[data-revealed="true"] .slot { transition-duration: 650ms; transition-delay: calc(25ms + var(--i) * 25ms); }
+.stage[data-revealed="true"] .slot[data-on] { transition-delay: 0ms; }
+/* Once the cards have arrived, changing places eases at the ordinary pace again. */
+.stage[data-revealed="true"][data-settled="true"] .slot { transition-duration: 650ms; transition-delay: 0ms; }   /* a swap, as REVEAL: the card's size keeps pace with its flight and its record */
+
+/* Fog: each color on the card, and the surface itself, mixes toward the page by the slot's fog amount. */
+.card {
+  --ink2: color-mix(in srgb, var(--gap-ink) calc(100% - var(--fog) * 100%), var(--ifm-background-color));
+  --muted2: color-mix(in srgb, var(--gap-muted) calc(100% - var(--fog) * 100%), var(--ifm-background-color));
+  --line2: color-mix(in srgb, var(--gap-line) calc(100% - var(--fog) * 100%), var(--ifm-background-color));
+  --soft2: color-mix(in srgb, var(--gap-line-soft) calc(100% - var(--fog) * 100%), var(--ifm-background-color));
+  --surface2: color-mix(in srgb, var(--ifm-background-surface-color) calc(100% - var(--fog) * 60%), var(--ifm-background-color));
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--line2);
+  border-radius: calc(10px / var(--k));
+  background: var(--surface2);
+  color: var(--ink2);
+  box-shadow: 0 calc(28px - var(--fog) * 20px) calc(56px - var(--fog) * 36px) calc(-30px + var(--fog) * 6px) rgba(20, 16, 12, calc(0.55 - var(--fog) * 0.4));
+  filter: blur(calc(var(--fog) * 1.1px / var(--k)));
+  transform: scale(var(--k));
+  transform-origin: 0 0;
+  animation: drift ease-in-out infinite alternate;
+  animation-duration: calc(9s + var(--i) * 1.7s);
+  animation-delay: calc(var(--i) * -2.3s);
+}
+/* The focused card holds still and is as tall as its record needs, and never scrolls: the scene grows to fit
+   the tallest record. Its slot is at the middle of the scene and the card rises by half
+   its own height, so it is centered whatever its record. */
+.card { transition: translate var(--ease), rotate var(--ease); }
+.stage[data-revealed="true"] .card { transition-duration: 650ms; }
+.stage[data-revealed="true"][data-settled="true"] .card { transition-duration: 650ms; }
+.slot[data-on] .card { animation: none; }
+.stage[data-revealed="true"] .slot[data-on] .card { translate: 0 -50%; }
+@keyframes drift {
+  0%   { transform: translate3d(0, 0, 0) rotateZ(0deg) scale(var(--k)); }
+  33%  { transform: translate3d(5px, -9px, 6px) rotateZ(0.6deg) scale(var(--k)); }
+  66%  { transform: translate3d(-4px, -3px, -4px) rotateZ(-0.5deg) scale(var(--k)); }
+  100% { transform: translate3d(2px, 8px, 2px) rotateZ(0.3deg) scale(var(--k)); }
+}
+/* The record's contents arrive with the card: as soon as it sets off for the front, the record is ruled up
+   and filled in, row by row in reading order. Each rule runs out from the left to the card's edge and its
+   row's words follow it in. Nothing is held once done, so the text is not kept on a layer of its own. */
+.slot[data-on] { --enter: 0ms; }
+.slot[data-on] .leaf::before,
+.slot[data-on] .group::before {
+  animation: draw 600ms cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
+  animation-delay: calc(var(--enter) + var(--n) * 14ms);   /* times in calc() go in the longhands, where the minifier reads them */
+}
+.slot[data-on] .leaf > *,
+.slot[data-on] .group > * {
+  animation: appear 340ms cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
+  animation-delay: calc(var(--enter) + 80ms + var(--n) * 14ms);
+}
+@keyframes draw {
+  from { transform: scaleX(0); }
+}
+@keyframes appear {
+  from { opacity: 0; }
+}
+
+/* The head is the one part of a card that keeps its size on the page whatever the card's scale: its height
+   and its name are counter-scaled, so a name reads the same on a compact card as on the focused one and
+   never jumps when the two trade places. */
+.cardHead {
+  position: relative;
+  flex: none;
+  height: calc(2.1rem / var(--k));
+}
+.cardName {
+  position: absolute;
+  top: calc(0.6rem / var(--k));
+  left: calc(0.9rem / var(--k));
+  max-width: calc(100% * var(--k) - 1.8rem);
+  line-height: 1.25;
+  transform: scale(calc(1 / var(--k))) translateX(var(--shift));
+  transform-origin: 0 0;
+}
+.cardTitle {
+  display: block;
+  transform-origin: 0 0;   /* a flight steps its size about its start */
+  color: var(--ink2);
+  font-family: var(--gap-display);   /* the heading face, as the question beside it */
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+.cardBody {
+  flex: 1;
+  min-height: 0;
+  padding: 0.2rem 0.9rem 0.7rem;
+  font-size: 0.66rem;
+  line-height: 1.5;
+}
+.slot[data-on] .cardBody,
+.measure .cardBody { font-size: 0.74rem; }
+/* A compact card says what it is and only suggests its record: a skeleton of its first lines, a key and a
+   value to each, drawn at twice the size so it reads right at half scale. Soft bars only, no rules: rules
+   shimmer as the card drifts. */
+.skeleton {
+  padding: 0 1.8rem 1.8rem;
+}
+.skeletonRow {
+  display: flex;
+  gap: 1.2rem;
+  padding: 0.7rem 0;
+}
+.skeletonRow:first-child { padding-top: 0.3rem; }
+.skeletonRow span {
+  display: block;
+  width: var(--bw);
+  flex: none;
+  max-width: 60%;
+  height: 0.9rem;
+  border-radius: 999px;
+  background: var(--line2);
+}
+
+/* the outline: the record as a plain list. Each field is named in words, muted, with its value beside
+   it in the page's own type; a nested object is its name in bold with its fields indented under it, and the
+   values line up at every depth. A hairline parts the rows, like the site's tables; the card holding them is
+   still, so the rules stay crisp. */
+.tree {
+  --key: 11.5rem;
+  --indent: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--ifm-font-family-base);
+  font-size: 0.8rem;
+  line-height: 1.25;
+}
+.cardBody > .tree { padding-bottom: 0.1rem; }
+.tree .tree { padding-left: var(--indent); }
+.leaf,
+.group {
+  position: relative;
+  padding: 0.24rem 0;
+}
+/* the hairline above each row, drawn as its own box so it can run out from the left */
+.leaf::before,
+.group::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 1px;
+  background: var(--soft2);
+  transform-origin: 0 0;
+}
+.cardBody > .tree > :first-child::before,
+.cardBody > .tree > :first-child > .group::before { content: none; }
+.leaf {
+  display: grid;
+  grid-template-columns: calc(var(--key) - var(--depth) * var(--indent)) minmax(0, 1fr);
+  gap: 0 1rem;
+}
+.leaf > :last-child { min-width: 0; overflow-wrap: anywhere; }
+.group {
+  display: block;
+  color: var(--ink2);
+  font-weight: 700;
+}
+.tree .k,
+.tree .digest,
+.tree .more { color: var(--muted2); }
+.tree .str { color: var(--ink2); }
+/* The record's own top-level fields are named in bold ink, as its groups are; what sits inside a group is
+   named in muted regular type, so the top level reads as the record's outline at a glance. */
+.cardBody > .tree > .leaf > .k {
+  color: var(--ink2);
+  font-weight: 700;
+}
+/* Clipped by the type: a digest at the end of its one line, other text at the end of its second. */
+.tree .digest {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.tree .clamp {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+}
+
+/* A record's own caption, under it in the phone's carousel; everywhere else the left column has it. */
+.slideCaption { display: none; }
+/* Unseen copies of every record's outline, measured to size the scene; they take no room. */
+.measure {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 520px;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  pointer-events: none;
+}
+.measure .card { animation: none; }
+
+/* Once the post is tucked away, pointing at it makes way: the focused record slides left out of its way, the
+   stack drifts a little, and the post straightens, comes forward, and leaves the fog so it can be read again.
+   Pointer devices on the wide layout. */
+@media (hover: hover) and (min-width: 701px) {
+  .stage[data-settled="true"] .post:hover {
+    --fog: 0;
+    transform: perspective(1500px) translate3d(530px, 0, -140px) rotate(0deg);
+  }
+  .stage[data-settled="true"] .space:has(.post:hover) .slot[data-on] { translate: -140px 0; }
+  .stage[data-settled="true"] .space:has(.post:hover) .slot:not([data-on]) { translate: -10px 0; }
+  .stage[data-settled="true"] .space:has(.post:hover) .slot { transition-duration: 600ms; }
+  /* A record in the stack says it can be picked: under the pointer it slides out to the left and turns
+     square to the page, undoing its slot's tilt, then eases back when the pointer leaves. */
+  .stage[data-settled="true"] .slot:not([data-on]) .card:hover {
+    translate: -18px 0;
+    rotate: calc(var(--rz) * -1);
+    transition-duration: 320ms;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .stage .slot, .stage .post, .stage .card { transition: none; }
+  .stage .card, .stage .about, .stage .pager, .stage .question { animation: none; }
+  .stage .leaf::before, .stage .group::before, .stage .leaf > *, .stage .group > * { animation: none; }
+}
+/* One column: the words, then the scene beneath them at whatever scale fits. */
+@media (max-width: 1100px) {
+  .stage { grid-template-columns: minmax(0, 1fr); gap: 2rem 0; }
+  .copy { max-width: 46ch; }
+  .copyBody { height: auto; min-height: 0; margin-bottom: 1.25rem; }
+  .space { margin-left: calc(56px * var(--s)); }   /* the stack reaches left of the scene's edge; no gutter here to take it */
+}
+/* A phone has no scene: the words, then a carousel of the post and the five records, one to a screen, the
+   next and the previous peeking in at the screen's edges. Every record is open, with its own caption under
+   it, so there is nothing to reveal and no pager: a swipe is the pager. */
+@media (max-width: 700px) {
+  .stage {
+    --card-height: 26rem;
+    --slide: calc(100vw - 4.5rem);   /* what is left shows a strip of each neighbor */
+  }
+  .copy { max-width: none; }
+  .copyBody { margin-bottom: 0; }
+  .resetRow, .control { display: none; }
+  .scene { height: auto; }
+  .space {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    width: auto;
+    height: auto;
+    margin: 0.5rem calc(50% - 50vw) 0;   /* from edge to edge of the screen */
+    padding: 1rem calc((100vw - var(--slide)) / 2) 2rem;   /* room for the shadows, and for the first and last to center */
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    transform: none;
+  }
+  .space::-webkit-scrollbar { display: none; }
+  .post,
+  .stage[data-revealed] .post {
+    --fog: 0;
+    position: static;
+    flex: none;
+    width: var(--slide);
+    transform: none;
+    scroll-snap-align: center;
+  }
+  .postBody { padding: 1.25rem 1.25rem 0.5rem; }
+  .stage .post h3 { font-size: 1.5rem; }
+  .stage .masthead { padding: 0.75rem 1.25rem; }
+  .stage[data-revealed] .slot[data-on],
+  .stage[data-revealed] .slot:not([data-on]) {
+    position: static;
+    flex: none;
+    width: var(--slide);
+    transform: none;
+    translate: none;
+    pointer-events: auto;
+    scroll-snap-align: center;
+  }
+  .stage[data-revealed] .slot[data-on] .card,
+  .stage[data-revealed] .slot:not([data-on]) .card {
+    --k: 1;
+    --fog: 0;
+    transform: none;
+    translate: none;
+    filter: none;
+    animation: none;
+    cursor: auto;
+    pointer-events: auto;
+  }
+  .stage .tree { --key: 7rem; --indent: 0.6rem; }
+  .measure { display: none; }
+  .stage .slot .cardBody { font-size: 0.74rem; }
+  .stage .slot .leaf::before, .stage .slot .group::before, .stage .slot .leaf > *, .stage .slot .group > * { animation: none; }
+  .slideCaption {
+    display: block;
+    margin: 1rem 0.25rem 0;
+    color: var(--gap-ink);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    text-wrap: pretty;
+  }
+  .slideCaption strong {
+    display: block;
+    margin-bottom: 0.35rem;
+    font-family: var(--gap-display);
+    font-size: 1.05rem;
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+  }
+}

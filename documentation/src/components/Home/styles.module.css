@@ -1,0 +1,62 @@
+.page { overflow-x: clip; }
+.home {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 5vw 6rem;
+}
+/* The opening takes 80% of the viewport, so the example below always shows its head above the fold. */
+.opening {
+  min-height: calc(80svh - var(--ifm-navbar-height));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 2rem 0;
+}
+.brand { margin-bottom: 1rem; }
+.brand p {
+  margin: 0.5rem 0 0 0.1em;
+  color: var(--gap-muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.title {
+  margin: 0;
+  font-family: var(--gap-display);
+  font-size: clamp(2rem, 5.6vw, 4.2rem);
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: 0.99;
+  letter-spacing: -0.01em;
+  color: var(--gap-ink);
+}
+.lede {
+  max-width: 46ch;
+  margin: 0;
+  font-size: clamp(1rem, 1.45vw, 1.25rem);
+  text-wrap: pretty;
+}
+.primaryLink {
+  margin-top: 0.75rem;
+  font-size: 1rem;
+  text-underline-offset: 4px;
+}
+/* The example keeps the hero's left edge and breaks out of the column to the right on wide screens, as far as
+   the viewport's edge and no wider than 1400px, so the scene has room to show its cards at full size. The
+   column is centered, so the room to its right is half the viewport's spare width plus the column itself. */
+.visual {
+  width: min(calc(50vw + 50%), 1400px);
+  overflow: clip visible;   /* whatever spills past the viewport is cut, not scrolled to */
+  padding: 0 0 4rem;
+  text-align: left;
+}
+@media (max-width: 600px) {
+  .home { padding: 0 20px 4rem; }
+  .opening { min-height: auto; padding: 4rem 0; }
+  .brand p { font-size: 0.65rem; letter-spacing: 0.12em; }
+  .title { font-size: clamp(1.65rem, 6.6vw, 2.4rem); line-height: 1.1; }
+  .visual { width: auto; overflow: visible; padding: 1rem 0 2rem; }   /* the carousel runs edge to edge on its own */
+}

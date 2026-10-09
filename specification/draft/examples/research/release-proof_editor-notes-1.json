@@ -1,0 +1,187 @@
+{
+  "release": {
+    "artifactId": "editor-notes:floating-gummy-worm-recall",
+    "artifactVersion": 1,
+    "profile": {
+      "profileId": "research-editor-notes",
+      "revision": 1,
+      "digest": "sha256:a3d6d52812ec6a8ddf87950831ff2886c6eec6e0338d604905eee0a35b56bb85"
+    },
+    "payload": {
+      "manuscript": {
+        "artifactId": "paper:floating-gummy-worm-recall",
+        "artifactVersion": 2,
+        "payloadDigest": "sha256:4ddab8686a8837287f0fa73e3646e0c9afd2890aff419ba5dea1aceeb1bacb84",
+        "profile": {
+          "profileId": "research-paper",
+          "revision": 1,
+          "digest": "sha256:0544153315de25681df647c9295d13e25d97332a5d5ad8d8192d6547b7df63bb"
+        }
+      },
+      "editor": "Fictional Journal Editor",
+      "feedback": [
+        {
+          "id": "editor-comment-1",
+          "sectionId": "background",
+          "quotedText": "finish a tale in 40 seconds",
+          "comment": "The cited study has been corrected: floating groups finish in 45 seconds, so the pace gap is 15 seconds, not 20. This draft still cites the earlier figure and source version.",
+          "requestedChange": "Use 45 seconds and pin corrected study version 2 before the final editorial decision."
+        }
+      ]
+    }
+  },
+  "profile": {
+    "profileId": "research-editor-notes",
+    "revision": 1,
+    "digest": "sha256:a3d6d52812ec6a8ddf87950831ff2886c6eec6e0338d604905eee0a35b56bb85",
+    "ratification": {
+      "ratifiedAt": "2026-10-08T00:00:00.000Z",
+      "actorId": "human:journal-owner",
+      "actorKind": "human",
+      "authoritySignature": {
+        "signerId": "human:journal-owner",
+        "signature": "8-0zyzXTtA58yShNunoNtm-gN1L-mgO-Ea5_u-Ja-5Kmf6I8KJr0wzVHzR_oT9L-qtwyUyUc7sxXKgDB1pY7Dw"
+      }
+    },
+    "payloadContract": {
+      "$contractLanguage": "json-schema/draft-2020-12",
+      "type": "object",
+      "properties": {
+        "manuscript": {
+          "type": "object",
+          "properties": {
+            "artifactId": {
+              "type": "string",
+              "pattern": "\\S",
+              "minLength": 1,
+              "maxLength": 200
+            },
+            "artifactVersion": {
+              "type": "integer",
+              "maximum": 9007199254740991,
+              "exclusiveMinimum": 0
+            },
+            "payloadDigest": {
+              "type": "string",
+              "pattern": "^sha256:[0-9a-f]{64}$"
+            },
+            "profile": {
+              "type": "object",
+              "properties": {
+                "profileId": {
+                  "type": "string",
+                  "pattern": "\\S",
+                  "minLength": 1,
+                  "maxLength": 200
+                },
+                "revision": {
+                  "type": "integer",
+                  "maximum": 9007199254740991,
+                  "exclusiveMinimum": 0
+                },
+                "digest": {
+                  "type": "string",
+                  "pattern": "^sha256:[0-9a-f]{64}$"
+                }
+              },
+              "required": [
+                "profileId",
+                "revision",
+                "digest"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "artifactId",
+            "artifactVersion",
+            "payloadDigest",
+            "profile"
+          ],
+          "additionalProperties": false
+        },
+        "editor": {
+          "type": "string",
+          "pattern": "\\S",
+          "minLength": 1,
+          "maxLength": 5000
+        },
+        "feedback": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 20,
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "\\S",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "sectionId": {
+                "type": "string",
+                "pattern": "\\S",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "quotedText": {
+                "type": "string",
+                "pattern": "\\S",
+                "minLength": 1,
+                "maxLength": 5000
+              },
+              "comment": {
+                "type": "string",
+                "pattern": "\\S",
+                "minLength": 1,
+                "maxLength": 5000
+              },
+              "requestedChange": {
+                "type": "string",
+                "pattern": "\\S",
+                "minLength": 1,
+                "maxLength": 5000
+              }
+            },
+            "required": [
+              "id",
+              "sectionId",
+              "quotedText",
+              "comment",
+              "requestedChange"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "manuscript",
+        "editor",
+        "feedback"
+      ],
+      "additionalProperties": false,
+      "$schema": "https://json-schema.org/draft/2020-12/schema"
+    }
+  },
+  "authorization": {
+    "artifactId": "editor-notes:floating-gummy-worm-recall",
+    "artifactVersion": 1,
+    "payloadDigest": "sha256:116bd5278bf3beba41dd636c7aef2453b0129f34d9e672cc28c8d1584df07b47",
+    "profile": {
+      "profileId": "research-editor-notes",
+      "revision": 1,
+      "digest": "sha256:a3d6d52812ec6a8ddf87950831ff2886c6eec6e0338d604905eee0a35b56bb85"
+    },
+    "authorizedAt": "2026-10-09T10:00:00Z",
+    "authorizedBy": {
+      "actorId": "human:journal-publisher",
+      "actorKind": "human"
+    },
+    "authorizationSubjectDigest": "sha256:d63bd5f9562b54f7d1cf602a67c6f54ef931d429193d348a85de8b5b6deb6d93",
+    "authoritySignature": {
+      "signerId": "human:journal-publisher",
+      "signature": "EjSk2jyFCbGNci58sogGtkxSX0vKIIOAC__fcRtTkaVZbatqLOiVtWnd3f6aafMySQcdA5WnTrWfp2iofrXDCg"
+    }
+  }
+}

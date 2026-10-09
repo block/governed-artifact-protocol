@@ -1,0 +1,204 @@
+---
+title: "Research publishing"
+slug: /domains/research
+sidebar_label: "Research publishing"
+description: "How a fictional journal uses GAP for exact citations, peer feedback, editorial approval, publication, and preserved release evidence."
+---
+
+<DomainNav domain="research" />
+
+A research journal brings manuscripts, source material, peer feedback, and editorial decisions together before publishing a paper. The author revises the manuscript, an editor decides whether an exact version is ready, and a publisher releases it to readers.
+
+This fictional journal follows a new paper, “Do floating gummy worms remember stories better?” It builds on two earlier publications. A 2024 study found that gummy worms aboard the spaceship Sugar Comet finish a story faster when floating than with gravity on, but it never asked what listeners remembered. A 2023 methods paper describes a memory test anyone can give after a story, the Jellybean Quiz: listeners answer ten questions about what they just heard and earn one jellybean per right answer, for a score from 0 to 10. The new paper cites the pace finding as its background and gives the quiz to its own listeners to measure what they remember. Its results show nearly equal recall: 7.1 with gravity and 7.0 floating. The submitted version still concludes that floating listeners remember more. A peer reviewer points this out, and the author narrows the conclusion. Every study, result, and credited research group is made up for this local, single-user demonstration.
+
+The journal uses [Governed Artifact Protocol (GAP)](/intro/what-is-gap) to preserve the manuscript versions, the sources each used, the exact version discussed in the review, and the decisions permitting publication. A source correction during review becomes another source version; the final manuscript captures it before publication. Readers can independently check the signed release evidence using their own configured trust.
+
+The journal's [actions](/intro/application-actions) group GAP's [lifecycle steps](/intro/lifecycle) and release decisions as follows:
+
+<ActionList>
+
+<Action href="#set-up-the-content-models" title="Set up the content models" steps="propose-profile ratify-profile">
+
+The journal owner ratifies separate models for source material, manuscripts, peer-review reports, and editor notes. The demo starts with these signed profiles already ratified.
+
+</Action>
+
+<Action href="#save-the-manuscript-and-sources" title="Save the manuscript and sources" steps="create-version authorize-release release">
+
+Authors save immutable versions. The cited-works editor releases each source before the manuscript can capture it as a governed dependency.
+
+</Action>
+
+<Action href="#record-peer-feedback" title="Record peer feedback" steps="create-version authorize-release release">
+
+A peer saves a report over the exact submitted manuscript, and the publisher releases the report. Feedback attaches to a named section of that version.
+
+</Action>
+
+<Action href="#correct-a-source-before-publication" title="Correct a source" steps="create-version authorize-release release">
+
+A source author saves a corrected version of a cited work, and the cited-works editor releases it. Manuscripts that pinned the earlier version keep it until an author saves a new version.
+
+</Action>
+
+<Action href="#make-the-editorial-decision" title="Make the editorial decision" steps="approve-release reject-release">
+
+The configured editor approves or rejects one exact manuscript version. Neither decision releases the paper.
+
+</Action>
+
+<Action href="#publish" title="Publish" steps="authorize-release release">
+
+The configured publisher signs authorization and releases the approved manuscript in one action.
+
+</Action>
+
+<Action href="#check-sources" title="Check sources">
+
+An AI agent compares a paper's captured baseline with currently selected source releases. This check changes no record and performs no lifecycle step or release decision.
+
+</Action>
+
+<Action href="#read-and-verify" title="Read and verify" steps="verify">
+
+A reader obtains a release proof and checks it against independently configured public keys and trusted actions.
+
+</Action>
+
+</ActionList>
+
+The journal decides who may save, review, approve, and publish. GAP lets a person or an AI agent hold any of these permissions. In this example, AI agents save the study and manuscript, and people save the methods paper, review report, and editor notes and make every release decision. A peer recommendation is advice; only the configured editor records a release approval or rejection. Only the publisher releases anything the journal itself issues: papers, review reports, and editor notes. Only the cited-works editor releases cited sources.
+
+These permissions are local demonstration settings. Declaring a role selects a configured participant; it does not authenticate you or protect the JSON files. All released demonstration content is public. The demo requires signatures on every authority decision and holds public demonstration key pairs to produce reproducible records.
+
+## The sources, paper, peer review, and editor notes
+
+The journal uses four [profiles](/specification/working-draft#profile), each with a payload contract written in JSON Schema draft 2020-12. The profiles name that language explicitly. Each saved version pins its profile ID, revision, and digest. A change to content creates another artifact version; a change to its allowed fields requires another ratified profile revision.
+
+### Source material
+
+The `research-source` model represents previously published papers with `kind`, `title`, `authors`, `journal`, `year`, and `body`. A published study and a published methods paper share this model and have separate artifact IDs:
+
+- `paper:zero-gravity-story-pace` is a fictional 2024 study in the Fictional Journal of Orbital Confectionery. It reports how long groups of gummy worms take to finish a tale, with gravity and floating, and says it did not test recall.
+- `paper:jellybean-quiz` is a fictional 2023 methods paper in the Fictional Journal of Story Metrics. It defines the ten-question Jellybean Quiz, a memory test for any story, and says nothing about gravity or gummy worms.
+
+Each answers a different question from the new paper, which is why the paper can cite both. These are synthetic local representations of prior publications. Their journal names and publication years are content, not proof of real journal publication. The demo releases them before the new manuscript cites them. The source profile describes cited published content; the manuscript profile describes the new paper under editorial review.
+
+<Record set="research" name="profile-revision_source" title="The source-material profile, revision 1" collapsed />
+<Record set="research" name="artifact-version_study-1" title="The previously published study, version 1" collapsed />
+<Record set="research" name="artifact-version_methods-1" title="The previously published methods paper, version 1" collapsed />
+
+### The manuscript
+
+The `research-paper` model requires a title, credited authors, abstract, sections, bibliography, peer-review responses, editor-note responses, and a [dependency set](/specification/working-draft#dependency-set). Section IDs supply local anchors for feedback; citation labels connect passages to bibliography entries.
+
+Credited authors belong in `payload.authors`, where the content digest covers them. The envelope's `authoredBy` identifies the person or AI agent who saved the version, rather than its academic byline.
+
+Each bibliography entry records the cited paper's title, authors, journal, year, and artifact ID. Section citation labels render as numbered citations, matching the visible bibliography. The application checks the bibliographic metadata against the exact pinned source version. The dependency set contains exact artifact IDs, versions, and payload digests, ordered by artifact ID. This demo requires every bibliography source to correspond to released source material in that set. It requires at least one study and exactly one methods paper. Those are local journal choices. Ordinary external citations are outside this demo; an external link alone must not be reported as a verified GAP dependency.
+
+<Record set="research" name="profile-revision_paper" title="The manuscript profile, revision 1" collapsed />
+<Record set="research" name="artifact-version_paper-1" title="The submitted manuscript, version 1" collapsed />
+
+### The review report
+
+The `research-peer-review` model requires an exact manuscript reference, reviewer attribution, a recommendation, and feedback. Each comment identifies a section, quotes its text, explains the concern, and requests a change. The application checks the reference and quote against that saved manuscript.
+
+The report can refer to a draft. Its `manuscript` reference is domain content, not a dependency-set entry: GAP dependencies identify released sources. Releasing the report does not release the manuscript it discusses. Comments stay attached to that exact version; the demo does not move anchors between edits or manage threaded discussions.
+
+The report reviews manuscript version 1. Version 2 can then pin the released report and respond to its feedback. This order avoids a circular dependency between a manuscript and the report about it.
+
+<Record set="research" name="profile-revision_review" title="The peer-review profile, revision 1" collapsed />
+<Record set="research" name="artifact-version_review-1" title="The peer report on manuscript version 1" collapsed />
+
+### Editor notes
+
+The `research-editor-notes` model holds the editor's attribution, an exact manuscript reference, and section feedback with quoted text and requested changes. It has its own profile and release authority. Notes are content; editorial approval and rejection are separate GAP authority decisions.
+
+In this example, the editor annotates the background in manuscript version 2 after the study correction. The note quotes “finish a tale in 40 seconds” and requests 45 seconds with a pin to corrected study version 2. The final manuscript pins the released notes and carries `editorResponses`, separately from its peer `reviewResponses`. Local policy requires a response to each pinned editor comment. Editor notes do not satisfy the journal's peer-review requirement.
+
+The example cards show the original passage and link to its exact manuscript version and section. A link selects that version in the paper preview and highlights the quoted text. The comments remain attached to the original text when later versions change.
+
+<Record set="research" name="profile-revision_editor-notes" title="The editor-notes profile, revision 1" collapsed />
+<Record set="research" name="artifact-version_editor-notes-1" title="Editor notes on manuscript version 2" collapsed />
+
+## From submission to publication
+
+### Set up the content models
+
+<Steps block ids="propose-profile ratify-profile" />
+
+The journal owner ratifies each exact content model with a signature. The demo preconfigures all four at revision 1; `get_research_workflow` returns their records, permissions, both trust stores, and local policies. Inspecting them performs no lifecycle step.
+
+### Save the manuscript and sources
+
+<Steps block ids="create-version authorize-release release" />
+
+The source author saves the study, and the cited-works editor saves the methods paper. The cited-works editor authorizes and releases each before the paper author saves manuscript version 1 with their exact dependency entries. Saving a manuscript grants no publication authority. The consumer read tool refuses unpublished manuscripts.
+
+### Record peer feedback
+
+<Steps block ids="create-version authorize-release release" />
+
+The peer reviewer saves a report about version 1, and the publisher releases it. The peer cannot release anything. The report's recommendation asks for revision. The paper author saves version 2, which reports recall on its own, credits the faster pace to the earlier study, and explicitly limits the fictional results. The version pins the released report and records a response to its comment. Local publication policy requires responses to each pinned review comment; it does not evaluate whether the response is scientifically adequate.
+
+<Record set="research" name="artifact-version_paper-2" title="The revised manuscript, version 2" collapsed />
+
+### Correct a source before publication
+
+<Steps block ids="create-version authorize-release release" />
+
+While the revised manuscript is still a draft, the source author corrects the earlier study: a timing error had shortened the floating average, which is 45 seconds, not 40. The cited-works editor releases study version 2. Manuscript version 2 keeps its original source baseline; the application does not rewrite it.
+
+The editor saves notes on version 2's background, which still cites the earlier figure, and the publisher releases them. The paper author then saves manuscript version 3 with the corrected figure and an exact pin to study version 2. Version 3 preserves the qualified conclusion, methods paper, and peer report, and pins the editor notes with separate responses to both kinds of feedback. The report remains attached to version 1, and the editor evaluates the final manuscript against the correction before deciding whether it is ready. Local policy permits the earlier report with its response; it does not establish that a fresh review occurred.
+
+<Record set="research" name="artifact-version_study-2" title="The corrected fictional study, version 2" collapsed />
+<Record set="research" name="artifact-version_paper-3" title="The final manuscript with the corrected source baseline" collapsed />
+
+### Make the editorial decision
+
+<Steps block ids="approve-release reject-release" />
+
+The editor declines version 1 because its conclusion overstates the results. After the peer feedback and source correction are addressed, the editor approves exact version 3. Versions 1 and 2 remain unpublished drafts. The rejection remains attached to version 1 and cannot be carried in version 3's proof. A rejection adds a record and does not itself prevent a later decision about the same subject. Once a version is published, the journal takes no further decision on it: a rejection is not a withdrawal, and a new decision would change the proof readers already hold.
+
+<Record set="research" name="release-rejection_paper-1" title="The editor's signed rejection of version 1" collapsed />
+<Record set="research" name="release-approval_paper-3" title="The editor's signed approval of the final manuscript" collapsed />
+
+An approval identifies the exact content and profile it covers. Later edits require their own approval. A release decision's optional reason is explanation outside GAP's digests and signatures. The feedback report's payload is digest-bound content; linking it does not prove an editor read it or establish the completeness of peer review.
+
+### Publish
+
+<Steps block ids="authorize-release release" />
+
+The publisher authorizes version 3 and releases it. This is the paper's only publication in the example. Local policy requires its exact editorial approval and a released review report with responses. The release proof carries that approval beside the authorization and release. The editor cannot publish, and the publisher cannot approve. The paper's authorization covers its content, bibliography, review responses, and full dependency set.
+
+<Record set="research" name="release-authorization_paper-3" title="The publisher's signed authorization of the final manuscript" collapsed />
+<Record set="research" name="release-proof_paper-3" title="The final publication proof" collapsed />
+
+Publication here is crossing the demo's consumer boundary. The demo does not send a paper to an actual journal. Its proof establishes release decisions, not research correctness, an actual independent review, or downstream delivery.
+
+### Check sources
+
+After publication, a source check reports aligned references: the paper pins the corrected study, unchanged methods paper, released peer report, and editor notes. The check compares exact references with locally selected source releases and changes no record. Each dependency needs its own proof checked separately; verifying the paper does not verify its sources or grant access to them.
+
+### Read and verify
+
+<Steps block ids="verify" />
+
+Readers obtain the exact records and configure trust separately. A reader keeps two trust stores, one per context: the journal store trusts the publisher to release papers, review reports, and editor notes, and the cited-works store trusts the cited-works editor to release sources. Each trusts exactly one release authority, so a paper released by the cited-works editor, or a source released by the publisher, fails verification. GAP's trust store maps a signer to actions, not to profiles, so per-context stores are how this demo keeps one authority from releasing the other's content. That is a local choice. `verify_research_proof` takes the store for the proof's context, recomputes digests, validates the supported pinned contract, and checks every carried decision's signature and subject. Its consumer modules read no workspace, permission table, or signing keys. Tests verify copied proof bytes after deleting the producing workspace.
+
+<Record set="research" name="trust-store_journal" title="The reader's journal trust store" collapsed />
+<Record set="research" name="trust-store_cited-works" title="The reader's cited-works trust store" collapsed />
+
+The checked-in public demonstration keys exercise signing mechanics. They do not establish who personally used a key. Key discovery, rotation, and revocation remain [open questions](https://github.com/block/governed-artifact-protocol/blob/main/DEFERRED.md#authority-key-lifecycle-and-distributed-trust).
+
+## Who does what?
+
+The source and paper authors are [Authors](/specification/working-draft#author), and so are the peer when saving a report and the editor when saving notes. The [Authorities](/specification/working-draft#authority) are the journal owner, who ratifies models; the cited-works editor, who releases sources; the editor, who approves or rejects manuscripts; and the publisher, who releases papers, review reports, and editor notes. The peer holds no authority. The application is the [Implementation](/specification/working-draft#the-implementation), and readers are [Consumers](/specification/working-draft#consumer).
+
+## Driving the specification
+
+This demo implements the [working draft](/specification/working-draft) independently of the other domains. It exercises signed editorial decisions, multiple direct dependencies, and a report referencing an unpublished manuscript. Section anchors, review completion, bibliography mapping, and current selection are local choices. Portable evidence of what an editor reviewed, correction lineage, and distributed source resolution remain [open questions](https://github.com/block/governed-artifact-protocol/blob/main/DEFERRED.md).
+
+## Run the demo
+
+[Set up the demo](run-the-demos.md), then follow the [research publishing walkthrough](research/demo.mdx). The [tool reference](how-the-demos-work.mdx#research) lists its actions and their declarations. To compare the workflow with your own application, use the [evaluation guide](./evaluation-guide.md).

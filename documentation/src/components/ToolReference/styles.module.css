@@ -1,0 +1,168 @@
+/*
+ * Tool reference. Applications as sections, groups as subsections, each tool
+ * a collapsible row with its lifecycle-step chips visible while closed.
+ * Palette and type come from the site variables.
+ */
+
+.legend {
+  margin: 0 0 2rem;
+}
+/* Prose inside the component keeps the page's measure. */
+.legend > p,
+.appSummary,
+.appLinks,
+.groupSummary {
+  max-width: 38rem;
+}
+.legend ul {
+  max-width: 38rem;
+}
+
+/* Applications and groups */
+.application {
+  margin: 0 0 2rem;
+}
+.appSummary {
+  margin: 0 0 0.35rem;
+}
+.appLinks {
+  font-size: 0.9rem;
+  margin: 0 0 1rem;
+}
+.group {
+  margin: 0 0 1.5rem;
+}
+.groupSummary {
+  color: var(--gap-muted);
+  font-size: 0.95rem;
+  margin: 0 0 0.75rem;
+}
+.tools {
+  border: 1px solid var(--gap-line);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--ifm-background-surface-color);
+}
+
+/* One tool. Closed, a row. Open, the row becomes a heading over a well
+   of the page colour, ruled off from the tools above and below. */
+.tool {
+  border-top: 1px solid var(--gap-line-soft);
+  scroll-margin-top: calc(var(--ifm-navbar-height) + 1rem);
+}
+.tool:first-child {
+  border-top: 0;
+}
+.tool[open],
+.tool[open] + .tool {
+  border-top-color: var(--gap-line);
+}
+.tool:target {
+  box-shadow: inset 3px 0 0 var(--ifm-color-primary);
+}
+.toolSummary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px 16px;
+  padding: 10px 14px;
+  cursor: pointer;
+  list-style: none;
+  flex-wrap: wrap;
+}
+.tool[open] > .toolSummary {
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+.toolSummary::-webkit-details-marker {
+  display: none;
+}
+.toolSummary::before {
+  content: "";
+  flex: 0 0 auto;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-right: 1.5px solid var(--gap-muted);
+  border-bottom: 1.5px solid var(--gap-muted);
+  transform: rotate(-45deg);
+  transition: transform 120ms ease;
+  margin-right: 2px;
+}
+.tool[open] > .toolSummary::before {
+  transform: rotate(45deg);
+}
+.toolHead {
+  display: flex;
+  flex: 1 1 18rem;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+.toolName {
+  font-size: 0.82rem;
+  background: none;
+  border: 0;
+  padding: 0;
+  color: var(--gap-ink);
+}
+.tool[open] .toolName {
+  font-weight: 700;
+}
+.toolTitle {
+  font-size: 0.92rem;
+  color: var(--gap-muted);
+}
+.toolBody {
+  padding: 18px 20px 18px 36px;
+  border-top: 1px solid var(--gap-line);
+  background: var(--ifm-background-color);
+  font-size: 0.95rem;
+}
+.toolBody > p {
+  margin: 0 0 16px;
+}
+.inputs {
+  display: table;
+  width: 100%;
+  font-size: 0.85rem;
+  margin: 0;
+}
+.inputs th,
+.inputs td {
+  vertical-align: top;
+}
+.inputs code {
+  white-space: nowrap;
+}
+.type {
+  font-family: var(--gap-mono);
+  font-size: 0.78rem;
+  color: var(--gap-code-muted);
+}
+.optional {
+  font-size: 0.72rem;
+  color: var(--gap-muted);
+}
+.noInput {
+  color: var(--gap-muted);
+  font-size: 0.9rem;
+}
+.permalink {
+  font-size: 0.78rem;
+  margin: 16px 0 0 !important;
+}
+:global(.markdown) .permalink a:not(.hash-link) {
+  color: var(--gap-muted);
+  text-decoration-color: var(--gap-line);
+}
+:global(.markdown) .permalink a:not(.hash-link):hover {
+  color: var(--ifm-color-primary);
+}
+
+@media (max-width: 640px) {
+  .toolBody {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+}

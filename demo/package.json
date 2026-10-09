@@ -1,0 +1,28 @@
+{
+  "name": "@gap-reference/demo",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "One local MCP server hosting every GAP demo application: a blog CMS, an issue tracker, and a research journal.",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "mcp": "tsx src/server.ts",
+    "start:mcp": "node dist/server.js",
+    "manifest": "tsx src/manifest.ts",
+    "test": "tsx --test \"test/**/*.test.ts\"",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.30.0",
+    "zod": "4.4.3",
+    "ajv": "8.20.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.1",
+    "tsx": "^4.23.12",
+    "typescript": "^5.9.3"
+  }
+}

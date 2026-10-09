@@ -1,0 +1,28 @@
+---
+title: Domains
+slug: /domains
+sidebar_label: Domains
+description: "Three applications of GAP, a blog website, an issue tracking app, and a research journal, with guides, demos, and an evaluation guide for your own work."
+---
+
+These domains show what Governed Artifact Protocol (GAP) looks like in practice. Each guide follows one piece of content through an application and shows how its everyday actions, like Save, Approve, and Publish, map to GAP's [lifecycle steps](../intro/lifecycle.mdx). Each demo implements the [working draft](../specification/draft/README.md) independently. Building these applications helps identify missing or unclear rules, which inform changes to the draft and its [open questions](https://github.com/block/governed-artifact-protocol/blob/main/DEFERRED.md). New to GAP? Start with [What is GAP?](../intro/what-is-gap.md).
+
+The demos use a local [Model Context Protocol](https://modelcontextprotocol.io) (MCP) server to make application actions available as tools an AI agent can call. GAP does not require MCP or any particular transport; each application chooses how to expose its actions and exchange records. [How the demos work](./how-the-demos-work.mdx) explains the server, its tools, and the records they return.
+
+## The three domains
+
+- The [blog website](./blog-website.mdx) follows a post in English and Spanish for readers in the US and Mexico through review and publication. A reviewer and an editor disagree, and the published version keeps both decisions and their reasons.
+- [Issue tracking](./issue-tracking.mdx) shows how each save can authorize and release an update without a separate review step. The team sees saved changes right away, while an assignee can revise a working copy before saving.
+- [Research publishing](./research.mdx) follows a fictional paper on whether floating gummy worms remember stories better, built on two earlier publications, through exact citations, peer feedback, signed editorial approval, a source correction, and publication. Readers verify signed decisions using their own trust stores.
+
+## The same steps, grouped differently
+
+GAP's [lifecycle](../intro/lifecycle.mdx) has six steps, and each application groups them into its own [actions](../intro/application-actions.mdx). One action can carry out several steps, one, or none. In the blog website, Publish authorizes and releases a post. In issue tracking, one Save creates, authorizes, and releases a ticket. In research publishing, checking a paper against its sources creates no GAP record and performs no lifecycle step. When an action combines steps, the application must still perform the checks required for each one.
+
+## Where to go next
+
+- [Run the demos](./run-the-demos.md) on your computer, with made-up data, and follow a domain's walkthrough.
+- [How the demos work](./how-the-demos-work.mdx) explains the demo server and lists every tool.
+- The [evaluation guide](./evaluation-guide.md) helps you test GAP against your own work.
+- The fictional [case studies](../case-studies/index.mdx) show where else GAP could help.
+- To model another domain, start from the [domain guide template](https://github.com/block/governed-artifact-protocol/blob/main/documentation/docs/domains/_template.mdx).

@@ -1,0 +1,36 @@
+{
+  "artifactId": "review:withdrawal-coverage",
+  "artifactVersion": 1,
+  "profile": {
+    "profileId": "research-peer-review",
+    "revision": 1,
+    "digest": "sha256:9442eff7ff852018222c670a8d8261d191bb062ba2346f8e9975cd51c4d2a601"
+  },
+  "authoredBy": {
+    "actorId": "human:peer-reviewer",
+    "actorKind": "human"
+  },
+  "payload": {
+    "manuscript": {
+      "artifactId": "paper:withdrawal-coverage",
+      "artifactVersion": 1,
+      "payloadDigest": "sha256:7820524dbcdff0247ff51d09afffa5f2e69f3f434e2738cbe534cb5f43a74527",
+      "profile": {
+        "profileId": "research-paper",
+        "revision": 1,
+        "digest": "sha256:0544153315de25681df647c9295d13e25d97332a5d5ad8d8192d6547b7df63bb"
+      }
+    },
+    "reviewer": "Fictional Conformance Reviewer",
+    "recommendation": "revise",
+    "feedback": [
+      {
+        "id": "comment-1",
+        "sectionId": "conclusion",
+        "quotedText": "Because zero gravity speeds up storytelling, it also helps gummy-worm listeners remember more.",
+        "comment": "Your own results show nearly equal recall: 7.1 with gravity and 7.0 floating. The faster pace comes from the earlier study, not from your groups, and does not show that listeners remember more.",
+        "requestedChange": "Report recall on its own and limit the conclusion to what this synthetic comparison measured."
+      }
+    ]
+  }
+}

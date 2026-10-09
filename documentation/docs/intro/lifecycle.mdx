@@ -1,0 +1,70 @@
+---
+title: Lifecycle
+slug: /intro/lifecycle
+description: The six steps from setting the rules to checking a release, and what happens when a source changes.
+---
+
+GAP defines six [lifecycle steps](../specification/draft/README.md#lifecycle). The first two set the rules for a kind of content. The last four create a version, authorize it, release it, and check it.
+
+| Step | What happens |
+| --- | --- |
+| <Step id="propose-profile" /> | A person or AI agent writes down what this kind of content must include. |
+| <Step id="ratify-profile" /> | A person or AI agent with authority approves those rules. |
+| <Step id="create-version" /> | An author saves a version, checked against the approved rules. |
+| <Step id="authorize-release" /> | A person or AI agent with permission authorizes that exact version for release. |
+| <Step id="release" /> | The application makes the version available. |
+| <Step id="verify" /> | The receiver checks the records. |
+
+## 1. Propose a profile
+
+A person or AI agent writes a [profile](../specification/draft/README.md#profile): the rules for one kind of content, such as which fields it must have, their types, and their limits. The fields chosen here decide what later readers can learn. A team that wants a reason recorded with every edit, for example, can add a field for it.
+
+## 2. Ratify a revision
+
+A person or AI agent with authority approves that exact revision of the profile. This decision is a [ratification](../specification/draft/README.md#ratification). It approves the rules, not the content written under them: every version still needs its own authorization.
+
+A ratified revision never changes. New rules mean a new revision and a new ratification, and existing content keeps the rules it was written under.
+
+## 3. Create a version
+
+An author saves a version of the content. Only ratified rules can be used at this step. The application checks the content against its profile and saves the version with the exact rules it follows and, when the profile calls for them, the exact released versions of the sources the author used.
+
+A saved version is a [draft](../specification/draft/README.md#draft) until it is released. Drafts never change; an edit saves a new version. Authors and reviewers can see drafts inside the application, and nobody outside it can.
+
+The saved sources are the ones the author actually used, even if a source changes while they write. Before this step, an application can also keep an editable working copy, which becomes part of GAP once it is saved as a version.
+
+## 4. Authorize
+
+The application shows whoever is authorizing, a person or an AI agent, exactly what they are authorizing: the version, its content, and the profile it follows. They authorize its release, the application checks that they hold that authority, and it records a release authorization for that exact version as it was saved. A later version needs its own authorization.
+
+## 5. Release
+
+Once a version is authorized, the application records its release in a single operation with the authorization, so a release either happens completely or not at all. The version is now available through the [release boundary](../specification/draft/README.md#release-boundary): the read-only side of the application where released content is served.
+
+Every released version and its evidence stay preserved. An application may show only the release it treats as current; GAP does not require its interface to return earlier versions. See the draft’s [release transition](../specification/draft/README.md#5-commit-the-release-transition) and the deferred question of [versioned proof lookup](https://github.com/block/governed-artifact-protocol/blob/main/DEFERRED.md#versioned-release-proof-lookup).
+
+## 6. Read and verify
+
+The receiver gets the content with its [release proof](../specification/draft/README.md#release-proof). The receiving application checks that the content, profile, and authorization match and that nothing has been altered. When the decisions are signed, it can also check each one against keys it trusts, without relying on the application that recorded them. If the version was withdrawn, the withdrawal comes with it. Each source has its own release proof to check.
+
+## When a source changes
+
+Content that depends on other content can fall behind. When a source gets a new version and it is released, nothing else changes on its own:
+
+- The application can notice content that still points to the older source version. This comparison creates no GAP record and changes no release decision.
+- A person or AI agent with authority can withdraw the older content's release, with a reason. That is a decision rather than a step.
+- The author saves a new version from the new source, and it needs its own authorization and release.
+
+The application spots the difference, and whoever holds the permission decides what to do about it. A new profile revision also leaves existing versions on the revision they were written under.
+
+## Decisions outside the six steps
+
+An authority can record three more decisions about a version:
+
+- <Step id="approve-release" /> A release approval records that a reviewer approves the version. It releases nothing by itself. The protocol [permits approval](../specification/draft/README.md#4-authorize-one-exact-version); the application decides whether to require it before authorization.
+- <Step id="reject-release" /> A release rejection records that a reviewer does not approve it. It changes nothing, and the application decides whether the version can still go ahead.
+- <Step id="withdraw-release" /> A release withdrawal marks a released version as no longer current. The version stays in the history, and the withdrawal does not pick a replacement.
+
+Each decision covers one exact version, needs the right permission, and can carry a reason.
+
+Each [domain guide](../domains/index.mdx) follows these steps through a working application. Next, [Application actions](application-actions.mdx) shows how these steps fit into everyday tools.

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800" role="img" aria-label="GAP">
+  <style>
+    path { fill: #151412; }
+    @media (prefers-color-scheme: dark) { path { fill: #f3f1ec; } }
+  </style>
+  <path transform="translate(43.5 760)" d="M619 0L304 0Q178 0 118-50Q58-100 58-204L58-516Q58-620 118-670Q178-720 304-720L554-720Q590-720 590-684L590-563Q590-527 554-527L346-527Q285-527 285-477L285-238Q285-189 331-189L428-189L428-345Q428-381 464-381L619-381Q655-381 655-345L655-36Q655 0 619 0"/>
+</svg>

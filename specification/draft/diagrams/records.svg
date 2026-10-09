@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="gap-diagram" width="760" height="601.9" viewBox="0 61 760 601.9" role="img" aria-labelledby="records-title records-desc">
+<title id="records-title">How the records reference each other</title>
+<desc id="records-desc">ProfileProposal becomes an immutable ProfileRevision through ratification of its exact digest. ArtifactVersion pins that revision by profile ID, revision, and digest. ReleaseAuthorization binds the artifact identity, version, payload digest, and profile pin, and the atomic release transition produces the Release. Optional ReleaseApproval records, zero or more, and an optional ReleaseWithdrawal, at most one, bind the same subject computed from the stored version, which verification checks against the authorization, and travel in the release proof.</desc>
+<style>.gap-diagram{--gd-ink:var(--gap-ink,#151412);--gd-text:var(--ifm-font-color-base,#2b2926);--gd-muted:var(--gap-muted,#74706a);--gd-line:var(--gap-line,#dcd8d0);--gd-surface:var(--ifm-background-surface-color,#faf9f6);--gd-accent:var(--ifm-color-primary,#c8321a);--gd-alert:var(--gap-alert,#5f5a52)}
+@media (prefers-color-scheme:dark){.gap-diagram{--gd-ink:var(--gap-ink,#f3f1ec);--gd-text:var(--ifm-font-color-base,#d3d0ca);--gd-muted:var(--gap-muted,#8f8a82);--gd-line:var(--gap-line,#2e2b27);--gd-surface:var(--ifm-background-surface-color,#1e1c19);--gd-accent:var(--ifm-color-primary,#ff8a6a);--gd-alert:var(--gap-alert,#bdb8ae)}}
+.gap-diagram text{font-family:Karla, 'Helvetica Neue', Arial, sans-serif;fill:var(--gd-text)}
+.gap-diagram .gd-disp{font-family:Bungee, 'Arial Black', Impact, sans-serif}
+.gap-diagram .gd-ink{fill:var(--gd-ink)}
+.gap-diagram .gd-mu{fill:var(--gd-muted)}
+.gap-diagram .gd-ac{fill:var(--gd-accent)}
+.gap-diagram .gd-al{fill:var(--gd-alert)}
+.gap-diagram .gd-box{fill:var(--gd-surface);stroke:var(--gd-line);stroke-width:1}
+.gap-diagram .gd-dash{stroke-dasharray:4 3}
+.gap-diagram .gd-rule{stroke:var(--gd-line);stroke-width:1;fill:none}
+.gap-diagram .gd-rule2{stroke:var(--gd-line);stroke-width:2;fill:none}
+.gap-diagram .gd-ln{stroke:var(--gd-muted);stroke-width:1.25;fill:none}
+.gap-diagram .gd-ln-ac{stroke:var(--gd-accent);stroke-width:1.5;fill:none}
+.gap-diagram .gd-x{stroke:var(--gd-alert);stroke-width:1.5;fill:none}</style>
+<defs><marker id="records-head" viewBox="0 0 8 8" refX="6.5" refY="4" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M1.5 1L6.5 4L1.5 7" class="gd-ln"/></marker><marker id="records-head-ac" viewBox="0 0 8 8" refX="6.5" refY="4" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M1.5 1L6.5 4L1.5 7" class="gd-ln-ac"/></marker></defs>
+<path d="M0 62H760" class="gd-rule2"/>
+<text x="0" y="88" font-size="12" class="gd-disp gd-ink">Configuration</text>
+<text x="0" y="102" font-size="10.5" class="gd-mu">Profile records</text>
+<rect x="118" y="96" width="170" height="79.7" rx="6" class="gd-box"/>
+<text x="132" y="114.3" font-size="11.5" font-weight="700" class="gd-ink">ProfileProposal</text>
+<text x="132" y="129.8" font-size="11.5">profileId · revision</text>
+<text x="132" y="145.3" font-size="11.5">payloadContract</text>
+<text x="132" y="160.8" font-size="11.5">proposedBy</text>
+<rect x="353" y="96" width="170" height="79.7" rx="6" class="gd-box"/>
+<text x="367" y="114.3" font-size="11.5" font-weight="700" class="gd-ink">ProfileRevision</text>
+<text x="367" y="129.8" font-size="11.5" class="gd-mu">immutable</text>
+<text x="367" y="145.3" font-size="11.5">payloadContract · digest</text>
+<text x="367" y="160.8" font-size="11.5">ratification</text>
+<path d="M288 108H353" class="gd-ln" marker-end="url(#records-head)"/>
+<text x="320.5" y="87.5" font-size="10.5" class="gd-mu" text-anchor="middle">ratifies the exact digest</text>
+<path d="M0 199.7H760" class="gd-rule"/>
+<text x="0" y="225.7" font-size="12" class="gd-disp gd-ink">Authoring</text>
+<text x="0" y="239.7" font-size="10.5" class="gd-mu">Artifact records</text>
+<rect x="353" y="223.7" width="170" height="79.7" rx="6" class="gd-box"/>
+<text x="367" y="242.1" font-size="11.5" font-weight="700" class="gd-ink">ArtifactVersion</text>
+<text x="367" y="257.6" font-size="11.5" class="gd-mu">immutable</text>
+<text x="367" y="273.1" font-size="11.5">payload · authoredBy</text>
+<text x="367" y="288.6" font-size="11.5">profile: ProfilePin</text>
+<path d="M499 223.7V176.7" class="gd-ln" marker-end="url(#records-head)" stroke-dasharray="4.09 3.07"/>
+<text x="509" y="197.2" font-size="10.5" class="gd-mu">ProfilePin binds profileId,</text>
+<text x="509" y="210.2" font-size="10.5" class="gd-mu">revision, and digest</text>
+<path d="M0 327.4H760" class="gd-rule"/>
+<text x="0" y="353.4" font-size="12" class="gd-disp gd-ink">Release</text>
+<text x="0" y="367.4" font-size="10.5" class="gd-mu">Authorization and</text>
+<text x="0" y="380.4" font-size="10.5" class="gd-mu">release records</text>
+<rect x="118" y="385.4" width="170" height="110.8" rx="6" class="gd-box gd-dash"/>
+<text x="132" y="403.8" font-size="11.5" font-weight="700" class="gd-ink">ReleaseApproval</text>
+<text x="132" y="419.3" font-size="11.5" class="gd-mu">0 or more; optional</text>
+<text x="132" y="434.8" font-size="11.5">artifactId · artifactVersion</text>
+<text x="132" y="450.3" font-size="11.5">payloadDigest · profile</text>
+<text x="132" y="465.8" font-size="11.5">approvedBy</text>
+<text x="132" y="481.3" font-size="11.5">subject digest</text>
+<rect x="353" y="385.4" width="170" height="110.8" rx="6" class="gd-box"/>
+<text x="367" y="403.8" font-size="11.5" font-weight="700" class="gd-ink">ReleaseAuthorization</text>
+<text x="367" y="419.3" font-size="11.5" class="gd-mu">the exact decision</text>
+<text x="367" y="434.8" font-size="11.5">artifactId · artifactVersion</text>
+<text x="367" y="450.3" font-size="11.5">payloadDigest · profile</text>
+<text x="367" y="465.8" font-size="11.5">authorizedBy</text>
+<rect x="588" y="385.4" width="170" height="110.8" rx="6" class="gd-box"/>
+<text x="602" y="403.8" font-size="11.5" font-weight="700" class="gd-ink">Release</text>
+<text x="602" y="419.3" font-size="11.5" class="gd-mu">what a consumer reads</text>
+<text x="602" y="434.8" font-size="11.5">payload · profile</text>
+<path d="M438 303.4V385.4" class="gd-ln" marker-end="url(#records-head)"/>
+<path d="M438 363.4H203V385.4" class="gd-ln" marker-end="url(#records-head)"/>
+<text x="448" y="344.9" font-size="10.5" class="gd-mu">payload digest and subject digest,</text>
+<text x="448" y="357.9" font-size="10.5" class="gd-mu">computed from the stored version</text>
+<path d="M523 397.4H588" class="gd-ln-ac" marker-end="url(#records-head-ac)"/>
+<text x="555.5" y="413.4" font-size="10.5" class="gd-ac" text-anchor="middle">one atomic</text>
+<text x="555.5" y="426.4" font-size="10.5" class="gd-ac" text-anchor="middle">transition</text>
+<path d="M288 484.2H353" class="gd-ln" marker-end="url(#records-head)" stroke-dasharray="3.88 2.91"/>
+<text x="320.5" y="511.6" font-size="10.5" class="gd-mu" text-anchor="middle">same subject</text>
+<rect x="588" y="540.2" width="170" height="110.7" rx="6" class="gd-box gd-dash"/>
+<text x="602" y="558.5" font-size="11.5" font-weight="700" class="gd-ink">ReleaseWithdrawal</text>
+<text x="602" y="574.0" font-size="11.5" class="gd-mu">0 or 1; optional</text>
+<text x="602" y="589.5" font-size="11.5">artifactId · artifactVersion</text>
+<text x="602" y="605.0" font-size="11.5">payloadDigest · profile</text>
+<text x="602" y="620.5" font-size="11.5">withdrawnBy</text>
+<text x="602" y="636.0" font-size="11.5">subject digest</text>
+<path d="M673 496.2V540.2" class="gd-ln" marker-end="url(#records-head)"/>
+<text x="663" y="511.6" font-size="10.5" class="gd-mu" text-anchor="end">withdraws this exact</text>
+<text x="663" y="524.6" font-size="10.5" class="gd-mu" text-anchor="end">released version</text>
+<path d="M493 496.2V638.9H588" class="gd-ln" marker-end="url(#records-head)" stroke-dasharray="4.05 3.03"/>
+<text x="503" y="626.4" font-size="10.5" class="gd-mu">same subject</text>
+</svg>

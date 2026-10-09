@@ -1,0 +1,17 @@
+{
+  "artifactId": "blog-post:monarch-migration",
+  "artifactVersion": 1,
+  "payloadDigest": "sha256:1bb260ea04ff3ff33f1f6d4c4f6f173a214cc6292864fd5f8e711e0198b4b194",
+  "profile": {
+    "profileId": "blog-post",
+    "revision": 1,
+    "digest": "sha256:e35800ae49f6649be07f9c95a4168ac468095de71974cf05ea7edcfe4016e61c"
+  },
+  "approvedAt": "2026-10-26T09:00:00Z",
+  "approvedBy": {
+    "actorId": "human:editor",
+    "actorKind": "human"
+  },
+  "reason": "The viewing advice should differ: readers in the US can visit the garden during autumn migration, while readers in Mexico can visit the sanctuaries during winter. The headline and the rest of the article match within each language. Approving all four versions as written.",
+  "authorizationSubjectDigest": "sha256:3d0bbc5e92fe956200e8729848bf17d6c43522bdb568d37aff9094c2bd116ecb"
+}

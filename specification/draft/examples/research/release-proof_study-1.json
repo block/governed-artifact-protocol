@@ -1,0 +1,112 @@
+{
+  "release": {
+    "artifactId": "paper:zero-gravity-story-pace",
+    "artifactVersion": 1,
+    "profile": {
+      "profileId": "research-source",
+      "revision": 1,
+      "digest": "sha256:290320a5fa218822f9435d90657ce042beb845bdaaaabc62e8148bfa44c338e7"
+    },
+    "payload": {
+      "kind": "study",
+      "title": "Story pace of gummy worms in zero gravity",
+      "authors": [
+        "Fictional Orbital Confectionery Group"
+      ],
+      "journal": "Fictional Journal of Orbital Confectionery",
+      "year": 2024,
+      "body": "Aboard the spaceship Sugar Comet, twenty fictional groups of gummy worms told the same tale of a marshmallow moon, half with gravity switched on and half floating. Groups with gravity finished in an average of 60 seconds; floating groups finished in 40 seconds. Floating storytellers paused less because nobody had to climb back onto the story rug. The study measured pace only; it did not test what listeners remembered. All results are invented demonstration data."
+    }
+  },
+  "profile": {
+    "profileId": "research-source",
+    "revision": 1,
+    "digest": "sha256:290320a5fa218822f9435d90657ce042beb845bdaaaabc62e8148bfa44c338e7",
+    "ratification": {
+      "ratifiedAt": "2026-10-08T00:00:00.000Z",
+      "actorId": "human:journal-owner",
+      "actorKind": "human",
+      "authoritySignature": {
+        "signerId": "human:journal-owner",
+        "signature": "UcjngnRV2pn_uRHJwHvOjwJ8JRxghy1icn-kNEqbyDswmsk44ihIFZ2zud4tmGvmHgyHbSlpdzgZkzh-xlasBg"
+      }
+    },
+    "payloadContract": {
+      "$contractLanguage": "json-schema/draft-2020-12",
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": [
+            "study",
+            "methods-paper"
+          ]
+        },
+        "title": {
+          "type": "string",
+          "pattern": "\\S",
+          "minLength": 1,
+          "maxLength": 5000
+        },
+        "authors": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 20,
+          "items": {
+            "type": "string",
+            "pattern": "\\S",
+            "minLength": 1,
+            "maxLength": 5000
+          }
+        },
+        "journal": {
+          "type": "string",
+          "pattern": "\\S",
+          "minLength": 1,
+          "maxLength": 5000
+        },
+        "year": {
+          "type": "integer",
+          "minimum": 1900,
+          "maximum": 2100
+        },
+        "body": {
+          "type": "string",
+          "pattern": "\\S",
+          "minLength": 1,
+          "maxLength": 5000
+        }
+      },
+      "required": [
+        "kind",
+        "title",
+        "authors",
+        "journal",
+        "year",
+        "body"
+      ],
+      "additionalProperties": false,
+      "$schema": "https://json-schema.org/draft/2020-12/schema"
+    }
+  },
+  "authorization": {
+    "artifactId": "paper:zero-gravity-story-pace",
+    "artifactVersion": 1,
+    "payloadDigest": "sha256:b5aa9c1ac819edbdc5705d65da665ba91d17c645859d4986cc5d817532f7803a",
+    "profile": {
+      "profileId": "research-source",
+      "revision": 1,
+      "digest": "sha256:290320a5fa218822f9435d90657ce042beb845bdaaaabc62e8148bfa44c338e7"
+    },
+    "authorizedAt": "2026-10-08T09:00:00Z",
+    "authorizedBy": {
+      "actorId": "human:cited-works-editor",
+      "actorKind": "human"
+    },
+    "authorizationSubjectDigest": "sha256:c932c4da116887f9a8f7c373c3b5d2e9ac5b3fcfd44e9534243e917db860e853",
+    "authoritySignature": {
+      "signerId": "human:cited-works-editor",
+      "signature": "DASmYajH7wdiTH2PZ2-_EistlJRXvctVCgAdwTcaT5oOC7sSnWDzdD5kDGpH1q9lVB7sYDbLMYZ8fRq0AizYDw"
+    }
+  }
+}

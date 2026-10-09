@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1396.02197265625" height="559" viewBox="19.97802734375 17 1396.02197265625 559" role="img" aria-labelledby="title description">
+<title id="title">A blog post: from draft to release</title><desc id="description">CMS actions across configuration, authoring, and release. Set up the content model, save a blog post draft, approve the selected version, then publish by authorizing and releasing it with the approval attached. Read the released post, selecting the reader’s locale at read time.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#52647a"/></marker></defs>
+<g font-family="Arial, Helvetica, sans-serif" fill="#172536">
+
+<text x="20" y="39" font-size="24" font-weight="700" fill="#172536">A blog post: from draft to release</text>
+<text x="20" y="65" font-size="15" font-weight="400" fill="#52647a">Application actions across GAP planes</text>
+<path d="M 232 92 H 1398" fill="none" stroke="#b7c2ce" stroke-width="1.5" marker-end="url(#arrow)"/>
+<circle cx="236" cy="123" r="12" fill="#172536"/>
+<text x="232" y="128" font-size="14" font-weight="700" fill="#ffffff">1</text>
+<text x="257" y="128" font-size="17" font-weight="700" fill="#172536">Set up the</text>
+<text x="257" y="149" font-size="17" font-weight="700" fill="#172536">content model</text>
+<circle cx="478" cy="123" r="12" fill="#172536"/>
+<text x="474" y="128" font-size="14" font-weight="700" fill="#ffffff">2</text>
+<text x="499" y="128" font-size="17" font-weight="700" fill="#172536">Save a draft</text>
+<circle cx="720" cy="123" r="12" fill="#172536"/>
+<text x="716" y="128" font-size="14" font-weight="700" fill="#ffffff">3</text>
+<text x="741" y="128" font-size="17" font-weight="700" fill="#172536">Approve the</text>
+<text x="741" y="149" font-size="17" font-weight="700" fill="#172536">selected version</text>
+<circle cx="962" cy="123" r="12" fill="#172536"/>
+<text x="958" y="128" font-size="14" font-weight="700" fill="#ffffff">4</text>
+<text x="983" y="128" font-size="17" font-weight="700" fill="#172536">Publish the post</text>
+<circle cx="1204" cy="123" r="12" fill="#172536"/>
+<text x="1200" y="128" font-size="14" font-weight="700" fill="#ffffff">5</text>
+<text x="1225" y="128" font-size="17" font-weight="700" fill="#172536">Read the post</text>
+<rect x="20" y="174" width="1396" height="108" rx="10" fill="#f2f4f7"/>
+<text x="40" y="218" font-size="18" font-weight="700" fill="#172536">Configuration</text>
+<text x="40" y="242" font-size="13" font-weight="400" fill="#52647a">Content model</text>
+<rect x="20" y="290" width="1396" height="108" rx="10" fill="#edf4ff"/>
+<text x="40" y="334" font-size="18" font-weight="700" fill="#172536">Authoring</text>
+<text x="40" y="358" font-size="13" font-weight="400" fill="#52647a">Content versions</text>
+<rect x="20" y="406" width="1396" height="108" rx="10" fill="#edf7f2"/>
+<text x="40" y="450" font-size="18" font-weight="700" fill="#172536">Release</text>
+<text x="40" y="474" font-size="13" font-weight="400" fill="#52647a">Approval, authorization, available content</text>
+<path d="M 453 174 V 514" stroke="#ffffff" stroke-width="3"/>
+<path d="M 695 174 V 514" stroke="#ffffff" stroke-width="3"/>
+<path d="M 937 174 V 448 M 937 472 V 514" stroke="#ffffff" stroke-width="3"/>
+<path d="M 1179 174 V 514" stroke="#ffffff" stroke-width="3"/>
+<rect x="224" y="190" width="198" height="76" rx="8" fill="#ffffff" stroke="#65758a" stroke-width="1.2"/>
+<text x="236" y="213" font-size="15" font-weight="600" fill="#172536">Propose and approve</text>
+<text x="236" y="233" font-size="15" font-weight="400" fill="#172536">blog post content</text>
+<text x="236" y="253" font-size="15" font-weight="400" fill="#172536">model revision</text>
+<rect x="466" y="306" width="198" height="76" rx="8" fill="#ffffff" stroke="#3567a6" stroke-width="1.2"/>
+<text x="478" y="337" font-size="15" font-weight="600" fill="#172536">Create a new</text>
+<text x="478" y="357" font-size="15" font-weight="400" fill="#172536">blog post draft</text>
+<rect x="708" y="422" width="198" height="76" rx="8" fill="#ffffff" stroke="#277452" stroke-width="1.2" stroke-dasharray="5 4"/>
+<text x="720" y="445" font-size="15" font-weight="600" fill="#172536">Record a release</text>
+<text x="720" y="465" font-size="15" font-weight="400" fill="#172536">approval of the exact</text>
+<text x="720" y="485" font-size="15" font-weight="400" fill="#172536">version; nothing released</text>
+<path d="M 906 460 L 950 460" fill="none" stroke="#52647a" stroke-width="1.5" stroke-dasharray="6 5" marker-end="url(#arrow)"/>
+<rect x="950" y="422" width="198" height="76" rx="8" fill="#ffffff" stroke="#277452" stroke-width="1.2"/>
+<text x="962" y="445" font-size="15" font-weight="600" fill="#172536">Authorize and release</text>
+<text x="962" y="465" font-size="15" font-weight="400" fill="#172536">the approved version,</text>
+<text x="962" y="485" font-size="15" font-weight="400" fill="#172536">approval attached</text>
+<rect x="1192" y="422" width="198" height="76" rx="8" fill="#ffffff" stroke="#277452" stroke-width="1.2"/>
+<text x="1204" y="445" font-size="15" font-weight="600" fill="#172536">Retrieve released</text>
+<text x="1204" y="465" font-size="15" font-weight="400" fill="#172536">blog post and select</text>
+<text x="1204" y="485" font-size="15" font-weight="400" fill="#172536">the reader’s locale</text>
+<text x="20" y="549" font-size="15" font-weight="600" fill="#172536">In this demo, saving, approving, and publishing are separate actions. Publish combines authorization and release and carries the approval.</text>
+<text x="20" y="573" font-size="14" font-weight="400" fill="#52647a">Repeat Save draft while editing. Approval releases nothing. Website display, including locale selection, follows release and is handled by the application.</text>
+</g></svg>

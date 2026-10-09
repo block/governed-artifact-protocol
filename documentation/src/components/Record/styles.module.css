@@ -1,0 +1,68 @@
+/* A record is a code block with a title bar that folds it. Folded, only the
+   bar shows; open, the JSON sits at full width directly beneath the bar. */
+/* The site narrows `.markdown > details` to the prose measure; a record spans
+   the column like the open code blocks around it. */
+:global(.markdown) > .record {
+  max-width: none;
+}
+.record {
+  margin: 0 0 var(--ifm-leading);
+  border: 1px solid var(--gap-line-soft);
+  border-radius: var(--ifm-code-border-radius);
+  background: var(--gap-code-bg);
+}
+.summary {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+  list-style: none;
+  color: var(--gap-ink);
+  font-size: 0.92rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+.summary::-webkit-details-marker {
+  display: none;
+}
+.chevron {
+  flex: none;
+  width: 0;
+  height: 0;
+  border-top: 0.32em solid transparent;
+  border-bottom: 0.32em solid transparent;
+  border-left: 0.42em solid var(--ifm-color-primary);
+  transition: transform 120ms ease;
+}
+.record[open] .chevron {
+  transform: rotate(90deg);
+}
+.text {
+  flex: 1;
+}
+.tag {
+  flex: none;
+  padding: 0.05rem 0.5rem;
+  border: 1px solid var(--gap-line-soft);
+  border-radius: 999px;
+  font-family: var(--gap-mono);
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: var(--gap-muted);
+}
+.record[open] > .summary {
+  border-bottom: 1px solid var(--gap-line-soft);
+}
+.body :global(.theme-code-block) {
+  margin: 0;
+  border: 0;
+  border-radius: 0 0 var(--ifm-code-border-radius) var(--ifm-code-border-radius);
+  box-shadow: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .chevron {
+    transition: none;
+  }
+}

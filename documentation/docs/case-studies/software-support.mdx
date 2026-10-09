@@ -1,0 +1,42 @@
+---
+title: Software support
+slug: /case-studies/software-support
+description: "A fictional help desk checks an answer’s release evidence and source guidance before deciding whether to use it in a customer reply."
+---
+
+A support specialist finds conflicting answers to a customer’s question about inviting guests to a workspace. One is a saved reply; another is a new draft. Which reflects the team’s guidance, and which was authorized for release? This fictional scenario follows that question through a GAP release check.
+
+## The situation
+
+A fictional software help desk changes its guidance on inviting guests to a workspace. A support specialist finds two answers: an older saved reply and a new draft written by an AI agent.
+
+Both sound plausible. Neither clearly shows which wording the team has authorized for release or which guidance the writer used.
+
+## Where GAP helps
+
+A support tool using GAP connects the answer’s exact version to its release records and references to the guidance used to write it. Another tool can check those records if it can identify the source unambiguously, access the proof, and check it against configured trust. References alone do not provide content or access.
+
+The answer needs its own release authorization. Releasing a policy does not authorize release of an answer based on it. To verify a referenced source, the tool must obtain and check that source’s own records.
+
+## What changes for the team
+
+The required checks reject a draft or authorization for different wording. If source records are missing, the tool cannot report that source as verified.
+
+The specialist then knows what needs checking before replying. The team can ask the answer’s owner to resolve the missing or mismatched records.
+
+## What still needs judgment
+
+Release authorization does not grant permission to send a customer reply. The help desk decides which guidance is current and when an answer may be used. The specialist still checks accuracy and fit. The team also decides how to handle an urgent reply when records are missing. GAP does not make those decisions or prove that a reply was sent.
+
+<details>
+<summary>How this maps to the protocol</summary>
+
+The answer is an artifact version. Its authorization covers that exact version, and its [release proof](../specification/draft/README.md#release-proof) carries the records the receiving tool checks. The tool rejects a draft, missing authorization, or evidence for different wording.
+
+The answer’s [dependency set](../specification/draft/README.md#dependency-set) names the guidance version used by artifact ID, version, and payload digest. Checking the answer’s proof establishes that reference. Checking the guidance itself requires its own proof and source context. Choosing current guidance remains application policy.
+
+Neither check proves that the answer is accurate or that a customer reply was sent.
+
+</details>
+
+For a complete workflow with source-linked content, read the [research publishing guide](../domains/research.mdx). Use the [evaluation guide](../domains/evaluation-guide.md) to compare this check with your existing support controls, including missing records, mismatches, and unnecessary holds.

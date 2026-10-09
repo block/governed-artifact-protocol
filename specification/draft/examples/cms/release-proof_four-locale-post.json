@@ -1,0 +1,166 @@
+{
+  "release": {
+    "artifactId": "blog-post:monarch-migration",
+    "artifactVersion": 1,
+    "profile": {
+      "profileId": "blog-post",
+      "revision": 1,
+      "digest": "sha256:e35800ae49f6649be07f9c95a4168ac468095de71974cf05ea7edcfe4016e61c"
+    },
+    "payload": {
+      "audience": "public",
+      "author": "Grounds staff",
+      "content": {
+        "en-US": {
+          "headline": "Following the monarch migration",
+          "body": "The monarchs passing through our public garden are on their way to the mountain forests of central Mexico, where they spend the winter. In the garden, they stop to feed on nectar before continuing south.\n\nVolunteers record sightings along the garden paths. These observations help us follow the migration from year to year.\n\nIn the US, visit our garden during the autumn migration to see monarchs on their journey south. Check current opening dates and visitor guidance before planning your visit."
+        },
+        "es-US": {
+          "headline": "Siguiendo la migración de las monarcas",
+          "body": "Las monarcas que pasan por nuestro jardín público van rumbo a los bosques de montaña del centro de México, donde pasan el invierno. En el jardín, se detienen para alimentarse de néctar antes de continuar hacia el sur.\n\nUn grupo de voluntarios registra los avistamientos en los senderos del jardín. Estas observaciones nos ayudan a seguir la migración de un año a otro.\n\nEn Estados Unidos, visita nuestro jardín durante la migración de otoño para observar a las monarcas en su viaje hacia el sur. Consulta las fechas de apertura y las recomendaciones para visitantes antes de planear tu visita."
+        },
+        "en-MX": {
+          "headline": "Following the monarch migration",
+          "body": "The monarchs passing through our public garden are on their way to the mountain forests of central Mexico, where they spend the winter. In the garden, they stop to feed on nectar before continuing south.\n\nVolunteers record sightings along the garden paths. These observations help us follow the migration from year to year.\n\nIn Mexico, visit the monarch sanctuaries in Michoacán and the State of Mexico during winter to see the overwintering colonies. Check current opening dates and visitor guidance before planning your visit."
+        },
+        "es-MX": {
+          "headline": "Siguiendo la migración de las monarcas",
+          "body": "Las monarcas que pasan por nuestro jardín público van rumbo a los bosques de montaña del centro de México, donde pasan el invierno. En el jardín, se detienen para alimentarse de néctar antes de continuar hacia el sur.\n\nUn grupo de voluntarios registra los avistamientos en los senderos del jardín. Estas observaciones nos ayudan a seguir la migración de un año a otro.\n\nEn México, visita los santuarios de la monarca en Michoacán y el Estado de México durante el invierno para observar las colonias que pasan allí la temporada. Consulta las fechas de apertura y las recomendaciones para visitantes antes de planear tu visita."
+        }
+      },
+      "date": "2026-10-26T09:30:00Z"
+    }
+  },
+  "profile": {
+    "profileId": "blog-post",
+    "revision": 1,
+    "digest": "sha256:e35800ae49f6649be07f9c95a4168ac468095de71974cf05ea7edcfe4016e61c",
+    "ratification": {
+      "ratifiedAt": "2026-08-26T00:00:00Z",
+      "actorId": "human:content-model-owner",
+      "actorKind": "human",
+      "reason": "The model supports English and Spanish for readers in the US and Mexico, requiring US English and Mexican Spanish, with fallback within each country."
+    },
+    "payloadContract": {
+      "type": "object",
+      "fields": {
+        "audience": {
+          "type": "string",
+          "enum": [
+            "public",
+            "members",
+            "internal"
+          ]
+        },
+        "author": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 5000
+        },
+        "content": {
+          "type": "localeMap",
+          "allowed": [
+            "en-US",
+            "es-US",
+            "en-MX",
+            "es-MX"
+          ],
+          "required": [
+            "en-US",
+            "es-MX"
+          ],
+          "fallback": {
+            "es-US": "en-US",
+            "en-MX": "es-MX"
+          },
+          "items": {
+            "type": "object",
+            "fields": {
+              "headline": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 5000
+              },
+              "body": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 5000
+              }
+            },
+            "required": [
+              "headline",
+              "body"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "date": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "audience",
+        "author",
+        "content",
+        "date"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "authorization": {
+    "artifactId": "blog-post:monarch-migration",
+    "artifactVersion": 1,
+    "payloadDigest": "sha256:1bb260ea04ff3ff33f1f6d4c4f6f173a214cc6292864fd5f8e711e0198b4b194",
+    "profile": {
+      "profileId": "blog-post",
+      "revision": 1,
+      "digest": "sha256:e35800ae49f6649be07f9c95a4168ac468095de71974cf05ea7edcfe4016e61c"
+    },
+    "authorizedAt": "2026-10-26T09:30:00Z",
+    "authorizedBy": {
+      "actorId": "human:publisher",
+      "actorKind": "human"
+    },
+    "reason": "The editor has reviewed the regional advice for both countries. Publish all four versions together.",
+    "authorizationSubjectDigest": "sha256:3d0bbc5e92fe956200e8729848bf17d6c43522bdb568d37aff9094c2bd116ecb"
+  },
+  "approvals": [
+    {
+      "artifactId": "blog-post:monarch-migration",
+      "artifactVersion": 1,
+      "payloadDigest": "sha256:1bb260ea04ff3ff33f1f6d4c4f6f173a214cc6292864fd5f8e711e0198b4b194",
+      "profile": {
+        "profileId": "blog-post",
+        "revision": 1,
+        "digest": "sha256:e35800ae49f6649be07f9c95a4168ac468095de71974cf05ea7edcfe4016e61c"
+      },
+      "approvedAt": "2026-10-26T09:00:00Z",
+      "approvedBy": {
+        "actorId": "human:editor",
+        "actorKind": "human"
+      },
+      "reason": "The viewing advice should differ: readers in the US can visit the garden during autumn migration, while readers in Mexico can visit the sanctuaries during winter. The headline and the rest of the article match within each language. Approving all four versions as written.",
+      "authorizationSubjectDigest": "sha256:3d0bbc5e92fe956200e8729848bf17d6c43522bdb568d37aff9094c2bd116ecb"
+    }
+  ],
+  "rejections": [
+    {
+      "artifactId": "blog-post:monarch-migration",
+      "artifactVersion": 1,
+      "payloadDigest": "sha256:1bb260ea04ff3ff33f1f6d4c4f6f173a214cc6292864fd5f8e711e0198b4b194",
+      "profile": {
+        "profileId": "blog-post",
+        "revision": 1,
+        "digest": "sha256:e35800ae49f6649be07f9c95a4168ac468095de71974cf05ea7edcfe4016e61c"
+      },
+      "rejectedAt": "2026-10-26T08:30:00Z",
+      "rejectedBy": {
+        "actorId": "agent:local-reviewer",
+        "actorKind": "agent"
+      },
+      "reason": "The sentence about where to see monarchs gives different places and seasons for the US and Mexico. Please use the same advice in all four versions.",
+      "authorizationSubjectDigest": "sha256:3d0bbc5e92fe956200e8729848bf17d6c43522bdb568d37aff9094c2bd116ecb"
+    }
+  ]
+}

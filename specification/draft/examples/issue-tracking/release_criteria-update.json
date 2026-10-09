@@ -1,0 +1,17 @@
+{
+  "artifactId": "ticket:subtraction",
+  "artifactVersion": 2,
+  "profile": {
+    "profileId": "bug-ticket",
+    "revision": 1,
+    "digest": "sha256:137831275b47219dbd4343e028a6ece15067744813da0e464429b4e5162046d7"
+  },
+  "payload": {
+    "title": "Fix the subtraction button",
+    "description": "The calculator adds numbers when subtraction is selected.",
+    "acceptanceCriteria": [
+      "Subtracting 2 from 5 must display 3."
+    ],
+    "status": "in_progress"
+  }
+}

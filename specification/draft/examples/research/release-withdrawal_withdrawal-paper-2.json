@@ -1,0 +1,21 @@
+{
+  "artifactId": "paper:withdrawal-coverage",
+  "artifactVersion": 2,
+  "payloadDigest": "sha256:802858ff601fe4abf51164c43c193c4ddc9ed57f7341419e3a71a8ee0395bd53",
+  "profile": {
+    "profileId": "research-paper",
+    "revision": 1,
+    "digest": "sha256:0544153315de25681df647c9295d13e25d97332a5d5ad8d8192d6547b7df63bb"
+  },
+  "withdrawnAt": "2026-10-10T12:00:00Z",
+  "withdrawnBy": {
+    "actorId": "human:journal-publisher",
+    "actorKind": "human"
+  },
+  "reason": "Synthetic fixture for checking withdrawal binding and evidence preservation.",
+  "authorizationSubjectDigest": "sha256:368d42d65afbc62a776d9c095cafed1ed2018309c926a24e44c0bd5129b6520e",
+  "authoritySignature": {
+    "signerId": "human:journal-publisher",
+    "signature": "wzQi4eXMs65Z9rFWc0FC-YXzeSwTFkOK57eCFJhHVhUtvx5Ugf0K2KKCn1a1knuoYJq7FYpwUKUoHq_DsgzeAg"
+  }
+}

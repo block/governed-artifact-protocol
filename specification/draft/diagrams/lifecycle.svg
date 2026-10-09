@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="gap-diagram" width="760" height="590.4" viewBox="0 54 760 590.4" role="img" aria-labelledby="lifecycle-title lifecycle-desc">
+<title id="lifecycle-title">The GAP lifecycle</title>
+<desc id="lifecycle-desc">The six lifecycle steps across the configuration, authoring, and release planes. Propose and ratify a profile revision in configuration, create an immutable draft version in authoring, then authorize, release, and verify in release.</desc>
+<style>.gap-diagram{--gd-ink:var(--gap-ink,#151412);--gd-text:var(--ifm-font-color-base,#2b2926);--gd-muted:var(--gap-muted,#74706a);--gd-line:var(--gap-line,#dcd8d0);--gd-surface:var(--ifm-background-surface-color,#faf9f6);--gd-accent:var(--ifm-color-primary,#c8321a);--gd-alert:var(--gap-alert,#5f5a52)}
+@media (prefers-color-scheme:dark){.gap-diagram{--gd-ink:var(--gap-ink,#f3f1ec);--gd-text:var(--ifm-font-color-base,#d3d0ca);--gd-muted:var(--gap-muted,#8f8a82);--gd-line:var(--gap-line,#2e2b27);--gd-surface:var(--ifm-background-surface-color,#1e1c19);--gd-accent:var(--ifm-color-primary,#ff8a6a);--gd-alert:var(--gap-alert,#bdb8ae)}}
+.gap-diagram text{font-family:Karla, 'Helvetica Neue', Arial, sans-serif;fill:var(--gd-text)}
+.gap-diagram .gd-disp{font-family:Bungee, 'Arial Black', Impact, sans-serif}
+.gap-diagram .gd-ink{fill:var(--gd-ink)}
+.gap-diagram .gd-mu{fill:var(--gd-muted)}
+.gap-diagram .gd-ac{fill:var(--gd-accent)}
+.gap-diagram .gd-al{fill:var(--gd-alert)}
+.gap-diagram .gd-box{fill:var(--gd-surface);stroke:var(--gd-line);stroke-width:1}
+.gap-diagram .gd-dash{stroke-dasharray:4 3}
+.gap-diagram .gd-rule{stroke:var(--gd-line);stroke-width:1;fill:none}
+.gap-diagram .gd-rule2{stroke:var(--gd-line);stroke-width:2;fill:none}
+.gap-diagram .gd-ln{stroke:var(--gd-muted);stroke-width:1.25;fill:none}
+.gap-diagram .gd-ln-ac{stroke:var(--gd-accent);stroke-width:1.5;fill:none}
+.gap-diagram .gd-x{stroke:var(--gd-alert);stroke-width:1.5;fill:none}</style>
+<defs><marker id="lifecycle-head" viewBox="0 0 8 8" refX="6.5" refY="4" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M1.5 1L6.5 4L1.5 7" class="gd-ln"/></marker><marker id="lifecycle-head-ac" viewBox="0 0 8 8" refX="6.5" refY="4" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M1.5 1L6.5 4L1.5 7" class="gd-ln-ac"/></marker></defs>
+<text x="160" y="74" font-size="12" class="gd-disp gd-ink">Configuration</text>
+<text x="160" y="88" font-size="10.5" class="gd-mu">Profile revisions</text>
+<text x="363.3" y="74" font-size="12" class="gd-disp gd-ink">Authoring</text>
+<text x="363.3" y="88" font-size="10.5" class="gd-mu">Artifact versions</text>
+<text x="566.7" y="74" font-size="12" class="gd-disp gd-ink">Release</text>
+<text x="566.7" y="88" font-size="10.5" class="gd-mu">Authorized, released versions</text>
+<path d="M0 105H760" class="gd-rule2"/>
+<rect x="160" y="117" width="193.3" height="64.2" rx="6" class="gd-box"/>
+<text x="174" y="135.3" font-size="11.5" font-weight="700" class="gd-ink">Write-once proposal</text>
+<text x="174" y="150.8" font-size="11.5">profile ID, revision,</text>
+<text x="174" y="166.3" font-size="11.5">payload contract</text>
+<text x="0" y="130.9" font-size="17" class="gd-disp gd-mu">1</text>
+<text x="30" y="128.3" font-size="12.5" font-weight="700" class="gd-ink">Propose a profile</text>
+<path d="M0 193.2H760" class="gd-rule"/>
+<rect x="160" y="205.2" width="193.3" height="64.2" rx="6" class="gd-box"/>
+<text x="174" y="223.6" font-size="11.5" font-weight="700" class="gd-ink">Configured authority</text>
+<text x="174" y="239.1" font-size="11.5">approves the exact</text>
+<text x="174" y="254.6" font-size="11.5">revision digest</text>
+<text x="0" y="219.2" font-size="17" class="gd-disp gd-mu">2</text>
+<text x="30" y="216.5" font-size="12.5" font-weight="700" class="gd-ink">Ratify the revision</text>
+<path d="M0 281.4H760" class="gd-rule"/>
+<rect x="363.3" y="293.4" width="193.4" height="64.3" rx="6" class="gd-box"/>
+<text x="377.3" y="311.8" font-size="11.5" font-weight="700" class="gd-ink">Immutable draft version</text>
+<text x="377.3" y="327.3" font-size="11.5">pinned to the exact</text>
+<text x="377.3" y="342.8" font-size="11.5">ratified revision</text>
+<text x="0" y="307.4" font-size="17" class="gd-disp gd-mu">3</text>
+<text x="30" y="304.7" font-size="12.5" font-weight="700" class="gd-ink">Create a version</text>
+<path d="M0 369.7H760" class="gd-rule"/>
+<rect x="566.7" y="381.7" width="193.3" height="64.2" rx="6" class="gd-box"/>
+<text x="580.7" y="400.0" font-size="11.5" font-weight="700" class="gd-ink">Authorization binds</text>
+<text x="580.7" y="415.5" font-size="11.5">ID, version, payload</text>
+<text x="580.7" y="431.0" font-size="11.5">digest, and profile pin</text>
+<text x="0" y="395.6" font-size="17" class="gd-disp gd-mu">4</text>
+<text x="30" y="392.9" font-size="12.5" font-weight="700" class="gd-ink">Authorize the version</text>
+<path d="M0 457.9H760" class="gd-rule"/>
+<rect x="566.7" y="469.9" width="193.3" height="64.2" rx="6" class="gd-box"/>
+<text x="580.7" y="488.3" font-size="11.5" font-weight="700" class="gd-ink">Authorization and release</text>
+<text x="580.7" y="503.8" font-size="11.5">recorded as one</text>
+<text x="580.7" y="519.3" font-size="11.5">transition</text>
+<text x="0" y="483.8" font-size="17" class="gd-disp gd-mu">5</text>
+<text x="30" y="481.1" font-size="12.5" font-weight="700" class="gd-ink">Commit the release</text>
+<path d="M0 556.1H760" class="gd-ln-ac" stroke-dasharray="4.99 3.99"/>
+<text x="0" y="550.1" font-size="9.5" font-weight="700" class="gd-ac" letter-spacing="1.2">RELEASE BOUNDARY</text>
+<rect x="566.7" y="568.1" width="193.3" height="64.3" rx="6" class="gd-box"/>
+<text x="580.7" y="586.5" font-size="11.5" font-weight="700" class="gd-ink">Consumer recomputes</text>
+<text x="580.7" y="602.0" font-size="11.5">digests and verifies</text>
+<text x="580.7" y="617.5" font-size="11.5">configured trust</text>
+<text x="0" y="582.1" font-size="17" class="gd-disp gd-mu">6</text>
+<text x="30" y="579.4" font-size="12.5" font-weight="700" class="gd-ink">Read and verify</text>
+</svg>

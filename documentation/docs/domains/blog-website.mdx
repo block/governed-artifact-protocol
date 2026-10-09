@@ -1,0 +1,156 @@
+---
+title: "Blog website"
+slug: /domains/blog-website
+sidebar_label: "Blog website"
+description: "How a blog CMS uses GAP: saving drafts creates versions, an editor approves or rejects one exact version, a publisher releases it, and the website reads it back with its proof."
+---
+
+<DomainNav domain="blog-website" />
+
+A blog website publishes articles for people to read. Its content management system (CMS) gives the team a place to write posts, review them, and choose which versions appear on the website.
+
+In this example, the people who manage content for a public garden's website are preparing an article for readers in the US and Mexico, in English and Spanish for each country. The headline and most of the article are the same within each language. One sentence tells readers when and where to see monarchs: at the garden during autumn migration in the US, or at the sanctuaries during winter in Mexico. A writer drafts the post, an editor reviews it, and a publisher makes the approved version available to readers.
+
+The CMS uses [Governed Artifact Protocol (GAP)](/intro/what-is-gap) to connect the writer's saved draft to the editor's review and the publisher's authorization. When the website retrieves the published post, it receives those records too. It can then check that the content it displays is the version the editor approved and the publisher authorized.
+
+Saving, reviewing, and publishing remain separate [actions](/intro/application-actions) in this CMS. Each carries out the GAP [lifecycle steps](/intro/lifecycle) or records the release decisions shown below:
+
+<ActionList>
+
+<Action href="#set-up-the-content-model" title="Set up the content model" steps="propose-profile ratify-profile">
+
+A content designer proposes the post's fields as a profile, and the content model owner ratifies a revision that writers can reuse across posts.
+
+</Action>
+
+<Action href="#save-a-draft" title="Save a draft" steps="create-version">
+
+A writer saves the post, and each save creates a new version while keeping the earlier ones.
+
+</Action>
+
+<Action href="#approve-or-reject" title="Approve or reject" steps="approve-release reject-release">
+
+An editor or reviewer approves or rejects one exact version. Either decision is recorded, and neither one releases the post.
+
+</Action>
+
+<Action href="#publish" title="Publish" steps="authorize-release release">
+
+The publisher authorizes the approved version, and the CMS releases it in the same action.
+
+</Action>
+
+<Action href="#read-the-post" title="Read the post" steps="verify">
+
+The website retrieves the released post and checks its release proof, which includes the editor's approval, the publisher's authorization, and any recorded rejection.
+
+</Action>
+
+</ActionList>
+
+## The blog post and its content model
+
+The CMS stores the monarch butterfly post as a GAP [artifact](/specification/working-draft#artifact) with the ID `blog-post:monarch-migration`. Saving a change creates a new version of the post under that same ID, and earlier versions remain available. A [profile](/specification/working-draft#profile) defines the post's content model, including its fields and the rules they must satisfy. The blog post profile has four fields:
+
+- `author` is the byline: the name shown on the post.
+- `date` is the byline date and time, in RFC 3339 form, such as `2026-10-26T09:30:00Z`. The writer sets it as part of the content; the moment of publication is recorded on the authorization.
+- `audience` is `public`, `members`, or `internal`, and the CMS uses it to choose which released posts each reader gets.
+- `content` holds a headline and body for each locale: a language and country identified by a BCP 47 tag. The model requires US English and Mexican Spanish. US Spanish and Mexican English are optional; a missing entry falls back to the required language for the same country, preserving that country’s advice.
+
+| Locale | Required content | Fallback if absent |
+| --- | --- | --- |
+| US English (`en-US`) | Yes | None; the save fails |
+| US Spanish (`es-US`) | No | US English (`en-US`) |
+| Mexican English (`en-MX`) | No | Mexican Spanish (`es-MX`) |
+| Mexican Spanish (`es-MX`) | Yes | None; the save fails |
+
+The CMS stores all authored [locale variants](/specification/working-draft#locale-variants) in one payload. Approval and publication apply to that whole version, including every locale it contains.
+
+<Record set="cms" name="profile-revision" title="The blog-post profile, revision 1" collapsed />
+
+Editing a headline creates a new version of the post using the same content model. Adding a required summary field changes the model itself, so the content model owner must ratify a new profile revision. Earlier post versions still reference the revision they were created under. Each post record's `profile` block includes the profile ID, revision number, and digest, so a reader can identify the exact rules used to check that version.
+
+### Example blog post content
+
+This is version 1 of `blog-post:monarch-migration`, exactly as the CMS stores it: the post's ID and version, the payload in all four locales, the profile revision it follows, and who saved it.
+
+<Record set="cms" name="artifact-version_four-locale-post" title="blog-post:monarch-migration, version 1" collapsed />
+
+## From draft to published post
+
+The monarch post moves from a writer's draft to the published page through these actions. Open the records under each action to see what the CMS stores.
+
+### Set up the content model
+
+<Steps block ids="propose-profile ratify-profile" />
+
+A content designer proposes the post's fields, and the content model owner ratifies that exact [profile revision](/specification/working-draft#profile-revision), with a reason: "The model supports English and Spanish for readers in the US and Mexico, requiring US English and Mexican Spanish, with fallback within each country." Writers can use this ratified revision for any number of posts. Changing the content model requires a new revision.
+
+### Save a draft
+
+<Steps block ids="create-version" />
+
+A writer saves the post. The CMS checks it against the profile revision and stores it as a new [artifact version](/specification/working-draft#artifact-version), keeping every earlier one. Until it is released, the post is a [draft](/specification/working-draft#draft) that only people and AI agents inside the CMS can see. When an editor asks for changes, the writer saves again, creating another version.
+
+### Approve or reject
+
+<Steps block ids="approve-release reject-release" />
+
+The reviewer, an AI agent, reads version 1 and chooses Reject. The CMS records a [release rejection](/specification/working-draft#release-rejection) for that exact version. This CMS requires a reason on every rejection, so the writer knows what to change: "The sentence about where to see monarchs gives different places and seasons for the US and Mexico. Please use the same advice in all four versions."
+
+This CMS allows an editor to approve a version after a reviewer has rejected it. The editor, a person, reads version 1, considers the reviewer's objection, and chooses Approve. The CMS records a [release approval](/specification/working-draft#release-approval) tied to that exact version, down to its payload digest and profile revision, with the editor's reason: "The viewing advice should differ: readers in the US can visit the garden during autumn migration, while readers in Mexico can visit the sanctuaries during winter. The headline and the rest of the article match within each language. Approving all four versions as written." The post is still a draft, and the approval covers version 1 only. Once a version is released, the CMS accepts no new approvals of it, because an approval is a decision made before publication.
+
+The seasonal advice reflects [autumn migration in the US](https://www.nps.gov/articles/000/monarchs-in-cuyahoga-valley.htm) and [winter sanctuary visits in Mexico](https://www.gob.mx/semarnat/acciones-y-programas/acerca-de-los-santuarios-de-la-mariposa-monarca).
+
+The writer could instead revise the post and save a new version for review. The rejection would remain on the record of the earlier version.
+
+<Record set="cms" name="release-rejection_four-locale-post" title="The reviewer agent's rejection of version 1, with its reason" collapsed />
+
+<Record set="cms" name="release-approval_four-locale-post" title="The editor's approval of version 1, with its reason" collapsed />
+
+### Publish
+
+<Steps block ids="authorize-release release" />
+
+A publisher reviews the approved version and chooses Publish. In one operation, the CMS records a [release authorization](/specification/working-draft#release-authorization) and the [release](/specification/working-draft#release), and the post becomes available to readers. This CMS publishes a version only after it has been approved; GAP leaves it to each application whether to require that.
+
+The publisher gives a reason too: "The editor has reviewed the regional advice for both countries. Publish all four versions together." The post's [release proof](/specification/working-draft#release-proof) now carries the reviewer's rejection, the editor's approval, and the publisher's authorization, each with its reason and each covering version 1 only.
+
+<Record set="cms" name="release-authorization_four-locale-post" title="The publisher's authorization of version 1" collapsed />
+
+<Record set="cms" name="release_four-locale-post" title="The release of version 1: the payload and its profile revision" collapsed />
+
+### Read the post
+
+<Steps block ids="verify" />
+
+The website retrieves the released post and its release proof, checks the proof, and renders the content using its own templates. It shows the requested language when available, or uses the fallback defined in the profile. A reader who wants to inspect the publication decisions can check the same proof.
+
+<Record set="cms" name="release-proof_four-locale-post" title="The release proof of version 1: the release, its profile revision, the rejection, the approval, and the authorization" collapsed />
+
+## Why each decision was made
+
+The content model owner, reviewer, editor, and publisher each give a [reason](/specification/working-draft#reason) for their decision. The release proof includes those decisions and reasons. Someone inspecting it later can read the reviewer's objection, the editor's response, and the publisher's explanation alongside the recorded names and times.
+
+The record attributes the reason to the person or AI agent who made the decision. The decision identifies the same version whether or not a reason is supplied; the reason is excluded when GAP calculates the digests. GAP makes reasons optional; when supplied, they must contain text. This CMS also limits reasons to 5,000 characters and requires one on every rejection.
+
+## Who does what?
+
+The CMS decides who may draft, approve, and publish, and GAP lets a person or an AI agent hold any of those permissions. In this example, the writer and the reviewer are AI agents, and the editor and the publisher are people. GAP's [roles](/specification/working-draft#protocol-roles) treat them all the same.
+
+The writer acts as [Author](/specification/working-draft#author). The reviewer and the editor act as [Authority](/specification/working-draft#authority) when they reject or approve a version, and the publisher acts as Authority when publishing it. The CMS grants each of those permissions separately, so being able to approve doesn't mean being able to publish. For the content model, the content designer is the Author and the content model owner is the Authority. An editor who revises a post is acting as Author.
+
+The CMS is the [Implementation](/specification/working-draft#implementation): it checks content, keeps the records, and controls release. The website is a [Consumer](/specification/working-draft#consumer) of released content.
+
+## Driving the specification
+
+The blog demo implements the [working draft](/specification/working-draft) independently of the other demos. Building the editorial workflow helps identify rules that are missing or unclear. Those findings lead to draft changes or are recorded as [open questions](https://github.com/block/governed-artifact-protocol/blob/main/DEFERRED.md). The example records are updated when the draft changes.
+
+## Run the demo
+
+The local demo models this workflow through tools an AI agent can call. It returns the released post and its records without rendering a website.
+
+The blog website is one of three applications in the GAP demo, which runs on your computer with made-up data. [Set up the demo](run-the-demos.md) once, then follow the [blog website walkthrough](blog-website/demo.mdx), which goes from setting up the content model to a published post and its proof in about ten minutes. The [tool reference](how-the-demos-work.mdx#cms) lists every tool this application offers, with the lifecycle steps and decisions each one declares.
+
+To compare these choices with your own work, use the [evaluation guide](./evaluation-guide.md).

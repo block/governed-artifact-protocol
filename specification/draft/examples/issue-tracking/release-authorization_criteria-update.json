@@ -1,0 +1,16 @@
+{
+  "artifactId": "ticket:subtraction",
+  "artifactVersion": 2,
+  "payloadDigest": "sha256:d6a83009eb9b1b68523b845f4dd846b36a64dcf9b403d951a9cfdc98eeb55235",
+  "profile": {
+    "profileId": "bug-ticket",
+    "revision": 1,
+    "digest": "sha256:137831275b47219dbd4343e028a6ece15067744813da0e464429b4e5162046d7"
+  },
+  "authorizedAt": "2026-09-11T10:00:00Z",
+  "authorizedBy": {
+    "actorId": "agent:assignee",
+    "actorKind": "agent"
+  },
+  "authorizationSubjectDigest": "sha256:4f3fbf1c61b768e0ce2aa0ec531e9bb17e69ac9812be2d8302652b45b65836c3"
+}

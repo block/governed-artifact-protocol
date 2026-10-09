@@ -1,0 +1,19 @@
+{
+  "artifactId": "paper:zero-gravity-story-pace",
+  "artifactVersion": 2,
+  "profile": {
+    "profileId": "research-source",
+    "revision": 1,
+    "digest": "sha256:290320a5fa218822f9435d90657ce042beb845bdaaaabc62e8148bfa44c338e7"
+  },
+  "payload": {
+    "kind": "study",
+    "title": "Story pace of gummy worms in zero gravity",
+    "authors": [
+      "Fictional Orbital Confectionery Group"
+    ],
+    "journal": "Fictional Journal of Orbital Confectionery",
+    "year": 2024,
+    "body": "Aboard the spaceship Sugar Comet, twenty fictional groups of gummy worms told the same tale of a marshmallow moon, half with gravity switched on and half floating. Groups with gravity finished in an average of 60 seconds; floating groups finished in 45 seconds. Floating storytellers paused less because nobody had to climb back onto the story rug. The study measured pace only; it did not test what listeners remembered. All results are invented demonstration data. Correction: a timing error had shortened the floating average, which is 45 seconds, not 40."
+  }
+}

@@ -1,0 +1,9 @@
+# Docusaurus build output and cache
+build/
+.docusaurus/
+.cache-loader/
+
+# Generated from the maintained specification and demo manifest.
+# All other docs/ pages are authored in this directory.
+docs/specification/
+src/data/

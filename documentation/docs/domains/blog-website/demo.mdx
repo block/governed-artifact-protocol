@@ -1,0 +1,401 @@
+---
+title: "Blog website demo"
+slug: /domains/blog-website/demo
+description: "Run the blog CMS in the GAP demo: set up a content model, save drafts, reject and approve, publish, and read the post back with its proof."
+displayed_sidebar: docsSidebar
+pagination_prev: domains/blog-website
+pagination_next: domains/issue-tracking
+---
+
+<DomainNav domain="blog-website" />
+
+Follow a post with English and Spanish versions for readers in the US and Mexico through editorial review and publication. Record a reviewer's objection and an editor's approval of the same version, then publish it and read it back with both decisions preserved. A shorter exercise explores which locales a post may contain and what readers receive when a translation is missing.
+
+:::note[Things to know]
+
+- The demo runs on your computer for one user. It is not a production system.
+- You play the roles in the walkthrough by telling the agent who you are acting as. The agent uses the participant listed for that role below, and the application checks that participant's permissions.
+- Choosing a role does not sign you in or verify your identity. The demo's permission checks and audience labels do not protect access to the local files.
+- The examples use made-up data. Use fictional content when you try your own examples.
+
+:::
+
+## Before you start
+
+[Set up the demo](../run-the-demos.md) once: install, start the server, and connect your client. One server hosts every application, so this walkthrough needs no separate install or port. It uses the tools of the **Blog CMS** application; the [tool reference](../how-the-demos-work.mdx#cms) lists them with the lifecycle steps and decisions each declares. The server provides tools, not a website or a graphical editor. New to this domain? The [modeling guide](../blog-website.mdx) explains the content, roles, and records first.
+
+## What you start with
+
+On first use, the application creates `demo/.local-workspace/cms/workspace.json` from seed data. It contains one ratified profile, `cms.article` revision 1. Three more profiles are proposals that nobody has ratified yet, each at revision 1: `cms.rendered-article`, `cms.image-gallery`, and `cms.external-image-gallery`. The walkthrough below proposes and approves the guide’s four-locale `blog-post` model, then reuses it across posts. Its fields are `author`, the byline `date`, the CMS application’s `audience` label, and `content`, a headline and body per locale tag.
+
+If your workspace already has an earlier blog model, propose and ratify a new revision requiring US English and Mexican Spanish. This applies to both the original two-locale model and the earlier four-locale model that required English for both countries. The tools preserve earlier profiles, drafts, and releases. Existing posts still use their original locale rules; new saves use the updated model. You do not need to reset the workspace.
+
+The seed configures permissions, not who plays each role. Any participant whose actor kind is `human` may ratify profiles, approve or reject blog posts, and publish. Two agents hold one permission each: `agent:local-reviewer` may approve or reject blog posts, and `agent:local-publisher` may publish. Proposing a model and saving a draft need no configured permission. The walkthrough uses these participants:
+
+| Role | Actor ID | Actor kind | In this walkthrough |
+| --- | --- | --- | --- |
+| Content designer | `agent:content-designer` | `agent` | Proposes the blog post model |
+| Content model owner | `human:content-model-owner` | `human` | Ratifies content models |
+| Writer | `agent:writer` | `agent` | Saves drafts |
+| Reviewer | `agent:local-reviewer` | `agent` | Rejects a version |
+| Editor | `human:editor` | `human` | Approves a version |
+| Publisher | `human:publisher` | `human` | Publishes |
+
+These IDs are synthetic labels for the role-play, and you play every role, including the agents. Choosing a label does not sign anyone in; the application checks only the ID and kind against its policies. The CMS tools cannot tell the agent who plays each role, so the opening message below gives it this list.
+
+The writer is an agent that no policy names, so it can save drafts but cannot ratify, approve, reject, or publish. A writer labeled as a person would hold every human permission, so keep the writer an agent to see authorship kept apart from authority. The three human roles hold the same permissions; the walkthrough keeps them apart by convention.
+
+## Start the conversation
+
+Open one conversation with your agent and send this first. It sets the scene once, so every later message can be a plain request:
+
+<Chat>
+
+<You>
+
+I'm working in the connected CMS demo, on synthetic data. I'll play different roles as we go and tell you when I switch. Use these actor IDs for the roles exactly as written, prefix included; the prefix also gives the actor kind: content designer `agent:content-designer`, content model owner `human:content-model-owner`, writer `agent:writer`, reviewer `agent:local-reviewer`, editor `human:editor`, and publisher `human:publisher`. Keep the IDs and version numbers the tools give back, and don't ask me to copy digests or confirmation strings. Before you approve or publish anything, show me exactly what I'd be deciding on and wait for me, unless I explicitly tell you to proceed without pausing.
+
+</You>
+
+</Chat>
+
+If your client has project or system instructions, put that text there instead and skip it in the chat.
+
+Then send the messages below in order. A line such as “I'm the editor now.” is its own message: send it, then the request. The agent uses the participant the opening message names for that role; the labels do not authenticate anyone. Where the agent’s side is shown, it is one reply an agent could give; yours will word things differently and may call tools in another order. Each “What happens” note says what the tools record either way.
+
+## Walk through a blog post
+
+### 1. Set up the content model
+
+<Chat>
+
+<You>
+
+Is the blog post content model approved yet?
+
+</You>
+
+<Agent>
+
+Not yet. The workspace has an approved article model and unapproved proposals for rendered articles and galleries, but no blog post model. Would you like me to propose one?
+
+</Agent>
+
+<You>
+
+Yes, propose it and show me what would be approved.
+
+</You>
+
+<Agent>
+
+As the content designer, `agent:content-designer`, I've proposed a model with `author`, `date`, `audience`, and a headline and body for each locale. It requires US English and Mexican Spanish and allows US Spanish and Mexican English. A missing optional entry falls back to the required language for the same country. The proposal is ready for the content model owner's approval.
+
+</Agent>
+
+<You>
+
+I'm the content model owner.
+
+</You>
+
+<You>
+
+Approved. The fields match our editorial style guide.
+
+</You>
+
+<Expect>
+
+`propose_blog_model` records `agent:content-designer` as the proposer. `ratify_profile` then ratifies that exact proposal and records `human:content-model-owner` as the authority, with “The fields match our editorial style guide” as the reason. The profile digest still matches the preview because GAP excludes the reason when calculating that digest. On a repeat run, if this exact model is already ratified, the agent says so and you can skip to step 2. Either earlier model needs the new revision described above.
+
+</Expect>
+
+</Chat>
+
+### 2. Save a draft for readers in two countries {#2-save-a-draft-in-two-languages}
+
+<Chat>
+
+<You>
+
+I'm the writer now.
+
+</You>
+
+<You>
+
+Save a new public post by “Grounds staff”, dated October 26, 2026 at 9:30 UTC, with the ID blog-post:monarch-migration. Include US English (en-US), US Spanish (es-US), Mexican English (en-MX), and Mexican Spanish (es-MX).
+
+US English headline: “Following the monarch migration”. Body, three paragraphs:
+
+The monarchs passing through our public garden are on their way to the mountain forests of central Mexico, where they spend the winter. In the garden, they stop to feed on nectar before continuing south.
+
+Volunteers record sightings along the garden paths. These observations help us follow the migration from year to year.
+
+In the US, visit our garden during the autumn migration to see monarchs on their journey south. Check current opening dates and visitor guidance before planning your visit.
+
+US Spanish headline: “Siguiendo la migración de las monarcas”. Body, three paragraphs:
+
+Las monarcas que pasan por nuestro jardín público van rumbo a los bosques de montaña del centro de México, donde pasan el invierno. En el jardín, se detienen para alimentarse de néctar antes de continuar hacia el sur.
+
+Un grupo de voluntarios registra los avistamientos en los senderos del jardín. Estas observaciones nos ayudan a seguir la migración de un año a otro.
+
+En Estados Unidos, visita nuestro jardín durante la migración de otoño para observar a las monarcas en su viaje hacia el sur. Consulta las fechas de apertura y las recomendaciones para visitantes antes de planear tu visita.
+
+Mexican English headline: “Following the monarch migration”. Body, three paragraphs:
+
+The monarchs passing through our public garden are on their way to the mountain forests of central Mexico, where they spend the winter. In the garden, they stop to feed on nectar before continuing south.
+
+Volunteers record sightings along the garden paths. These observations help us follow the migration from year to year.
+
+In Mexico, visit the monarch sanctuaries in Michoacán and the State of Mexico during winter to see the overwintering colonies. Check current opening dates and visitor guidance before planning your visit.
+
+Mexican Spanish headline: “Siguiendo la migración de las monarcas”. Body, three paragraphs:
+
+Las monarcas que pasan por nuestro jardín público van rumbo a los bosques de montaña del centro de México, donde pasan el invierno. En el jardín, se detienen para alimentarse de néctar antes de continuar hacia el sur.
+
+Un grupo de voluntarios registra los avistamientos en los senderos del jardín. Estas observaciones nos ayudan a seguir la migración de un año a otro.
+
+En México, visita los santuarios de la monarca en Michoacán y el Estado de México durante el invierno para observar las colonias que pasan allí la temporada. Consulta las fechas de apertura y las recomendaciones para visitantes antes de planear tu visita.
+
+Then check whether readers can see it yet.
+
+</You>
+
+<Expect>
+
+`save_blog_post` creates immutable version 1 of `blog-post:monarch-migration` using `expectedVersion: 0`, with `content` holding `en-US`, `es-US`, `en-MX`, and `es-MX` entries inside one payload and `authoredBy` naming `agent:writer`. The draft is not readable through `read_post` or `get_release_proof`. If you have run this before, ask for a fresh ID: this CMS releases one version per post ID.
+
+</Expect>
+
+</Chat>
+
+The byline `author` and `date` are content. The `authoredBy` field records who saved the version, which may differ from the byline. The authorization later records when publication was authorized; that time may differ from the byline date.
+
+### 3. Reject the draft, then approve the same version {#3-reject-the-draft-then-approve-it-anyway}
+
+<Chat>
+
+<You>
+
+I'm the reviewer now.
+
+</You>
+
+<You>
+
+Reject version 1. The sentence about where to see monarchs gives different places and seasons for the US and Mexico. Please use the same advice in all four versions. Then show me the rejections on this post.
+
+</You>
+
+<Expect>
+
+`reject_post` records that the reviewer, `agent:local-reviewer`, rejected version 1 and stores the objection as the reason. This CMS requires a reason, so a blank one causes the request to fail without recording a rejection. `list_post_rejections` returns the recorded decision.
+
+Version 1 remains a draft. Rejecting it creates no new content version, and the CMS still allows an editor to approve that version. The writer cannot reject or approve posts because no approval policy names `agent:writer`.
+
+</Expect>
+
+<You>
+
+I'm the editor now.
+
+</You>
+
+<You>
+
+Approve version 1.
+
+</You>
+
+<Expect>
+
+Because you asked to see every decision first, the agent calls `preview_release_approval` for version 1, shows you that version's content in all four locales, and mentions the rejection on record. It waits rather than approving. The preview identifies version 1 exactly as stored, and the approval the agent records after your reply must carry that preview's confirmation, so it binds the same version. The agent may also show the preview's subject digest or approval authorities; the walkthrough does not require them.
+
+</Expect>
+
+<You>
+
+Approved. The viewing advice should differ: readers in the US can visit the garden during autumn migration, while readers in Mexico can visit the sanctuaries during winter. The headline and the rest of the article match within each language. Approving all four versions as written. Can readers see it yet?
+
+</You>
+
+<Expect>
+
+`approve_post` records an approval of version 1 by the editor, `human:editor`, including its subject digest and the editor's reason. That reason explains the editor's judgment; the CMS does not use it to establish that the post is accurate. The earlier rejection is preserved, and both decisions apply to the complete four-locale version.
+
+The post remains a draft until the publisher releases it, so `get_release_proof` still fails. The writer, `agent:writer`, cannot approve or publish it.
+
+</Expect>
+
+</Chat>
+
+### 4. Publish the approved version
+
+<Chat>
+
+<You>
+
+I'm the publisher now.
+
+</You>
+
+<You>
+
+Publish version 1. Reason: “The editor has reviewed the regional advice for both countries. Publish all four versions together.”
+
+</You>
+
+<Agent>
+
+The release preview covers version 1 of the monarch post, including all four locales. The editor's approval and the reviewer's rejection are on record for this version. Shall I publish it?
+
+</Agent>
+
+<You>
+
+Go ahead. Then read it back the way a reader would, in US English, US Spanish, Mexican English, and Mexican Spanish, and check its proof.
+
+</You>
+
+<Agent>
+
+Version 1 is released for the public audience. All four locale reads returned the requested content without a fallback. The release proof checks passed, including the editor's approval and the reviewer's rejection.
+
+</Agent>
+
+<Expect>
+
+`publish_post` checks that the editor approved version 1 exactly as stored, then authorizes and releases it. The authorization records the publisher, `human:publisher`, and the reason from your request. Its subject digest matches the preview; the reason is excluded from the digest calculation. Version 1 is now available for the `public` audience through `read_post` and `get_release_proof`. An agent may show the preview as soon as you switch roles; if it does, your request is the go-ahead.
+
+The four `read_post` calls return the requested headlines and bodies, each with `fallbackApplied: false`. All four locales are part of the same authorized payload, so they are published together. The release proof's `approvals` and `rejections` arrays contain the editor's and reviewer's decisions, including their reasons, for that same version. The proof verifies because the CMS allows an editor to approve a previously rejected version. The koi pond exercise below also shows that approval and authorization reasons are optional.
+
+</Expect>
+
+</Chat>
+
+### 5. Save a later draft
+
+<Chat>
+
+<You>
+
+I'm the writer again.
+
+</You>
+
+<You>
+
+Save one more version of that post. Add a sentence to both English bodies saying this is fictional demo content. Then show me every saved version and what readers currently see.
+
+</You>
+
+<Expect>
+
+`save_blog_post` uses `expectedVersion: 1` to create draft version 2. All four locale entries in version 1 remain unchanged, and readers still receive that released version. The decisions recorded for version 1 do not apply to version 2. If the expected version is stale, the save fails without creating a version. This CMS allows one release per post ID and rejects a second publish. Use a new ID to repeat the walkthrough.
+
+</Expect>
+
+</Chat>
+
+## Walk through the locale rules
+
+The `blog-post` model keeps a post’s headline and body per locale inside one payload and declares which locales a post may carry, which it must, and how a missing one falls back. The website picks a locale after verifying the proof. Continue in the same conversation.
+
+<Chat>
+
+<You>
+
+I'm the writer.
+
+</You>
+
+<You>
+
+Try three more posts, each under a new ID and dated today at noon UTC: one in Mexican Spanish only, one with US English and Mexican English but no Mexican Spanish, and one that copies the monarch post's content and adds a French (France) entry. What happens?
+
+</You>
+
+<Expect>
+
+All three save requests fail before creating a post. The Spanish-only post lacks required `en-US`. The second post lacks required `es-MX`; Mexican English does not replace Mexican Spanish. The last post includes `fr-FR`, which this profile does not allow.
+
+</Expect>
+
+<You>
+
+Read the monarch post as a reader would, in French (France).
+
+</You>
+
+<Expect>
+
+The CMS refuses the French request because `fr-FR` is not an allowed locale. In step 4, all four requests succeeded because the post contains each requested locale.
+
+</Expect>
+
+<You>
+
+One more: save, approve, and publish a public post with the ID blog-post:koi-pond, dated today at noon UTC, with the two required entries: US English and Mexican Spanish. Omit US Spanish and Mexican English.
+
+US English headline: “The koi pond reopens Friday”. Body: “The liner is replaced and the fish are back from their winter tank. The east path around the pond stays closed while the gravel settles.”
+
+Mexican Spanish headline: “El estanque de koi vuelve a abrir el viernes”. Body: “Se reemplazó el revestimiento y los peces regresaron de su tanque de invierno. El sendero este junto al estanque permanece cerrado mientras se asienta la grava.”
+
+Use the writer, editor, and publisher for their steps; no need to pause for me on this one. Then read it in US Spanish and Mexican English.
+
+</You>
+
+<Expect>
+
+The `es-US` request returns the `en-US` headline and body, while `en-MX` returns the `es-MX` headline and body. Both report `fallbackApplied: true`. Neither request crosses the country boundary. Each result includes `authorizationCoverage: entire-payload`: the authorization covers both required entries in the saved version. The demo returns content without displaying a webpage.
+
+</Expect>
+
+</Chat>
+
+## Tools and application actions
+
+| Action | Tool | GAP steps and decisions |
+| --- | --- | --- |
+| Propose the blog model | `propose_blog_model` | Profile proposal |
+| Review and approve the model | `preview_profile_ratification`, `ratify_profile` | Ratify one exact revision |
+| Save a draft with US English and Mexican Spanish, plus any optional locales | `save_blog_post` | Create an immutable artifact version |
+| Review saved content | `preview_release_approval`, `preview_release_authorization` | None: a preview shows the exact subject of a decision |
+| Approve | `approve_post` | Record a release approval of the exact version, with an optional reason |
+| Reject | `reject_post`, `list_post_rejections` | Record a release rejection of the exact version, with a required reason; the editor can still approve that version |
+| Publish | `publish_post` | Authorize and release together, carrying the approval; the authorization takes an optional reason |
+| Read a post | `read_post` | Consume released content and verify it; selecting a locale is delivery, not a GAP step |
+| Read and verify the records | `get_release_proof`, `verify_release_proof` | Consume released content and evidence |
+
+Use `get_artifact_version` to retrieve a particular saved version and `list_artifact_versions` to list the available versions. The lower-level `create_artifact_version` and `authorize_and_release` tools remain available for other content models. Publish uses the same authority and confirmation checks as those lower-level tools.
+
+Overlapping saves are rejected using a `workspace.json.blog-save-lock` directory beside the workspace file. A crash can leave that lock behind; stop the application and check the workspace before removing it. Run one server process at a time.
+
+## Try the other content models
+
+The seeded `cms.article` model uses `title`, `body`, and `audience`. The optional `render_released_article` action turns a released article of that model, not a `blog-post`, into a separate HTML draft under the `cms.rendered-article` model. That model is still a proposal, so rendering fails with `ratified profile not found: cms.rendered-article` until the content model owner ratifies it. To render an article, continue in the same conversation:
+
+1. As the writer, inspect the article contract with `get_profile_revision` and save a fictional article under `cms.article` with `create_artifact_version`. As the publisher, review it with `preview_release_authorization` and release it with `authorize_and_release`. This CMS requires an approval only for blog posts, so the article needs none.
+2. As the content model owner, inspect the `cms.rendered-article` revision 1 proposal with `get_profile_proposal`, review it with `preview_profile_ratification`, and ratify it with `ratify_profile`. This CMS accepts a ratification only from a participant whose actor kind is `human`.
+3. As the writer, call `render_released_article` with the released article's ID and audience and a new ID for the rendered copy. It checks the article's release proof and saves the HTML as version 1 of a new draft. Nothing is released, so `get_release_proof` cannot read the rendered copy yet.
+4. As the publisher, review the rendered draft with `preview_release_authorization` and release it with `authorize_and_release`. Releasing the article did not release its rendered copy; the copy needs its own authorization. `verify_rendered_artifact` then checks both release proofs, the copy's reference to the exact article version, and that the HTML is what this renderer produces from that article. That reference is one of the CMS's experiments with dependencies beyond what the draft requires.
+
+To explore a gallery, inspect the `cms.image-gallery` proposal, preview and ratify it as the content model owner, then create a draft under its exact contract. `get_cms_capabilities` describes the supported contract and dependency limits. These are separate from the blog walkthrough.
+
+## Reset
+
+Only send this if you want to discard the CMS workspace’s changes:
+
+<Chat>
+
+<You>
+
+Reset the connected CMS demo to its included example data. I understand this discards the current CMS demo workspace’s changes.
+
+</You>
+
+</Chat>
+
+The agent calls `reset_demo_workspace` with `application: "cms"` and `confirm: "reset synthetic demo workspace"`. The other applications' workspaces are untouched. Normal startup never resets data, and you can create another post with a new ID without resetting. To stop the server or fix a connection problem, see [Set up the demo](../run-the-demos.md#stop-or-troubleshoot).

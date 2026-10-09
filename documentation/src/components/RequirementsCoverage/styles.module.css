@@ -1,0 +1,18 @@
+.reference { margin: 1.75rem 0 2rem; }
+.reference h2 { margin: 1.8rem 0 .8rem; }
+.requirement { border-bottom: 1px solid var(--gap-line); scroll-margin-top: calc(var(--ifm-navbar-height) + 1rem); }
+.requirement summary { display: flex; align-items: baseline; flex-wrap: wrap; gap: .25rem .75rem; padding: .7rem 0; cursor: pointer; list-style: none; color: var(--gap-ink); }
+.requirement summary::-webkit-details-marker { display: none; }
+.requirement summary::before { content: "+"; color: var(--gap-muted); }
+.requirement[open] summary::before { content: "−"; }
+.requirement summary code { color: var(--gap-muted); font-size: .72rem; }
+.requirement summary span { margin-right: auto; font-weight: 700; }
+.requirement summary small { color: var(--gap-muted); font-size: .72rem; }
+.requirement summary:hover { color: var(--ifm-color-primary); }
+.requirement summary:focus-visible { outline: 2px solid var(--ifm-color-primary); outline-offset: 2px; }
+.body { padding: 0 0 .8rem 1.3rem; font-size: .88rem; }
+.body h3 { margin: 1rem 0 .35rem; color: var(--gap-muted); font-family: var(--gap-sans); font-size: .72rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+.body p, .body ul { margin: .35rem 0 .75rem; }
+.body ul { padding-left: 1.2rem; }
+.body li { margin-bottom: .45rem; overflow-wrap: anywhere; }
+.statement { color: var(--gap-ink); font-weight: 600; }

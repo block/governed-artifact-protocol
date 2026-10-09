@@ -1,0 +1,265 @@
+{
+  "profileId": "research-paper",
+  "revision": 1,
+  "digest": "sha256:0544153315de25681df647c9295d13e25d97332a5d5ad8d8192d6547b7df63bb",
+  "ratification": {
+    "ratifiedAt": "2026-10-08T00:00:00.000Z",
+    "actorId": "human:journal-owner",
+    "actorKind": "human",
+    "authoritySignature": {
+      "signerId": "human:journal-owner",
+      "signature": "6y3JDNCDtD4hmqXM78YN46otzR2ceLzQbK04z1UUa3HZ_FWon2vzjL_X7TGozTtL3xMBZcld4j5uZ6bfo5qqBA"
+    }
+  },
+  "payloadContract": {
+    "$contractLanguage": "json-schema/draft-2020-12",
+    "type": "object",
+    "properties": {
+      "title": {
+        "type": "string",
+        "pattern": "\\S",
+        "minLength": 1,
+        "maxLength": 5000
+      },
+      "authors": {
+        "type": "array",
+        "minItems": 1,
+        "maxItems": 20,
+        "items": {
+          "type": "string",
+          "pattern": "\\S",
+          "minLength": 1,
+          "maxLength": 5000
+        }
+      },
+      "abstract": {
+        "type": "string",
+        "pattern": "\\S",
+        "minLength": 1,
+        "maxLength": 5000
+      },
+      "sections": {
+        "type": "array",
+        "minItems": 1,
+        "maxItems": 20,
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "pattern": "\\S",
+              "minLength": 1,
+              "maxLength": 200
+            },
+            "heading": {
+              "type": "string",
+              "pattern": "\\S",
+              "minLength": 1,
+              "maxLength": 5000
+            },
+            "text": {
+              "type": "string",
+              "pattern": "\\S",
+              "minLength": 1,
+              "maxLength": 5000
+            },
+            "citations": {
+              "type": "array",
+              "maxItems": 20,
+              "items": {
+                "type": "string",
+                "pattern": "\\S",
+                "minLength": 1,
+                "maxLength": 200
+              }
+            }
+          },
+          "required": [
+            "id",
+            "heading",
+            "text",
+            "citations"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "bibliography": {
+        "type": "array",
+        "minItems": 1,
+        "maxItems": 20,
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "pattern": "\\S",
+              "minLength": 1,
+              "maxLength": 200
+            },
+            "title": {
+              "type": "string",
+              "pattern": "\\S",
+              "minLength": 1,
+              "maxLength": 5000
+            },
+            "authors": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 20,
+              "items": {
+                "type": "string",
+                "pattern": "\\S",
+                "minLength": 1,
+                "maxLength": 5000
+              }
+            },
+            "journal": {
+              "type": "string",
+              "pattern": "\\S",
+              "minLength": 1,
+              "maxLength": 5000
+            },
+            "year": {
+              "type": "integer",
+              "minimum": 1900,
+              "maximum": 2100
+            },
+            "sourceArtifactId": {
+              "type": "string",
+              "pattern": "\\S",
+              "minLength": 1,
+              "maxLength": 200
+            }
+          },
+          "required": [
+            "id",
+            "title",
+            "authors",
+            "journal",
+            "year",
+            "sourceArtifactId"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "reviewResponses": {
+        "type": "array",
+        "maxItems": 40,
+        "items": {
+          "type": "object",
+          "properties": {
+            "reviewArtifactId": {
+              "type": "string",
+              "pattern": "\\S",
+              "minLength": 1,
+              "maxLength": 200
+            },
+            "feedbackId": {
+              "type": "string",
+              "pattern": "\\S",
+              "minLength": 1,
+              "maxLength": 200
+            },
+            "response": {
+              "type": "string",
+              "pattern": "\\S",
+              "minLength": 1,
+              "maxLength": 5000
+            }
+          },
+          "required": [
+            "reviewArtifactId",
+            "feedbackId",
+            "response"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "editorResponses": {
+        "type": "array",
+        "maxItems": 40,
+        "items": {
+          "type": "object",
+          "properties": {
+            "notesArtifactId": {
+              "type": "string",
+              "pattern": "\\S",
+              "minLength": 1,
+              "maxLength": 200
+            },
+            "feedbackId": {
+              "type": "string",
+              "pattern": "\\S",
+              "minLength": 1,
+              "maxLength": 200
+            },
+            "response": {
+              "type": "string",
+              "pattern": "\\S",
+              "minLength": 1,
+              "maxLength": 5000
+            }
+          },
+          "required": [
+            "notesArtifactId",
+            "feedbackId",
+            "response"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "dependencySet": {
+        "type": "object",
+        "properties": {
+          "entries": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 20,
+            "items": {
+              "type": "object",
+              "properties": {
+                "artifactId": {
+                  "type": "string",
+                  "pattern": "\\S",
+                  "minLength": 1,
+                  "maxLength": 200
+                },
+                "artifactVersion": {
+                  "type": "integer",
+                  "maximum": 9007199254740991,
+                  "exclusiveMinimum": 0
+                },
+                "payloadDigest": {
+                  "type": "string",
+                  "pattern": "^sha256:[0-9a-f]{64}$"
+                }
+              },
+              "required": [
+                "artifactId",
+                "artifactVersion",
+                "payloadDigest"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "entries"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "required": [
+      "title",
+      "authors",
+      "abstract",
+      "sections",
+      "bibliography",
+      "reviewResponses",
+      "editorResponses",
+      "dependencySet"
+    ],
+    "additionalProperties": false,
+    "$schema": "https://json-schema.org/draft/2020-12/schema"
+  }
+}

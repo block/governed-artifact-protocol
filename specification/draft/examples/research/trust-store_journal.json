@@ -1,0 +1,22 @@
+{
+  "human:journal-editor": {
+    "publicKey": "C3889fxRbHg_KxCZpyzG_qHdYeyamQ6kgphbb8QvP6A",
+    "actions": [
+      "approve-release",
+      "reject-release"
+    ]
+  },
+  "human:journal-owner": {
+    "publicKey": "eTbETk9e0vfwcIoymhMTCTZlua0b237BwQbstz4RumM",
+    "actions": [
+      "ratify-profile"
+    ]
+  },
+  "human:journal-publisher": {
+    "publicKey": "NuLdL2g4Zfv7O2Uv3iyfUrmbAVzQjEc5P0EolCpj0ds",
+    "actions": [
+      "authorize-release",
+      "withdraw-release"
+    ]
+  }
+}

@@ -1,0 +1,29 @@
+---
+title: Case studies
+slug: /case-studies
+sidebar_label: Case studies
+pagination_prev: null
+description: "Fictional software support and in-app content workflows show where exact-version release checks could help and what still needs judgment."
+---
+
+import Link from '@docusaurus/Link';
+import styles from './index.module.css';
+
+These fictional stories explore how GAP could help when content passes from one person or tool to another. The teams and situations are made up to illustrate the checks involved; they do not report real deployments or measured results.
+
+Each story focuses on one handoff and the question it raises for the receiving tool. It follows that question through a release check and the team’s next decision. You can read them without running a demo or knowing the record format.
+
+<nav className={styles.studies} aria-label="Case studies">
+    <Link className={styles.study} to="/case-studies/software-support">
+      <span className={styles.title}>Software support</span>
+      <span className={styles.description}>A fictional help desk checks an answer’s release evidence and source guidance before deciding whether to use it in a customer reply.</span>
+      <span className={styles.arrow} aria-hidden="true">→</span>
+    </Link>
+    <Link className={styles.study} to="/case-studies/in-app-content">
+      <span className={styles.title}>In-app content</span>
+      <span className={styles.description}>A fictional product team checks whether an in-app notice sent to engineering matches the version authorized for release.</span>
+      <span className={styles.arrow} aria-hidden="true">→</span>
+    </Link>
+</nav>
+
+The [domain guides](../domains/index.mdx) follow complete workflows with concrete application models and records. Use the [evaluation guide](../domains/evaluation-guide.md) to compare a proposed check with your existing controls and estimate implementation and operating work.

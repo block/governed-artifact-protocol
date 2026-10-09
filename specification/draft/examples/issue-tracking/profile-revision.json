@@ -1,0 +1,49 @@
+{
+  "profileId": "bug-ticket",
+  "revision": 1,
+  "digest": "sha256:137831275b47219dbd4343e028a6ece15067744813da0e464429b4e5162046d7",
+  "ratification": {
+    "ratifiedAt": "2026-09-10T00:00:00.000Z",
+    "actorId": "human:workflow-owner",
+    "actorKind": "human"
+  },
+  "payloadContract": {
+    "type": "object",
+    "properties": {
+      "title": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 5000
+      },
+      "description": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 5000
+      },
+      "acceptanceCriteria": {
+        "type": "array",
+        "maxItems": 20,
+        "items": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 5000
+        }
+      },
+      "status": {
+        "type": "string",
+        "enum": [
+          "to_do",
+          "in_progress",
+          "done"
+        ]
+      }
+    },
+    "required": [
+      "title",
+      "description",
+      "acceptanceCriteria",
+      "status"
+    ],
+    "additionalProperties": false
+  }
+}

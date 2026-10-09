@@ -1,0 +1,102 @@
+{
+  "artifactId": "paper:withdrawal-coverage",
+  "artifactVersion": 2,
+  "profile": {
+    "profileId": "research-paper",
+    "revision": 1,
+    "digest": "sha256:0544153315de25681df647c9295d13e25d97332a5d5ad8d8192d6547b7df63bb"
+  },
+  "authoredBy": {
+    "actorId": "agent:paper-author",
+    "actorKind": "agent"
+  },
+  "payload": {
+    "title": "Withdrawal conformance fixture",
+    "authors": [
+      "Fictional Gummy-Worm Storytelling Crew"
+    ],
+    "abstract": "Earlier work found that gummy worms tell stories faster in zero gravity. We asked whether floating listeners also remember more. Twelve new groups of gummy worms aboard the fictional spaceship Sugar Comet heard the same tale, and we tested their memory with the Jellybean Quiz. Recall was nearly equal with and without gravity. All characters, settings, and results are invented.",
+    "sections": [
+      {
+        "id": "background",
+        "heading": "Background",
+        "text": "A previous study found that floating groups finish a tale in 45 seconds, against 60 seconds with gravity. It did not test whether listeners remembered more of the faster stories.",
+        "citations": [
+          "pace-study"
+        ]
+      },
+      {
+        "id": "methods",
+        "heading": "Methods",
+        "text": "Six groups with gravity and six floating groups heard the same marshmallow-moon tale. One minute after each story, listeners answered the ten questions of the Jellybean Quiz. We did not re-measure story pace.",
+        "citations": [
+          "jellybean-quiz"
+        ]
+      },
+      {
+        "id": "results",
+        "heading": "Results",
+        "text": "Listeners with gravity averaged 7.1 out of 10 on the quiz; floating listeners averaged 7.0. All results are invented.",
+        "citations": []
+      },
+      {
+        "id": "conclusion",
+        "heading": "Conclusion",
+        "text": "In this synthetic comparison, floating listeners and listeners with gravity recalled stories almost equally. The faster pace reported in earlier work did not come with better recall. These fictional results do not establish that zero gravity makes stories more memorable.",
+        "citations": [
+          "pace-study",
+          "jellybean-quiz"
+        ]
+      }
+    ],
+    "bibliography": [
+      {
+        "id": "pace-study",
+        "title": "Story pace of gummy worms in zero gravity",
+        "authors": [
+          "Fictional Orbital Confectionery Group"
+        ],
+        "journal": "Fictional Journal of Orbital Confectionery",
+        "year": 2024,
+        "sourceArtifactId": "paper:zero-gravity-story-pace"
+      },
+      {
+        "id": "jellybean-quiz",
+        "title": "The Jellybean Quiz: ten questions for testing what a listener remembers of any story",
+        "authors": [
+          "Fictional Story Metrics Group"
+        ],
+        "journal": "Fictional Journal of Story Metrics",
+        "year": 2023,
+        "sourceArtifactId": "paper:jellybean-quiz"
+      }
+    ],
+    "reviewResponses": [
+      {
+        "reviewArtifactId": "review:withdrawal-coverage",
+        "feedbackId": "comment-1",
+        "response": "Rewrote the abstract and conclusion to report recall on its own, credit the pace finding to the earlier study, and state the synthetic-data limitation."
+      }
+    ],
+    "editorResponses": [],
+    "dependencySet": {
+      "entries": [
+        {
+          "artifactId": "paper:jellybean-quiz",
+          "artifactVersion": 1,
+          "payloadDigest": "sha256:93b44d0272dc2a1824cc9b43dc2d857910566d0df0ecd7281cb4d353d8a60d7d"
+        },
+        {
+          "artifactId": "paper:zero-gravity-story-pace",
+          "artifactVersion": 2,
+          "payloadDigest": "sha256:59e76cab6c6d2e83c23e88e7a27e40c6064804edc823e647ef59f08eb8747b53"
+        },
+        {
+          "artifactId": "review:withdrawal-coverage",
+          "artifactVersion": 1,
+          "payloadDigest": "sha256:8a044e4566144d0c3f7ae27f9029b96ffd1a9b632e5f20416f2c1cb743fff136"
+        }
+      ]
+    }
+  }
+}

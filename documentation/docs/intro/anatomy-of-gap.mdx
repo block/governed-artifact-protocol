@@ -1,0 +1,52 @@
+---
+title: Anatomy of GAP
+slug: /intro/anatomy-of-gap
+description: The artifact, the rules, sources, and decisions connected to it, and who creates each part.
+---
+
+<a id="what-travels-with-content"></a>
+
+At the center of GAP is the artifact: the content itself. Around it is its context: the rules the content follows, the sources it used, and the decisions made about it, including who made each one and why. The application preserves immutable records and exact references between them. Source references describe the dependencies declared for that version, rather than every influence on its creation.
+
+## The artifact
+
+An [artifact](../specification/draft/README.md#artifact) is a piece of structured content, such as a blog post, a ticket, or a summary. A person or an AI agent can create one.
+
+Each saved change is a new [version](../specification/draft/README.md#artifact-version). A version holds the content, the exact rules it follows, and the participant recorded as its author. It never changes, and it stays a [draft](../specification/draft/README.md#draft), visible only inside the application, until it is released.
+
+## Its context
+
+| Part | What it is | What it tells the receiver |
+| --- | --- | --- |
+| [Profile](../specification/draft/README.md#profile) | The rules for one kind of content: its fields, their types, and their limits. Each revision of the rules never changes. | What the content had to contain. |
+| [Ratification](../specification/draft/README.md#ratification) | The decision that approves one revision of a profile for use. | That the rules were approved. It does not approve any content written under them. |
+| [Dependency set](../specification/draft/README.md#dependency-set) | The exact released versions of other content that a version used, each named by version and fingerprint. The profile decides whether one is required. | What the content was based on, even after those sources change. |
+| [Release authorization](../specification/draft/README.md#release-authorization) | The decision that permits release of one exact version. | That a person or AI agent with permission let this version out. |
+| [Release approval](../specification/draft/README.md#release-approval) and [rejection](../specification/draft/README.md#release-rejection) | Optional decisions by reviewers about one exact version. | What reviewers decided. Neither one releases anything. |
+| [Release withdrawal](../specification/draft/README.md#release-withdrawal) | The decision that a released version is no longer current. | Whether to keep relying on it. The version itself stays on record. |
+
+## Decisions
+
+Ratification, release authorization, approval, rejection, and withdrawal are all decisions. Each one names the exact profile revision or content version it covers. A later revision or version needs its own decision. It names who made it, which can be a person or an AI agent with the right permission. It can carry a [reason](../specification/draft/README.md#reasons), and an application can require one for some decisions. It can also carry a digital signature.
+
+## The release proof
+
+When a version is released, its content and context travel together as one context packet, which GAP calls a [release proof](../specification/draft/README.md#release-proof). It holds the content, the exact profile revision and its ratification, and the release authorization. It can also carry approvals and rejections of that version, and one that carries an approval carries every rejection too, so the history is never one-sided. If the version was withdrawn, the withdrawal always comes with it.
+
+The proof names each source by version and fingerprint but does not include it. Each source has its own release proof, and opening a source still takes permission to read it.
+
+## Who writes, decides, and receives
+
+GAP names three roles:
+
+- An [Author](../specification/draft/README.md#author) writes content or proposes a profile.
+- An [Authority](../specification/draft/README.md#authority) makes decisions, such as approving a profile, authorizing a version for release, or withdrawing one.
+- A [Consumer](../specification/draft/README.md#consumer) receives released content and checks its records.
+
+A person or an AI agent can hold any role, and one participant can hold several. The application decides who holds each role and checks it every time someone acts.
+
+## How a receiver checks it
+
+Records refer to each other by fingerprints, called [digests](../specification/draft/README.md#digests). The receiver's software recomputes them to check that nothing was altered and that the content, rules, and decisions belong together. When decisions are signed, the receiver can also check each one against keys it already trusts, without asking the application that recorded it. The [verification rules](../specification/draft/README.md#6-read-and-verify) give the details.
+
+Next, [Lifecycle](lifecycle.mdx) shows the steps that create these records.

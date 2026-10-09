@@ -1,0 +1,11 @@
+{
+  "workspaceFormat": "research-local-v1",
+  "application": "research",
+  "storage": "local-json",
+  "deploymentMode": "local-evaluation",
+  "productionReady": false,
+  "research": {
+    "artifacts": [], "authorizations": [], "releases": [],
+    "selections": [], "withdrawals": [], "approvals": [], "rejections": []
+  }
+}

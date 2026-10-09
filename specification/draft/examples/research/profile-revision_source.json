@@ -1,0 +1,71 @@
+{
+  "profileId": "research-source",
+  "revision": 1,
+  "digest": "sha256:290320a5fa218822f9435d90657ce042beb845bdaaaabc62e8148bfa44c338e7",
+  "ratification": {
+    "ratifiedAt": "2026-10-08T00:00:00.000Z",
+    "actorId": "human:journal-owner",
+    "actorKind": "human",
+    "authoritySignature": {
+      "signerId": "human:journal-owner",
+      "signature": "UcjngnRV2pn_uRHJwHvOjwJ8JRxghy1icn-kNEqbyDswmsk44ihIFZ2zud4tmGvmHgyHbSlpdzgZkzh-xlasBg"
+    }
+  },
+  "payloadContract": {
+    "$contractLanguage": "json-schema/draft-2020-12",
+    "type": "object",
+    "properties": {
+      "kind": {
+        "type": "string",
+        "enum": [
+          "study",
+          "methods-paper"
+        ]
+      },
+      "title": {
+        "type": "string",
+        "pattern": "\\S",
+        "minLength": 1,
+        "maxLength": 5000
+      },
+      "authors": {
+        "type": "array",
+        "minItems": 1,
+        "maxItems": 20,
+        "items": {
+          "type": "string",
+          "pattern": "\\S",
+          "minLength": 1,
+          "maxLength": 5000
+        }
+      },
+      "journal": {
+        "type": "string",
+        "pattern": "\\S",
+        "minLength": 1,
+        "maxLength": 5000
+      },
+      "year": {
+        "type": "integer",
+        "minimum": 1900,
+        "maximum": 2100
+      },
+      "body": {
+        "type": "string",
+        "pattern": "\\S",
+        "minLength": 1,
+        "maxLength": 5000
+      }
+    },
+    "required": [
+      "kind",
+      "title",
+      "authors",
+      "journal",
+      "year",
+      "body"
+    ],
+    "additionalProperties": false,
+    "$schema": "https://json-schema.org/draft/2020-12/schema"
+  }
+}

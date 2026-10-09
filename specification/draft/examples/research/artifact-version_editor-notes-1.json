@@ -1,0 +1,35 @@
+{
+  "artifactId": "editor-notes:floating-gummy-worm-recall",
+  "artifactVersion": 1,
+  "profile": {
+    "profileId": "research-editor-notes",
+    "revision": 1,
+    "digest": "sha256:a3d6d52812ec6a8ddf87950831ff2886c6eec6e0338d604905eee0a35b56bb85"
+  },
+  "authoredBy": {
+    "actorId": "human:journal-editor",
+    "actorKind": "human"
+  },
+  "payload": {
+    "manuscript": {
+      "artifactId": "paper:floating-gummy-worm-recall",
+      "artifactVersion": 2,
+      "payloadDigest": "sha256:4ddab8686a8837287f0fa73e3646e0c9afd2890aff419ba5dea1aceeb1bacb84",
+      "profile": {
+        "profileId": "research-paper",
+        "revision": 1,
+        "digest": "sha256:0544153315de25681df647c9295d13e25d97332a5d5ad8d8192d6547b7df63bb"
+      }
+    },
+    "editor": "Fictional Journal Editor",
+    "feedback": [
+      {
+        "id": "editor-comment-1",
+        "sectionId": "background",
+        "quotedText": "finish a tale in 40 seconds",
+        "comment": "The cited study has been corrected: floating groups finish in 45 seconds, so the pace gap is 15 seconds, not 20. This draft still cites the earlier figure and source version.",
+        "requestedChange": "Use 45 seconds and pin corrected study version 2 before the final editorial decision."
+      }
+    ]
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "artifactId": "paper:jellybean-quiz",
+  "artifactVersion": 1,
+  "profile": {
+    "profileId": "research-source",
+    "revision": 1,
+    "digest": "sha256:290320a5fa218822f9435d90657ce042beb845bdaaaabc62e8148bfa44c338e7"
+  },
+  "authoredBy": {
+    "actorId": "human:cited-works-editor",
+    "actorKind": "human"
+  },
+  "payload": {
+    "kind": "methods-paper",
+    "title": "The Jellybean Quiz: ten questions for testing what a listener remembers of any story",
+    "authors": [
+      "Fictional Story Metrics Group"
+    ],
+    "journal": "Fictional Journal of Story Metrics",
+    "year": 2023,
+    "body": "The quiz is ten questions asked one minute after a story ends: five about the plot, three about the characters, and two about the setting. Each correct answer earns one jellybean, for a score from 0 to 10. It works for any story and any audience; ask every listener the same questions in the same order. These demonstration methods describe no real experiment."
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "artifactId": "paper:withdrawal-coverage",
+  "artifactVersion": 2,
+  "payloadDigest": "sha256:802858ff601fe4abf51164c43c193c4ddc9ed57f7341419e3a71a8ee0395bd53",
+  "profile": {
+    "profileId": "research-paper",
+    "revision": 1,
+    "digest": "sha256:0544153315de25681df647c9295d13e25d97332a5d5ad8d8192d6547b7df63bb"
+  },
+  "approvedAt": "2026-10-10T10:00:00Z",
+  "approvedBy": {
+    "actorId": "human:journal-editor",
+    "actorKind": "human"
+  },
+  "authorizationSubjectDigest": "sha256:368d42d65afbc62a776d9c095cafed1ed2018309c926a24e44c0bd5129b6520e",
+  "authoritySignature": {
+    "signerId": "human:journal-editor",
+    "signature": "tp4Z0hzFEbwGuUka7_ejyYF3u-kCTrTjsMKLm6RZ1XeC-uYITbvLNMDK-UAtnDmpnGbjK8QTEJHCkCer7vp4DA"
+  }
+}

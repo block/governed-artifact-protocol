@@ -1,0 +1,11 @@
+{
+  "workspaceFormat": "issue-tracking-local-v1",
+  "application": "issue-tracking",
+  "storage": "local-json",
+  "deploymentMode": "local-evaluation",
+  "productionReady": false,
+  "bugTickets": {
+    "history": [],
+    "selections": []
+  }
+}

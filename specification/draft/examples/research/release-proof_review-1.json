@@ -1,0 +1,196 @@
+{
+  "release": {
+    "artifactId": "review:floating-gummy-worm-recall",
+    "artifactVersion": 1,
+    "profile": {
+      "profileId": "research-peer-review",
+      "revision": 1,
+      "digest": "sha256:9442eff7ff852018222c670a8d8261d191bb062ba2346f8e9975cd51c4d2a601"
+    },
+    "payload": {
+      "manuscript": {
+        "artifactId": "paper:floating-gummy-worm-recall",
+        "artifactVersion": 1,
+        "payloadDigest": "sha256:23a375d8b129931bd78d67d02c62e8a678d4e1994d7cb748bc128b5e858dd49d",
+        "profile": {
+          "profileId": "research-paper",
+          "revision": 1,
+          "digest": "sha256:0544153315de25681df647c9295d13e25d97332a5d5ad8d8192d6547b7df63bb"
+        }
+      },
+      "reviewer": "Fictional Peer Reviewer",
+      "recommendation": "revise",
+      "feedback": [
+        {
+          "id": "comment-1",
+          "sectionId": "conclusion",
+          "quotedText": "Because zero gravity speeds up storytelling, it also helps gummy-worm listeners remember more.",
+          "comment": "Your own results show nearly equal recall: 7.1 with gravity and 7.0 floating. The faster pace comes from the earlier study, not from your groups, and does not show that listeners remember more.",
+          "requestedChange": "Report recall on its own and limit the conclusion to what this synthetic comparison measured."
+        }
+      ]
+    }
+  },
+  "profile": {
+    "profileId": "research-peer-review",
+    "revision": 1,
+    "digest": "sha256:9442eff7ff852018222c670a8d8261d191bb062ba2346f8e9975cd51c4d2a601",
+    "ratification": {
+      "ratifiedAt": "2026-10-08T00:00:00.000Z",
+      "actorId": "human:journal-owner",
+      "actorKind": "human",
+      "authoritySignature": {
+        "signerId": "human:journal-owner",
+        "signature": "ilb4DiyG9NKwPg6lniV35vUp9UrcXsovs7iGRvZsGChWx5N7ytb4lHA9TuuL71l2QVRxFNxRSOOu1QWyyXHOAQ"
+      }
+    },
+    "payloadContract": {
+      "$contractLanguage": "json-schema/draft-2020-12",
+      "type": "object",
+      "properties": {
+        "manuscript": {
+          "type": "object",
+          "properties": {
+            "artifactId": {
+              "type": "string",
+              "pattern": "\\S",
+              "minLength": 1,
+              "maxLength": 200
+            },
+            "artifactVersion": {
+              "type": "integer",
+              "maximum": 9007199254740991,
+              "exclusiveMinimum": 0
+            },
+            "payloadDigest": {
+              "type": "string",
+              "pattern": "^sha256:[0-9a-f]{64}$"
+            },
+            "profile": {
+              "type": "object",
+              "properties": {
+                "profileId": {
+                  "type": "string",
+                  "pattern": "\\S",
+                  "minLength": 1,
+                  "maxLength": 200
+                },
+                "revision": {
+                  "type": "integer",
+                  "maximum": 9007199254740991,
+                  "exclusiveMinimum": 0
+                },
+                "digest": {
+                  "type": "string",
+                  "pattern": "^sha256:[0-9a-f]{64}$"
+                }
+              },
+              "required": [
+                "profileId",
+                "revision",
+                "digest"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "artifactId",
+            "artifactVersion",
+            "payloadDigest",
+            "profile"
+          ],
+          "additionalProperties": false
+        },
+        "reviewer": {
+          "type": "string",
+          "pattern": "\\S",
+          "minLength": 1,
+          "maxLength": 5000
+        },
+        "recommendation": {
+          "type": "string",
+          "enum": [
+            "revise",
+            "accept"
+          ]
+        },
+        "feedback": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 20,
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "\\S",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "sectionId": {
+                "type": "string",
+                "pattern": "\\S",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "quotedText": {
+                "type": "string",
+                "pattern": "\\S",
+                "minLength": 1,
+                "maxLength": 5000
+              },
+              "comment": {
+                "type": "string",
+                "pattern": "\\S",
+                "minLength": 1,
+                "maxLength": 5000
+              },
+              "requestedChange": {
+                "type": "string",
+                "pattern": "\\S",
+                "minLength": 1,
+                "maxLength": 5000
+              }
+            },
+            "required": [
+              "id",
+              "sectionId",
+              "quotedText",
+              "comment",
+              "requestedChange"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "manuscript",
+        "reviewer",
+        "recommendation",
+        "feedback"
+      ],
+      "additionalProperties": false,
+      "$schema": "https://json-schema.org/draft/2020-12/schema"
+    }
+  },
+  "authorization": {
+    "artifactId": "review:floating-gummy-worm-recall",
+    "artifactVersion": 1,
+    "payloadDigest": "sha256:b77f5b18cf837660755f20b3c3b7fbfab4cc135c55af550b639b7b3dbe4d3cb5",
+    "profile": {
+      "profileId": "research-peer-review",
+      "revision": 1,
+      "digest": "sha256:9442eff7ff852018222c670a8d8261d191bb062ba2346f8e9975cd51c4d2a601"
+    },
+    "authorizedAt": "2026-10-08T11:00:00Z",
+    "authorizedBy": {
+      "actorId": "human:journal-publisher",
+      "actorKind": "human"
+    },
+    "authorizationSubjectDigest": "sha256:1c52924ccb91dd0d48ec290f4b14b624f4a0b9d2eee3985ca88eea6268078e67",
+    "authoritySignature": {
+      "signerId": "human:journal-publisher",
+      "signature": "aoI15HYxr0ISeRkvhe5pyQJfM2ybe0jYtUZN2M7a-7NI7U64PkWv9U9X59z0hsvJ5VZmXZ6_UuFyYkLbqa10CQ"
+    }
+  }
+}
