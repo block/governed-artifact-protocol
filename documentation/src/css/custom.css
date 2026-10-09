@@ -1043,7 +1043,7 @@ main[class*="docMainContainer"] > .container > .row > .col:first-child {
   --ifm-footer-link-color: var(--gap-muted);
   --ifm-footer-title-color: var(--ifm-font-color-base);
   border-top: 1px solid var(--gap-line);
-  padding: 9rem 0 1.25rem;   /* a wide margin under the hairline; the links end near the page's bottom edge */
+  padding: 9rem 0 3rem;   /* a wide margin under the hairline, a narrower one under the links */
   font-size: 0.85rem;
 }
 /* Full width, so the columns line up with the navbar's edges. */
@@ -1100,7 +1100,7 @@ main[class*="docMainContainer"] > .container > .row > .col:first-child {
     margin-bottom: 0;
   }
   .footer {
-    padding: 5rem 0 1.25rem;
+    padding: 5rem 0 2.5rem;
   }
   .footer__col.footer__brand {
     flex-basis: 100%;
