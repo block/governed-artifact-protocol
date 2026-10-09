@@ -24,7 +24,8 @@ import styles from "./diagram.module.css";
  *
  * The post and the focused record are as tall as the viewport allows, so a
  * tall screen shows more of each. On a phone there is no scene: the post, then
- * one record at a time, with the caption and pager under it.
+ * one record at a time, each under its own caption, so a reader knows what a
+ * card is before scrolling through it.
  *
  * Choosing a record, by clicking it or paging with the arrows, swaps it with
  * the one in focus: the two trade places in the scene and the rest keep
@@ -147,6 +148,9 @@ const HEADING = "See the protocol\nin action.";
 const lines = (text: string) => text.split("\n").flatMap((line, index) => (index ? [<br key={index} />, line] : [line]));
 const oneLine = (text: string) => text.replace(/\n/g, " ");
 const INVITATION = "What rules shaped this post? Who objected, who approved, who authorized its release? Those records travel with it.";
+// On a phone the post is the carousel's first slide, captioned like the records after it and about as long, so
+// the captions line up. The heading leads straight into it there; the invitation is for the wide layout.
+const POST_CAPTION = { question: "What does\nthe reader see?", answer: "The post as it is published, shown in one of its four locales. Swipe to see the records that travel with it." };
 
 /* --- the outline: the record as a plain list, each field named in words beside its value --- */
 // A key in words: "artifactVersion" reads "Artifact version". A key that is not camelCase, like a locale
@@ -239,6 +243,9 @@ export default function ContextDiagram(): React.JSX.Element {
   const post = release.payload;
   const dated = dateline(post.date);   // the byline date is content, in the payload
   const front = CARDS[active];
+  // The left column speaks for the focused record only in the scene. A phone captions every slide itself, so
+  // its heading stays the section's own, even when the scene was revealed before the window narrowed.
+  const captioned = revealed && !phone;
   // A compact card's skeleton follows the shape of its record: a line for each of its first three top-level
   // keys, the key bar about as long as the key, the value bar varied. Short, so the stack stays tight.
   const skeletons = useMemo(() => CARDS.map((card) => Object.keys(card.json).slice(0, 3).map((key, row): [string, string] =>
@@ -477,9 +484,9 @@ export default function ContextDiagram(): React.JSX.Element {
           ))}
           <div>
             <h2 id="example-heading" className={styles.title}>
-              {revealed ? <span key={front.id} className={styles.question}>{lines(front.question)}</span> : lines(HEADING)}
+              {captioned ? <span key={front.id} className={styles.question}>{lines(front.question)}</span> : lines(HEADING)}
             </h2>
-            {revealed ? caption : <p className={styles.invitation}>{INVITATION}</p>}
+            {captioned ? caption : <p className={styles.invitation}>{INVITATION}</p>}
           </div>
         </div>
         <div className={styles.control}>
@@ -492,20 +499,28 @@ export default function ContextDiagram(): React.JSX.Element {
       {/* Everything that moves. */}
       <div className={styles.scene} ref={scene}>
         <div className={styles.space}>
-          <article className={styles.post} lang={LOCALE} ref={article}>
-            <p className={styles.masthead}>Example artifact</p>
-            <div className={styles.postBody}>
-              <p className={styles.kicker}>{String(release.profile.profileId).replace(/-/g, " ")} · {post.audience}</p>
-              <h3>{post.content[LOCALE].headline}</h3>
-              <p className={styles.byline}>
-                <span className={styles.avatar} aria-hidden="true">{post.author.charAt(0)}</span>
-                <span><strong>{post.author}</strong> · {dated}</span>
+          <div className={styles.postSlide}>
+            {phone && (
+              <p id="context-caption-post" className={styles.slideCaption}>
+                <strong>{lines(POST_CAPTION.question)}</strong>
+                {POST_CAPTION.answer}
               </p>
-              {post.content[LOCALE].body.split("\n\n").map((paragraph: string) => (
-                <p key={paragraph.slice(0, 24)}>{paragraph}</p>
-              ))}
-            </div>
-          </article>
+            )}
+            <article className={styles.post} lang={LOCALE} ref={article} aria-describedby={phone ? "context-caption-post" : undefined}>
+              <p className={styles.masthead}>Example artifact</p>
+              <div className={styles.postBody}>
+                <p className={styles.kicker}>{String(release.profile.profileId).replace(/-/g, " ")} · {post.audience}</p>
+                <h3>{post.content[LOCALE].headline}</h3>
+                <p className={styles.byline}>
+                  <span className={styles.avatar} aria-hidden="true">{post.author.charAt(0)}</span>
+                  <span><strong>{post.author}</strong> · {dated}</span>
+                </p>
+                {post.content[LOCALE].body.split("\n\n").map((paragraph: string) => (
+                  <p key={paragraph.slice(0, 24)}>{paragraph}</p>
+                ))}
+              </div>
+            </article>
+          </div>
 
           {CARDS.map((card, index) => {
             const pose = revealed ? POSES[poses[index]] : entered ? pileOf(index) : behindOf(index);
@@ -526,6 +541,12 @@ export default function ContextDiagram(): React.JSX.Element {
                 } as React.CSSProperties}
                 onClick={isFront || !revealed || phone ? undefined : () => select(index)}
               >
+                {phone && (
+                  <p id={`context-caption-${card.id}`} className={styles.slideCaption}>
+                    <strong>{lines(card.question)}</strong>
+                    {card.answer}
+                  </p>
+                )}
                 <section
                   id={`context-card-${card.id}`}
                   className={styles.card}
@@ -553,12 +574,6 @@ export default function ContextDiagram(): React.JSX.Element {
                     </div>
                   )}
                 </section>
-                {phone && (
-                  <p id={`context-caption-${card.id}`} className={styles.slideCaption}>
-                    <strong>{lines(card.question)}</strong>
-                    {card.answer}
-                  </p>
-                )}
               </div>
             );
           })}

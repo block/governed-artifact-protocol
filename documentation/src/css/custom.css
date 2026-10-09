@@ -60,7 +60,9 @@
   --ifm-code-font-size: 80%;
   --ifm-font-family-base: var(--gap-sans);
   --ifm-font-family-monospace: var(--gap-mono);
-  --ifm-font-size-base: 112.5%;
+  /* Every size on the site is in rem, so this one value sets the whole type
+     scale; the narrow layout runs it smaller (see --gap-type-scale below). */
+  --ifm-font-size-base: calc(112.5% * var(--gap-type-scale, 1));
   --ifm-line-height-base: 1.7;
   --ifm-heading-font-family: var(--gap-display);
   --ifm-heading-font-weight: 400;
@@ -84,6 +86,13 @@
   --ifm-blockquote-color: var(--gap-muted);
   --ifm-dropdown-background-color: var(--ifm-background-color);
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.08);
+}
+/* A phone is read closer than a desktop screen, so the narrow layout (the
+   width at which the navbar folds into its menu) sets all type 10% smaller. */
+@media (max-width: 996px) {
+  :root {
+    --gap-type-scale: 0.9;
+  }
 }
 
 html[data-theme="dark"] {
@@ -592,6 +601,20 @@ dialog.gap-diagram-dialog svg.gap-diagram {
 /* Navbar: hairline, no shadow, quiet items. */
 .navbar {
   border-bottom: 1px solid var(--gap-line);
+}
+/* The theme hides the bar while scrolling down and brings it back on the way
+   up (navbar.hideOnScroll). That gives a phone its screen back; on the wide
+   layout, where the sidebar and contents stick beneath the bar, it stays put. */
+@media (min-width: 997px) {
+  .navbar[class*="navbarHidden_"] {
+    transform: none;
+  }
+}
+/* On a docs page the phone's menu opens on the docs sidebar, which reaches
+   every page; the theme's way back to the navbar's own short list of links
+   only repeats it. (Pages without a sidebar still open on that list.) */
+.navbar-sidebar__back {
+  display: none;
 }
 .navbar__brand {
   color: var(--gap-nav-strong);   /* the wordmark, as strong as the header goes */

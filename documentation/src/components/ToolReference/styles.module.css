@@ -161,6 +161,22 @@
 }
 
 @media (max-width: 640px) {
+  /* Too narrow for the name and its chips to share a line: the chevron keeps
+     its own column and the name, then the chips, stack beside it, rather
+     than the chevron taking a line of its own. */
+  .toolSummary {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 8px 12px;
+  }
+  .toolSummary::before {
+    grid-area: 1 / 1;
+    align-self: start;
+    margin-top: 0.4rem;   /* level with the name, the head's first line */
+  }
+  .toolSummary > * {
+    grid-column: 2;
+  }
   .toolBody {
     padding-left: 14px;
     padding-right: 14px;
