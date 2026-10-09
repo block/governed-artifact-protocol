@@ -1089,6 +1089,13 @@ main[class*="docMainContainer"] > .container > .row > .col:first-child {
 .footer__brand .footer__item:last-child {
   margin-top: auto;
 }
+/* Side by side, the brand column is taller than the lists: the tagline at the top, the credit at the
+   bottom, open space between, and room under the links. */
+@media (min-width: 641px) {
+  .footer__col.footer__brand {
+    min-height: 19rem;
+  }
+}
 /* Nothing follows the links, so they end at the footer's padding, the same as above the titles. */
 .footer__links {
   margin-bottom: 0;
