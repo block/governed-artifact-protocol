@@ -9,7 +9,9 @@ import { gapTheme } from "./src/prism/gapTheme";
 const repoUrl = (process.env.GAP_REPO_URL ?? "https://github.com/block/governed-artifact-protocol").replace(/\/$/, "");
 const repoBranch = process.env.GAP_REPO_BRANCH ?? "main";
 const baseUrl = process.env.DOCS_BASE_URL ?? "/";
-const tagline = "An open protocol for keeping content, its rules, and its release evidence connected across systems.";
+// The one short description of GAP: the site tagline, the footer, the home
+// page's meta description, and the GitHub repository description all use it.
+const tagline = "An open protocol for keeping context with content across systems and teams.";
 const [organizationName, projectName] = new URL(repoUrl).pathname.split("/").filter(Boolean);
 
 const config: Config = {
