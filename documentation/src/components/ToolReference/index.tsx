@@ -17,7 +17,7 @@ import s from "./styles.module.css";
  * them as-is. On this page the identifiers in them read as code: tool names
  * (snake_case), field names (camelCase), and locale tags.
  */
-const IDENTIFIER = /(\b[a-z][a-z0-9]*(?:_[a-z0-9]+)+\b|\b[a-z]+(?:[A-Z][a-zA-Z0-9]*)+\b|\b[a-z]{2}-[A-Z]{2}\b)/g;
+const IDENTIFIER = /(\b[a-z][a-z0-9]*(?:_[a-z0-9]+)+\b|\b[a-z]+[A-Z][a-zA-Z0-9]*\b|\b[a-z]{2}-[A-Z]{2}\b)/g;
 
 function Prose({ text }: { text: string }): React.JSX.Element {
   const parts = text.split(IDENTIFIER);
