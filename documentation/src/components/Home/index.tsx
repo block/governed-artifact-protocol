@@ -50,11 +50,12 @@ export default function Home(): React.JSX.Element {
             <ContextDiagram />
           </section>
 
-          {/* The page closes on where to go next: each path once, in the order a newcomer would take them. */}
+          {/* The page closes on where to go next, its heading answering the example's: each path once, in the
+              order a newcomer would take them. */}
           <section className={styles.close} aria-labelledby="next-heading">
             <div className={styles.closeCopy}>
-              <h2 id="next-heading" className={styles.closeTitle}>Where to go next</h2>
-              <p>Learn the ideas, follow a handoff, run a demo on your own computer, or read the rules themselves.</p>
+              <h2 id="next-heading" className={styles.closeTitle}>Explore the protocol.</h2>
+              <p>How does GAP work, where does it help, and what does it require? Start with whichever question is yours.</p>
             </div>
             <nav className={styles.paths} aria-labelledby="next-heading">
               {PATHS.map((path) => (

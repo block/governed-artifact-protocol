@@ -132,9 +132,9 @@ test("homepage leads into Intro without a duplicate summary", () => {
 
 });
 
-test("homepage closes on where to go next, each path a real page", () => {
+test("homepage closes on exploring the protocol, each path a real page", () => {
   const home = read("documentation/src/components/Home/index.tsx");
-  assert(home.includes(">Where to go next</h2>"));
+  assert(home.includes(">Explore the protocol.</h2>"));
   const routes = [...home.matchAll(/to: "([^"]+)"/g)].map((match) => match[1]);
   assert.deepEqual(routes, ["/intro", "/case-studies", "/domains", "/specification/working-draft"]);
   for (const route of routes) assert(Object.values(pages).includes(route), route);
