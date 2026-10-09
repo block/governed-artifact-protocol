@@ -2,7 +2,7 @@
 .home {
   max-width: 1180px;
   margin: 0 auto;
-  padding: 0 5vw 6rem;
+  padding: 0 5vw 8rem;   /* the page's end: open space above the footer's hairline */
 }
 /* The opening takes 80% of the viewport, so the example below always shows its head above the fold. */
 .opening {
