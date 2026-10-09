@@ -2,9 +2,9 @@
 
 [![Specification status: draft, no published version yet](https://img.shields.io/badge/specification-draft-orange)][draft] [![License: Apache 2.0](https://img.shields.io/badge/license-Apache%202.0-blue)](LICENSE)
 
-Content moves between tools, people, and AI agents. The answers to "what was this based on?" and "who signed off on it?" usually stay behind, in a review thread or someone's memory. When an AI agent receives content through a file, a copied answer, or another tool, its available context may differ from the context in which that content was created.
+Content moves between tools, people, and AI agents. The answers to "what was this based on?" and "who signed off on it?" usually stay behind, in a review thread, an agent session, or someone's memory. When an AI agent receives content through a file, a copied answer, or another tool, its available context may differ from the context in which that content was created.
 
-**Governed Artifact Protocol (GAP)** defines how applications keep content connected to its rules, source references, and release decisions. A release proof connects one content version to its profile revision, release authorization, and any declared source references. A person or an AI agent receiving a release can verify which version was released and who authorized it without recreating the original workflow. They can verify a referenced source only when they can retrieve it under their own access and trust rules.
+**Governed Artifact Protocol (GAP)** defines how applications keep content connected to its rules, source references, and release decisions. Those records travel with each released version as a release proof. A person or an AI agent receiving it can check which version was released, who authorized it, and which sources it names, without recreating the original workflow. Checking a source's own content requires retrieving it under the receiver's own access and trust rules.
 
 GAP is for people building and operating applications where a person or an AI agent creates, authorizes, or consumes structured content. Each application chooses its interface, storage, permissions, and review policy.
 
