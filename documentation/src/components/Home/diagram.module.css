@@ -543,6 +543,7 @@
 @media (prefers-reduced-motion: reduce) {
   .stage .slot, .stage .post, .stage .card { transition: none; }
   .stage .card, .stage .about, .stage .pager, .stage .question { animation: none; }
+  .space { transition: none; }
   .stage .leaf::before, .stage .group::before, .stage .leaf > *, .stage .group > * { animation: none; }
 }
 /* One column: the words, then the scene beneath them at whatever scale fits. */
@@ -587,13 +588,19 @@
     margin: 0.5rem calc(50% - 50vw) 0;   /* from edge to edge of the screen */
     padding: 1rem var(--gutter) 2rem;   /* room for the shadows; each slide rests on the page's left edge */
     scroll-padding-inline: var(--gutter);
-    overflow-x: auto;
+    overflow: auto hidden;   /* as tall as the slide in view, set by the component; taller ones are cut below it */
     overscroll-behavior-x: contain;
+    transition: height 300ms ease;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
     transform: none;
   }
   .space::-webkit-scrollbar { display: none; }
+  /* A slide taller than the one in view fades out by the line where that one ends; the component sets --cut. */
+  .space [data-cut] {
+    -webkit-mask-image: linear-gradient(to bottom, #000 calc(var(--cut) - 6rem), transparent var(--cut));
+    mask-image: linear-gradient(to bottom, #000 calc(var(--cut) - 6rem), transparent var(--cut));
+  }
   .postSlide,
   .stage[data-revealed] .slot[data-on],
   .stage[data-revealed] .slot:not([data-on]) {

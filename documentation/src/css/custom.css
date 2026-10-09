@@ -692,7 +692,7 @@ main[class*="docMainContainer"] > .container {
   padding-bottom: 0 !important; /* Infima's spacing utility is !important */
 }
 main[class*="docMainContainer"] > .container > .row > .col:first-child {
-  padding-bottom: 2rem;
+  padding-bottom: 8rem;   /* the page's end: open space above the footer's hairline, the rails running through it */
 }
 /* The blog post layout wraps its row in a 2rem top and bottom margin. The
    docs layout gives its container 1rem of top padding instead, which the
@@ -1043,7 +1043,7 @@ main[class*="docMainContainer"] > .container > .row > .col:first-child {
   --ifm-footer-link-color: var(--gap-muted);
   --ifm-footer-title-color: var(--ifm-font-color-base);
   border-top: 1px solid var(--gap-line);
-  padding: 1.5rem 0;
+  padding: 3.5rem 0 3rem;   /* the hairline heads the footer, so its contents sit close under it */
   font-size: 0.85rem;
 }
 /* Full width, so the columns line up with the navbar's edges. */
@@ -1089,13 +1089,22 @@ main[class*="docMainContainer"] > .container > .row > .col:first-child {
 .footer__brand .footer__item:last-child {
   margin-top: auto;
 }
+/* Nothing follows the links, so they end at the footer's padding, the same as above the titles. */
+.footer__links {
+  margin-bottom: 0;
+}
+/* Stacked, the space the link columns would leave under themselves goes between the brand and the links. */
 @media (max-width: 640px) {
   .footer__col {
     flex: 1 0 50%;
+    margin-bottom: 0;
+  }
+  .footer {
+    padding: 2.5rem 0 2.5rem;
   }
   .footer__col.footer__brand {
     flex-basis: 100%;
-    margin-bottom: 1.5rem;
+    margin-bottom: 4rem;
   }
 }
 .built-by {

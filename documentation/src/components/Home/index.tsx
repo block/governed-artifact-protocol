@@ -6,6 +6,25 @@ import ContextDiagram from "./ContextDiagram";
 import Wordmark from "@site/src/components/Wordmark";
 import styles from "./styles.module.css";
 
+const PATHS = [
+  { title: "Intro", to: "/intro", description: "What GAP is, why it matters, and how it works." },
+  {
+    title: "Case studies",
+    to: "/case-studies",
+    description: "Fictional stories of content changing hands, and how GAP could help.",
+  },
+  {
+    title: "Domains",
+    to: "/domains",
+    description: "GAP modeled for a blog, an issue tracker, and a research journal, each helping shape the draft.",
+  },
+  {
+    title: "Working draft",
+    to: "/specification/working-draft",
+    description: "The rules themselves, with schemas, example records, and coverage.",
+  },
+];
+
 export default function Home(): React.JSX.Element {
   const { siteConfig } = useDocusaurusContext();
   return (
@@ -31,6 +50,20 @@ export default function Home(): React.JSX.Element {
             <ContextDiagram />
           </section>
 
+          {/* The page closes on where to go next, its heading answering the example's: each path once, in the
+              order a newcomer would take them. */}
+          <section className={styles.close} aria-labelledby="next-heading">
+            <h2 id="next-heading" className={styles.closeTitle}>Explore<br />the protocol.</h2>
+            <nav className={styles.paths} aria-labelledby="next-heading">
+              {PATHS.map((path) => (
+                <Link key={path.to} className={styles.path} to={path.to}>
+                  <span className={styles.pathTitle}>{path.title}</span>
+                  <span className={styles.pathDescription}>{path.description}</span>
+                  <span className={styles.pathArrow} aria-hidden="true">→</span>
+                </Link>
+              ))}
+            </nav>
+          </section>
         </main>
       </div>
     </Layout>

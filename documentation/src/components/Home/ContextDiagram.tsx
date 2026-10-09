@@ -88,7 +88,7 @@ const CARDS: Card[] = [
     id: "profile",
     label: "profile",
     question: "Which rules\napply?",
-    answer: "The content model's required fields, its allowed languages, and what to show when a translation is missing.",
+    answer: "The profile sets the required fields, the allowed languages, and what to show when a translation is missing.",
     json: record("profile-revision.json"),
   },
   {
@@ -109,7 +109,7 @@ const CARDS: Card[] = [
     id: "authorization",
     label: "authorization",
     question: "Who gave\nthe go-ahead?",
-    answer: "The publisher's permission to release this exact version. Approval and release authorization are separate decisions.",
+    answer: "The publisher authorized release of this exact version. Approval and release authorization are separate decisions.",
     json: record(`release-authorization${SUFFIX}`),
   },
 ];
@@ -147,7 +147,7 @@ const OPENING = OPENING_POSES.indexOf(0);
 const HEADING = "See the protocol\nin action.";
 const lines = (text: string) => text.split("\n").flatMap((line, index) => (index ? [<br key={index} />, line] : [line]));
 const oneLine = (text: string) => text.replace(/\n/g, " ");
-const INVITATION = "What rules shaped this post? Who objected, who approved, who authorized its release? Those records travel with it.";
+const INVITATION = "What rules shaped this post? Who objected, who approved, who authorized its release? Those records stay with this exact version.";
 // On a phone the post is the carousel's first slide, captioned like the records after it and about as long, so
 // the captions line up. The heading leads straight into it there; the invitation is for the wide layout.
 const POST_CAPTION = { question: "What does\nthe reader see?", answer: "The post as it is published, shown in one of its four locales. Swipe to see the records that travel with it." };
@@ -222,6 +222,7 @@ export default function ContextDiagram(): React.JSX.Element {
   const scene = useRef<HTMLDivElement>(null);
   const article = useRef<HTMLElement>(null);
   const measure = useRef<HTMLDivElement>(null);
+  const track = useRef<HTMLDivElement>(null);   // the phone's carousel
   const slots = useRef<(HTMLDivElement | null)[]>([]);
   const [revealed, setRevealed] = useState(false);
   const [entered, setEntered] = useState(false);   // the section has scrolled into view; the pile has fanned out
@@ -440,6 +441,57 @@ export default function ContextDiagram(): React.JSX.Element {
     };
   }, []);
 
+  // On a phone the carousel is as tall as the slide in view, not the tallest record, so a short slide leaves no
+  // empty page under it. The slide in view is the one nearest the carousel's left margin; the height follows it
+  // as a swipe crosses from one to the next.
+  useEffect(() => {
+    const element = track.current;
+    if (!phone || !element) return;
+    const fit = () => {
+      const box = element.getBoundingClientRect();
+      const style = getComputedStyle(element);
+      const margin = box.left + parseFloat(style.paddingLeft);
+      const slides = Array.from(element.children) as HTMLElement[];
+      const near = slides.reduce((best, slide) =>
+        Math.abs(slide.getBoundingClientRect().left - margin) < Math.abs(best.getBoundingClientRect().left - margin) ? slide : best);
+      const card = near.lastElementChild as HTMLElement | null;
+      if (!card) return;
+      const bottom = card.getBoundingClientRect().bottom;
+      element.style.height = `${bottom - box.top + parseFloat(style.paddingBottom)}px`;
+      // A taller slide beside it fades out by the line where this one ends, rather than being cut off.
+      slides.forEach((slide) => {
+        const other = slide.lastElementChild as HTMLElement | null;
+        if (!other) return;
+        const rect = other.getBoundingClientRect();
+        if (slide !== near && rect.bottom > bottom + 1) {
+          other.dataset.cut = "";
+          other.style.setProperty("--cut", `${bottom - rect.top}px`);
+        } else {
+          delete other.dataset.cut;
+        }
+      });
+    };
+    let frame = 0;
+    const soon = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(fit);
+    };
+    fit();
+    element.addEventListener("scroll", soon, { passive: true });
+    const observer = "ResizeObserver" in window ? new ResizeObserver(soon) : null;
+    Array.from(element.children).forEach((slide) => observer?.observe(slide));
+    document.fonts?.ready.then(soon);
+    return () => {
+      cancelAnimationFrame(frame);
+      element.removeEventListener("scroll", soon);
+      observer?.disconnect();
+      element.style.height = "";
+      Array.from(element.children, (slide) => slide.lastElementChild as HTMLElement | null).forEach((card) => {
+        if (card) delete card.dataset.cut;
+      });
+    };
+  }, [phone]);
+
   // The focused record's caption, in the left column. The question is the heading above it, so the caption
   // carries it only for screen readers, which hear question and answer together.
   const caption = (
@@ -498,7 +550,7 @@ export default function ContextDiagram(): React.JSX.Element {
 
       {/* Everything that moves. */}
       <div className={styles.scene} ref={scene}>
-        <div className={styles.space}>
+        <div className={styles.space} ref={track}>
           <div className={styles.postSlide}>
             {phone && (
               <p id="context-caption-post" className={styles.slideCaption}>

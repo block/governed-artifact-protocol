@@ -132,6 +132,14 @@ test("homepage leads into Intro without a duplicate summary", () => {
 
 });
 
+test("homepage closes on exploring the protocol, each path a real page", () => {
+  const home = read("documentation/src/components/Home/index.tsx");
+  assert(home.includes(">Explore<br />the protocol.</h2>"));
+  const routes = [...home.matchAll(/to: "([^"]+)"/g)].map((match) => match[1]);
+  assert.deepEqual(routes, ["/intro", "/case-studies", "/domains", "/specification/working-draft"]);
+  for (const route of routes) assert(Object.values(pages).includes(route), route);
+});
+
 test("tool manifest points to real canonical docs routes", () => {
   const manifest = JSON.parse(read("documentation/src/data/tools.json"));
   const slugs = Object.values(pages);
