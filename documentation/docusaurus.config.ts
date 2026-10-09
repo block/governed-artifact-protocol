@@ -9,11 +9,12 @@ import { gapTheme } from "./src/prism/gapTheme";
 const repoUrl = (process.env.GAP_REPO_URL ?? "https://github.com/block/governed-artifact-protocol").replace(/\/$/, "");
 const repoBranch = process.env.GAP_REPO_BRANCH ?? "main";
 const baseUrl = process.env.DOCS_BASE_URL ?? "/";
+const tagline = "An open protocol for keeping content, its rules, and its release evidence connected across systems.";
 const [organizationName, projectName] = new URL(repoUrl).pathname.split("/").filter(Boolean);
 
 const config: Config = {
   title: "Governed Artifact Protocol",
-  tagline: "An open protocol for keeping content, its rules, and its release evidence connected across systems.",
+  tagline,
   favicon: "img/favicon.svg",
   headTags: [
     { tagName: "link", attributes: { rel: "icon", type: "image/png", sizes: "32x32", href: `${baseUrl}img/favicon-32.png` } },
@@ -131,14 +132,15 @@ const config: Config = {
     },
     footer: {
       style: "light",
-      // Columns: the project and its credit, then two groups of links. The
-      // credit sits at the bottom of its column, level with the longest list.
+      // Columns: the project, its tagline, and its credit, then two groups of
+      // links. The credit sits at the bottom of its column, level with the
+      // longest list.
       links: [
         {
           title: "Governed Artifact Protocol",
           className: "footer__brand",
           items: [
-            { html: "Draft · Apache-2.0" },
+            { html: tagline, className: "footer__tagline" },
             {
               html:
                 '<a class="built-by" href="https://block.xyz" target="_blank" rel="noreferrer" aria-label="Built by Block">' +

@@ -1058,6 +1058,11 @@ main[class*="docMainContainer"] > .container > .row > .col:first-child {
   flex: 1;
   flex-direction: column;
 }
+.footer__tagline {
+  max-width: 32ch;
+  margin-bottom: 0.9rem;
+  line-height: 1.5;
+}
 .footer__brand .footer__item:last-child {
   margin-top: auto;
 }
