@@ -7,7 +7,7 @@ import Wordmark from "@site/src/components/Wordmark";
 import styles from "./styles.module.css";
 
 const PATHS = [
-  { title: "Intro", to: "/intro", description: "What GAP is, why it matters, and what travels with each release." },
+  { title: "Intro", to: "/intro", description: "What GAP is, why it matters, and how it works." },
   {
     title: "Case studies",
     to: "/case-studies",
