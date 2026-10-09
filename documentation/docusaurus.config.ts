@@ -115,6 +115,9 @@ const config: Config = {
     },
     navbar: {
       title: "",
+      // On a phone the bar slides away while reading down and returns on the way back up; the stylesheet keeps
+      // it in place on the wide layout.
+      hideOnScroll: true,
       items: [
         {
           to: "/specification/working-draft",
