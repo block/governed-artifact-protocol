@@ -53,10 +53,7 @@ export default function Home(): React.JSX.Element {
           {/* The page closes on where to go next, its heading answering the example's: each path once, in the
               order a newcomer would take them. */}
           <section className={styles.close} aria-labelledby="next-heading">
-            <div className={styles.closeCopy}>
-              <h2 id="next-heading" className={styles.closeTitle}>Explore the protocol.</h2>
-              <p>How does GAP work, where does it help, and what does it require?</p>
-            </div>
+            <h2 id="next-heading" className={styles.closeTitle}>Explore<br />the protocol.</h2>
             <nav className={styles.paths} aria-labelledby="next-heading">
               {PATHS.map((path) => (
                 <Link key={path.to} className={styles.path} to={path.to}>

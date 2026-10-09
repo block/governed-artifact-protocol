@@ -63,7 +63,7 @@
   padding-top: 4rem;
 }
 .closeTitle {
-  margin: 0 0 1rem;
+  margin: 0;
   color: var(--gap-ink);
   font-family: var(--gap-display);
   font-size: clamp(1.4rem, 1.7vw, 1.75rem);
@@ -71,13 +71,6 @@
   line-height: 1.1;
   letter-spacing: -0.02em;
   text-transform: uppercase;
-}
-.closeCopy p {
-  max-width: 36ch;
-  margin: 0;
-  font-size: 1rem;
-  line-height: 1.55;
-  text-wrap: pretty;
 }
 .paths { border-top: 2px solid var(--gap-ink); }
 .path {
