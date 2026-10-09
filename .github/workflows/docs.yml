@@ -1,8 +1,8 @@
 name: Documentation
 
-# Builds the Docusaurus site in documentation/ on every change that affects
-# it, and deploys the result to GitHub Pages when main changes. The site is
-# published at https://block.github.io/governed-artifact-protocol/.
+# Builds and checks the Docusaurus site in documentation/ on every pull
+# request, and deploys it to GitHub Pages when a change to main affects it.
+# The site is published at https://block.github.io/governed-artifact-protocol/.
 #
 # Deployment requires GitHub Pages to be enabled for the repository with
 # "GitHub Actions" as the source (Settings → Pages → Build and deployment).
@@ -23,18 +23,9 @@ on:
       - "pnpm-lock.yaml"
       - "pnpm-workspace.yaml"
       - ".github/workflows/docs.yml"
+  # Every pull request, with no path filter, so the build check always
+  # reports and can be required before merging.
   pull_request:
-    paths:
-      - "documentation/**"
-      - "README.md"
-      - "CONTRIBUTING.md"
-      - "DEFERRED.md"
-      - "specification/**"
-      - "demo/src/**"
-      - "demo/package.json"
-      - "pnpm-lock.yaml"
-      - "pnpm-workspace.yaml"
-      - ".github/workflows/docs.yml"
 
 concurrency:
   group: pages-${{ github.ref }}

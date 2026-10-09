@@ -1046,11 +1046,74 @@ main[class*="docMainContainer"] > .container > .row > .col:first-child {
   padding: 1.5rem 0;
   font-size: 0.85rem;
 }
-.footer__copyright {
-  font-size: 0.85rem;
+/* Full width, so the columns line up with the navbar's edges. */
+.footer > .container {
+  max-width: none;
 }
 .footer__link-item > svg {
   display: none;
+}
+/* Column titles in Bungee, as the sidebar's section headings. */
+.footer__title {
+  margin-bottom: 0.6rem;
+  font-family: var(--gap-display);
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: var(--ifm-footer-title-color);
+}
+.footer__item {
+  line-height: 1.9;
+}
+
+/* The brand column takes the free space and the link columns sit at the right
+   edge. The credit drops to the bottom so it lines up with the last link in
+   the longest list. */
+.footer__col {
+  flex: 0 0 12rem;
+}
+.footer__col.footer__brand {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+.footer__brand .footer__items {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+.footer__tagline {
+  max-width: 32ch;
+  margin-bottom: 0.9rem;
+  line-height: 1.5;
+}
+.footer__brand .footer__item:last-child {
+  margin-top: auto;
+}
+@media (max-width: 640px) {
+  .footer__col {
+    flex: 1 0 50%;
+  }
+  .footer__col.footer__brand {
+    flex-basis: 100%;
+    margin-bottom: 1.5rem;
+  }
+}
+.built-by {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: inherit;
+}
+.built-by:hover {
+  color: var(--ifm-font-color-base);
+  text-decoration: none;
+}
+.block-mark {
+  display: inline-block;
+  width: 0.7rem;
+  height: 0.7rem;
+  background-color: currentColor;
+  mask: url("/img/block.svg") no-repeat center / contain;
 }
 
 /* Blog: its own layout. A landing list, then a post page with a narrow measure. */
