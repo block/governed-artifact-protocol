@@ -605,6 +605,7 @@
   .stage[data-revealed] .post {
     --fog: 0;
     position: static;
+    align-self: start;   /* as tall as its own words; the slides' bottom edges need not line up */
     width: auto;
     transform: none;
   }
@@ -623,6 +624,7 @@
   .stage[data-revealed] .slot:not([data-on]) .card {
     --k: 1;
     --fog: 0;
+    align-self: start;   /* as tall as its own record, not the tallest */
     transform: none;
     translate: none;
     filter: none;
