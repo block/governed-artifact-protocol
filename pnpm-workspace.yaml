@@ -2,4 +2,6 @@ packages:
   - demo
   - documentation
 
-onlyBuiltDependencies: []
+allowBuilds:
+  core-js: false
+  esbuild: false

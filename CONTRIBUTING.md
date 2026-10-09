@@ -4,7 +4,7 @@ Thank you for your interest in GAP. This page covers how to set up, check, and p
 
 ## Set up
 
-You need Node.js 22 (see `.nvmrc`) and pnpm 10.33 or later. From the repository root:
+You need Node.js 24 (see `.nvmrc`) and pnpm 12 or later. From the repository root:
 
 ```bash
 pnpm install
