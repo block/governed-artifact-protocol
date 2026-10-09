@@ -131,19 +131,39 @@ const config: Config = {
     },
     footer: {
       style: "light",
+      // Columns: the project and its credit, then two groups of links. The
+      // credit sits at the bottom of its column, level with the longest list.
       links: [
-        { label: "Contribute", href: `${repoUrl}/blob/${repoBranch}/CONTRIBUTING.md` },
-        { label: "Blog", to: "/blog" },
-        { label: "Discussions", href: `${repoUrl}/discussions` },
-        { label: "Report a problem", href: `${repoUrl}/issues/new/choose` },
-        { label: "Governance", href: `${repoUrl}/blob/${repoBranch}/GOVERNANCE.md` },
-        { label: "Code of conduct", href: "https://github.com/block/.github/blob/main/CODE_OF_CONDUCT.md" },
-        { label: "License", href: `${repoUrl}/blob/${repoBranch}/LICENSE` },
+        {
+          title: "Governed Artifact Protocol",
+          className: "footer__brand",
+          items: [
+            { html: "Draft · Apache-2.0" },
+            {
+              html:
+                '<a class="built-by" href="https://block.xyz" target="_blank" rel="noreferrer" aria-label="Built by Block">' +
+                'Built by <span class="block-mark" aria-hidden="true"></span></a>',
+            },
+          ],
+        },
+        {
+          title: "Project",
+          items: [
+            { label: "Contribute", href: `${repoUrl}/blob/${repoBranch}/CONTRIBUTING.md` },
+            { label: "Governance", href: `${repoUrl}/blob/${repoBranch}/GOVERNANCE.md` },
+            { label: "License", href: `${repoUrl}/blob/${repoBranch}/LICENSE` },
+          ],
+        },
+        {
+          title: "Community",
+          items: [
+            { label: "Blog", to: "/blog" },
+            { label: "Discussions", href: `${repoUrl}/discussions` },
+            { label: "Report a problem", href: `${repoUrl}/issues/new/choose` },
+            { label: "Code of conduct", href: "https://github.com/block/.github/blob/main/CODE_OF_CONDUCT.md" },
+          ],
+        },
       ],
-      copyright:
-        'Governed Artifact Protocol · draft · Apache-2.0' +
-        '<a class="built-by" href="https://block.xyz" target="_blank" rel="noreferrer" aria-label="Built by Block">' +
-        'Built by <span class="block-mark" aria-hidden="true"></span></a>',
     },
     prism: {
       // One theme built from CSS variables; it follows html[data-theme] itself.

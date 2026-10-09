@@ -1023,18 +1023,41 @@ main[class*="docMainContainer"] > .container > .row > .col:first-child {
   padding: 1.5rem 0;
   font-size: 0.85rem;
 }
-.footer__copyright {
-  font-size: 0.85rem;
-}
 .footer__link-item > svg {
   display: none;
 }
-.footer__copyright {
+.footer__title {
+  margin-bottom: 0.6rem;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gap-muted);
+}
+.footer__item {
+  line-height: 1.9;
+}
+
+/* The brand column: its title reads as the project name, and the credit
+   drops to the bottom so it lines up with the last link in the longest list. */
+.footer__col.footer__brand {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  gap: 0.5rem 1.5rem;
+  flex-direction: column;
+  flex-grow: 1.6;
+}
+.footer__brand .footer__title {
+  font-size: 0.85rem;
+  letter-spacing: normal;
+  text-transform: none;
+  color: var(--ifm-footer-title-color);
+}
+.footer__brand .footer__items {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+.footer__brand .footer__item:last-child {
+  margin-top: auto;
 }
 .built-by {
   display: inline-flex;
