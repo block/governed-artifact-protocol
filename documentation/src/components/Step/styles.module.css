@@ -88,6 +88,19 @@ a.chip:focus-visible .mark::after {
 :global(.markdown) ol:has(> li > a.chip:first-child) {
   padding-left: 0;
 }
+/* A chip is small to look at but not to tap: on a touch screen its target
+   reaches past its edges, about halfway into the gaps between chips. */
+@media (pointer: coarse) {
+  :global(.markdown) a.chip:not(.hash-link),
+  a.chip {
+    position: relative;
+  }
+  a.chip::after {
+    content: "";
+    position: absolute;
+    inset: -6px -3px;
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   a.chip {
     transition: none;
