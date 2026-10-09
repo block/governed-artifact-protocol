@@ -6,6 +6,25 @@ import ContextDiagram from "./ContextDiagram";
 import Wordmark from "@site/src/components/Wordmark";
 import styles from "./styles.module.css";
 
+const PATHS = [
+  { title: "Intro", to: "/intro", description: "What GAP is, why it matters, and what travels with each release." },
+  {
+    title: "Case studies",
+    to: "/case-studies",
+    description: "Fictional handoffs that show where a release check helps and what still needs judgment.",
+  },
+  {
+    title: "Domains",
+    to: "/domains",
+    description: "A blog website, an issue tracking app, and a research journal, each with a demo on synthetic data.",
+  },
+  {
+    title: "Working draft",
+    to: "/specification/working-draft",
+    description: "Every normative rule, with record schemas, example records, and requirements coverage.",
+  },
+];
+
 export default function Home(): React.JSX.Element {
   const { siteConfig } = useDocusaurusContext();
   return (
@@ -31,6 +50,22 @@ export default function Home(): React.JSX.Element {
             <ContextDiagram />
           </section>
 
+          {/* The page closes on where to go next: each path once, in the order a newcomer would take them. */}
+          <section className={styles.close} aria-labelledby="next-heading">
+            <div className={styles.closeCopy}>
+              <h2 id="next-heading" className={styles.closeTitle}>Where to go next</h2>
+              <p>Learn the ideas, follow a handoff, run a demo on your own computer, or read the rules themselves.</p>
+            </div>
+            <nav className={styles.paths} aria-labelledby="next-heading">
+              {PATHS.map((path) => (
+                <Link key={path.to} className={styles.path} to={path.to}>
+                  <span className={styles.pathTitle}>{path.title}</span>
+                  <span className={styles.pathDescription}>{path.description}</span>
+                  <span className={styles.pathArrow} aria-hidden="true">→</span>
+                </Link>
+              ))}
+            </nav>
+          </section>
         </main>
       </div>
     </Layout>
