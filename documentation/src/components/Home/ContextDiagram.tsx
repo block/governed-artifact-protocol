@@ -243,6 +243,9 @@ export default function ContextDiagram(): React.JSX.Element {
   const post = release.payload;
   const dated = dateline(post.date);   // the byline date is content, in the payload
   const front = CARDS[active];
+  // The left column speaks for the focused record only in the scene. A phone captions every slide itself, so
+  // its heading stays the section's own, even when the scene was revealed before the window narrowed.
+  const captioned = revealed && !phone;
   // A compact card's skeleton follows the shape of its record: a line for each of its first three top-level
   // keys, the key bar about as long as the key, the value bar varied. Short, so the stack stays tight.
   const skeletons = useMemo(() => CARDS.map((card) => Object.keys(card.json).slice(0, 3).map((key, row): [string, string] =>
@@ -481,9 +484,9 @@ export default function ContextDiagram(): React.JSX.Element {
           ))}
           <div>
             <h2 id="example-heading" className={styles.title}>
-              {revealed ? <span key={front.id} className={styles.question}>{lines(front.question)}</span> : lines(HEADING)}
+              {captioned ? <span key={front.id} className={styles.question}>{lines(front.question)}</span> : lines(HEADING)}
             </h2>
-            {revealed ? caption : <p className={styles.invitation}>{INVITATION}</p>}
+            {captioned ? caption : <p className={styles.invitation}>{INVITATION}</p>}
           </div>
         </div>
         <div className={styles.control}>
