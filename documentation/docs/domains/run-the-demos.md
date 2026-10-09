@@ -20,7 +20,7 @@ You run the server on your computer, connect an AI agent through its client, and
 
 ## What you need
 
-- Node.js 22 or later and pnpm 10.33 or later.
+- Node.js 22 or later and pnpm 12 or later.
 - A client that supports MCP over Streamable HTTP, connected to an AI agent you can talk to.
 - About ten minutes for the first walkthrough.
 
