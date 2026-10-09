@@ -609,6 +609,7 @@
     grid-template-rows: subgrid;
     min-width: 0;
     scroll-snap-align: start;
+    scroll-snap-stop: always;   /* a quick flick moves one slide, never past the next */
   }
   .post,
   .stage[data-revealed] .post {
