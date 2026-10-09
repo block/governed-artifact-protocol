@@ -610,6 +610,12 @@ dialog.gap-diagram-dialog svg.gap-diagram {
     transform: none;
   }
 }
+/* On a docs page the phone's menu opens on the docs sidebar, which reaches
+   every page; the theme's way back to the navbar's own short list of links
+   only repeats it. (Pages without a sidebar still open on that list.) */
+.navbar-sidebar__back {
+  display: none;
+}
 .navbar__brand {
   color: var(--gap-nav-strong);   /* the wordmark, as strong as the header goes */
 }
