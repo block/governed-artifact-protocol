@@ -16,7 +16,7 @@ const PATHS = [
   {
     title: "Domains",
     to: "/domains",
-    description: "A blog website, an issue tracking app, and a research journal, each with a demo on synthetic data.",
+    description: "GAP modeled for a blog, an issue tracker, and a research journal. Building each one shows where the draft needs work.",
   },
   {
     title: "Working draft",
