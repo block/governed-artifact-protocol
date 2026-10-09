@@ -2,7 +2,7 @@
 
 One local Model Context Protocol (MCP) server that hosts every GAP demo application: a blog CMS, an issue tracker, and a research journal. Each application declares its actions, the GAP lifecycle steps they perform, and the release decisions they record; the server exposes them as tools.
 
-The documentation site is where the demo is explained: [Run the demo](../documentation/docs/domains/run-the-demos.md) for setup, [Domains](../documentation/docs/domains/index.mdx) for each domain's explainer and walkthrough, and [How the demo is built](ARCHITECTURE.md) for the application layer and how to add a domain.
+The [documentation site](https://block.github.io/governed-artifact-protocol/) is where the demo is explained: [Run the demos](https://block.github.io/governed-artifact-protocol/domains/run-the-demos) for setup, [Domains](https://block.github.io/governed-artifact-protocol/domains) for each domain's explainer and walkthrough, [How the demos work](https://block.github.io/governed-artifact-protocol/domains/how-the-demos-work) for the tools each application exposes, and [How the demo is built](ARCHITECTURE.md) for the application layer and how to add a domain.
 
 ```sh
 pnpm install          # from the repository root

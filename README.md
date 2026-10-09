@@ -1,6 +1,6 @@
 # Governed Artifact Protocol
 
-[![Specification status: draft, no published version yet](https://img.shields.io/badge/specification-draft-orange)](specification/draft/README.md) [![License: Apache 2.0](https://img.shields.io/badge/license-Apache%202.0-blue)](LICENSE)
+[![Specification status: draft, no published version yet](https://img.shields.io/badge/specification-draft-orange)][draft] [![License: Apache 2.0](https://img.shields.io/badge/license-Apache%202.0-blue)](LICENSE)
 
 People and systems pass content to other people and systems without the exact version, the profile that defines it, the sources it used, or the decision that authorized its release. The recipient must reconstruct those facts from other tools and conversations or act without them.
 
@@ -10,11 +10,11 @@ GAP is for people building and operating applications where a person or an AI ag
 
 **GAP is a working draft, with no published specification version yet.** The demos test it on synthetic data.
 
-**Quick links:** [Documentation][docs] · [Working draft](specification/draft/README.md) · [Run the demos][run-demos]
+**Quick links:** [Documentation][docs] · [Working draft][draft] · [Run the demos][run-demos]
 
 ## Start here
 
-The guides below offer a reading path from the ideas to the records and working applications. These links open their repository sources under [`documentation/docs/`](documentation/docs/). To read them with diagrams and interactive record viewers, [run the documentation site locally][docs].
+The guides below offer a reading path from the ideas to the records and working applications. They live on the [documentation site][docs], with diagrams and interactive record viewers; their sources are under [`documentation/docs/`](documentation/docs/).
 
 | To… | Start with… |
 | --- | --- |
@@ -23,13 +23,13 @@ The guides below offer a reading path from the ideas to the records and working 
 | Follow the steps and map them to your tools | [Lifecycle][lifecycle] and [Application actions][actions] |
 | Explore possible uses | [Case studies][case-studies] and [Domain guides][domains] |
 | Consider GAP for your own work | [Evaluation guide][evaluation] |
-| Implement or check the rules | [Working draft](specification/draft/README.md) and [Requirements and coverage](specification/draft/conformance/README.md) |
+| Implement or check the rules | [Working draft][draft] and [Requirements and coverage][conformance] |
 
 ## How GAP works
 
 An **artifact** is structured content, such as a blog post, a ticket, or a summary. A **profile** defines its fields, types, and limits. Every saved artifact version is immutable and pins the exact ratified profile revision it follows. When it names governed sources, its dependency set identifies the exact released versions used.
 
-The [protocol's lifecycle](specification/draft/README.md#lifecycle) has six steps:
+The [protocol's lifecycle][draft-lifecycle] has six steps:
 
 1. **Propose a profile:** an Author defines the rules for a kind of content.
 2. **Ratify the revision:** an Authority approves that exact set of rules for use.
@@ -38,13 +38,13 @@ The [protocol's lifecycle](specification/draft/README.md#lifecycle) has six step
 5. **Release:** the implementation makes the version available across the consumer boundary, atomically with its authorization.
 6. **Read and verify:** a Consumer checks the release proof against configured trust.
 
-A person or an AI agent can hold any of these [roles](specification/draft/README.md#roles-and-authority), and one participant can hold several. Applications map familiar actions such as Save and Publish onto one or more steps, keeping every step's required checks. A preview or working-copy edit performs none.
+A person or an AI agent can hold any of these [roles][draft-roles], and one participant can hold several. Applications map familiar actions such as Save and Publish onto one or more steps, keeping every step's required checks. A preview or working-copy edit performs none.
 
 A **release proof** connects the released payload, profile revision and ratification, and release authorization. Separate approval and rejection decisions can record review before release; neither releases content. A withdrawal adds a decision about an exact released version while preserving its existing records. Later edits need their own authorization, and changed sources do not automatically rewrite or withdraw dependent content.
 
 Consumers recompute digests and check that the records belong together. With signed decisions and their own trust store, they can also independently verify which trusted authorities made those decisions. Referenced sources have their own proofs and access rules. Verification establishes what was authorized and released; content accuracy, downstream delivery, and permission to use the content still need application checks.
 
-GAP is transport-independent. Applications choose how to exchange records, select current releases, and manage access and signing keys. The draft's [scope and boundaries](specification/draft/README.md#scope-and-boundaries) describe these choices.
+GAP is transport-independent. Applications choose how to exchange records, select current releases, and manage access and signing keys. The draft's [scope and boundaries][draft-scope] describe these choices.
 
 ## Explore applications
 
@@ -64,18 +64,18 @@ All three run in one local, single-user Model Context Protocol (MCP) server on s
 
 ## Specification and reference
 
-The [working draft](specification/draft/README.md) is the source of truth. Schemas, examples, guides, and demos support it and add no protocol requirements.
+The [working draft][draft] is the source of truth. Schemas, examples, guides, and demos support it and add no protocol requirements. The documentation site renders these pages from their sources under [`specification/`](specification/).
 
 | Resource | What it contains |
 | --- | --- |
-| [Specification overview](specification/README.md) | Draft status and supporting material |
-| [Concepts](specification/draft/README.md#concepts) | Definitions, record formats, and their rules |
-| [Record schemas](specification/draft/schemas/README.md) | JSON definitions for checking record fields and types |
-| [Example records](specification/draft/examples/README.md) | Maintained fictional records from all three domains |
-| [Requirements and coverage](specification/draft/conformance/README.md) | Core requirements, executable evidence, and coverage limits |
+| [Specification overview][specification] | Draft status and supporting material |
+| [Concepts][draft-concepts] | Definitions, record formats, and their rules |
+| [Record schemas][schemas] | JSON definitions for checking record fields and types |
+| [Example records][examples] | Maintained fictional records from all three domains |
+| [Requirements and coverage][conformance] | Core requirements, executable evidence, and coverage limits |
 | [Open questions](DEFERRED.md) | Deferred design questions and when to revisit them |
 
-Project posts live under [`documentation/blog/`][blog]. To run or work on the site locally, see [`documentation/README.md`](documentation/README.md).
+Project posts are on the [blog][blog]. To run or work on the site locally, see [`documentation/README.md`](documentation/README.md).
 
 ## Project resources
 
@@ -88,18 +88,27 @@ Project posts live under [`documentation/blog/`][blog]. To run or work on the si
 | [Report a specification problem](.github/ISSUE_TEMPLATE/spec-problem.md) | A gap or ambiguity an implementation hit in the draft |
 | [Report a bug](.github/ISSUE_TEMPLATE/bug-report.md)           | A reproducible defect in the demo                        |
 
-[docs]: documentation/README.md
-[what-is-gap]: documentation/docs/intro/what-is-gap.md
-[why-gap]: documentation/docs/intro/why-gap.md
-[anatomy]: documentation/docs/intro/anatomy-of-gap.mdx
-[lifecycle]: documentation/docs/intro/lifecycle.mdx
-[actions]: documentation/docs/intro/application-actions.mdx
-[case-studies]: documentation/docs/case-studies/index.mdx
-[domains]: documentation/docs/domains/index.mdx
-[evaluation]: documentation/docs/domains/evaluation-guide.md
-[blog-website]: documentation/docs/domains/blog-website.mdx
-[issue-tracking]: documentation/docs/domains/issue-tracking.mdx
-[research]: documentation/docs/domains/research.mdx
-[run-demos]: documentation/docs/domains/run-the-demos.md
-[demo-tools]: documentation/docs/domains/how-the-demos-work.mdx
-[blog]: documentation/blog/
+[docs]: https://block.github.io/governed-artifact-protocol/
+[draft]: https://block.github.io/governed-artifact-protocol/specification/working-draft
+[draft-concepts]: https://block.github.io/governed-artifact-protocol/specification/working-draft#concepts
+[draft-lifecycle]: https://block.github.io/governed-artifact-protocol/specification/working-draft#lifecycle
+[draft-roles]: https://block.github.io/governed-artifact-protocol/specification/working-draft#roles-and-authority
+[draft-scope]: https://block.github.io/governed-artifact-protocol/specification/working-draft#scope-and-boundaries
+[specification]: https://block.github.io/governed-artifact-protocol/specification
+[schemas]: https://block.github.io/governed-artifact-protocol/specification/record-schemas
+[examples]: https://block.github.io/governed-artifact-protocol/specification/example-records
+[conformance]: https://block.github.io/governed-artifact-protocol/specification/requirements-and-coverage
+[what-is-gap]: https://block.github.io/governed-artifact-protocol/intro/what-is-gap
+[why-gap]: https://block.github.io/governed-artifact-protocol/intro/why-gap
+[anatomy]: https://block.github.io/governed-artifact-protocol/intro/anatomy-of-gap
+[lifecycle]: https://block.github.io/governed-artifact-protocol/intro/lifecycle
+[actions]: https://block.github.io/governed-artifact-protocol/intro/application-actions
+[case-studies]: https://block.github.io/governed-artifact-protocol/case-studies
+[domains]: https://block.github.io/governed-artifact-protocol/domains
+[evaluation]: https://block.github.io/governed-artifact-protocol/domains/evaluation-guide
+[blog-website]: https://block.github.io/governed-artifact-protocol/domains/blog-website
+[issue-tracking]: https://block.github.io/governed-artifact-protocol/domains/issue-tracking
+[research]: https://block.github.io/governed-artifact-protocol/domains/research
+[run-demos]: https://block.github.io/governed-artifact-protocol/domains/run-the-demos
+[demo-tools]: https://block.github.io/governed-artifact-protocol/domains/how-the-demos-work
+[blog]: https://block.github.io/governed-artifact-protocol/blog

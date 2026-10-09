@@ -1,6 +1,6 @@
 # Documentation website
 
-The GAP site uses [Docusaurus](https://docusaurus.io/). The [Documentation workflow](../.github/workflows/docs.yml) builds pull requests and deploys changes to `main` through GitHub Pages.
+The GAP site is published at <https://block.github.io/governed-artifact-protocol/>. It uses [Docusaurus](https://docusaurus.io/). The [Documentation workflow](../.github/workflows/docs.yml) builds pull requests and deploys changes to `main` through GitHub Pages.
 
 ## Run locally
 
@@ -76,6 +76,4 @@ The workflow sets these from the repository and its Pages configuration.
 
 ## Deployment
 
-The workflow deploys pushes to `main` and manual runs. It needs **Actions → General → Allow GitHub Actions**, and **Pages → Build and deployment → Source: GitHub Actions** in repository settings. Pull requests build without deploying.
-
-GitHub Pages is not set up for this repository yet; we'll enable it soon. Until then, runs on `main` stop at "Configure GitHub Pages", while pull requests still build and check the site.
+The workflow deploys pushes to `main` and manual runs to <https://block.github.io/governed-artifact-protocol/>. It needs **Actions → General → Allow GitHub Actions**, and **Pages → Build and deployment → Source: GitHub Actions** in repository settings. Pull requests build without deploying.
