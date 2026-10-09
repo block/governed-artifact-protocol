@@ -2,9 +2,9 @@
 
 [![Specification status: draft, no published version yet](https://img.shields.io/badge/specification-draft-orange)][draft] [![License: Apache 2.0](https://img.shields.io/badge/license-Apache%202.0-blue)](LICENSE)
 
-People and systems pass content to other people and systems without the exact version, the profile that defines it, the sources it used, or the decision that authorized its release. The recipient must reconstruct those facts from other tools and conversations or act without them.
+Content moves between tools, people, and AI agents. The answers to "what was this based on?" and "who signed off on it?" usually stay behind, in a review thread, an agent session, or someone's memory. When an AI agent receives content through a file, a copied answer, or another tool, its available context may differ from the context in which that content was created.
 
-**Governed Artifact Protocol (GAP)** defines records for released structured content. A release proof connects one content version to its profile revision, release authorization, and any declared source references. Consumers can verify which version was released and who authorized it without recreating the original workflow. They can verify a referenced source only when they can retrieve it under their own access and trust rules.
+**Governed Artifact Protocol (GAP)** defines how applications keep content connected to its rules, source references, and release decisions. Records of all three travel with each released version, like a packet of context. A person or an AI agent receiving it can read the content and check who signed off on it and what it was based on, without digging through the review thread or agent session it came from. Checking a source's own content requires retrieving it under the receiver's own access and trust rules.
 
 GAP is for people building and operating applications where a person or an AI agent creates, authorizes, or consumes structured content. Each application chooses its interface, storage, permissions, and review policy.
 
@@ -58,7 +58,7 @@ Three independently written demo applications exercise the draft in different do
 | [Issue tracking][issue-tracking] | One Save can create, authorize, and release a ticket version when the actor holds the required permissions. Working-copy edits stay separate. |
 | [Research publishing][research] | A fictional paper on gummy worms telling stories in zero gravity pins its cited papers, peer review, and editor notes. Revisions and a source correction precede signed editorial approval and one final publication. |
 
-All three run in one local, single-user Model Context Protocol (MCP) server on synthetic data, using JSON workspaces. GAP itself is transport-agnostic; MCP is the demos' chosen interface. No database, cloud account, or internal service is required. The demos are evaluation code with partial requirement coverage; they do not provide production security boundaries or demonstrate exchange between independently built systems.
+All three run in one local, single-user Model Context Protocol (MCP) server on synthetic data, using JSON workspaces. Each walkthrough is a conversation with an AI agent connected to that server. GAP itself is transport-agnostic; MCP is the demos' chosen interface. No database, cloud account, or internal service is required. The demos are evaluation code with partial requirement coverage; they do not provide production security boundaries or demonstrate exchange between independently built systems.
 
 [Run the demos][run-demos] explains setup. [How the demos work][demo-tools] lists the application tools and the steps and decisions each performs. For implementation details, see [`demo/README.md`](demo/README.md) and [the demo architecture](demo/ARCHITECTURE.md). The [evaluation guide][evaluation] helps map your own workflow and estimate implementation and maintenance work.
 
