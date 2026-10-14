@@ -165,6 +165,9 @@ test('a later publication and withdrawal preserve the earlier proof; selected re
 
 test('malformed, duplicated, mismatched, or untrusted withdrawals fail closed', () => withWorkspace(async root => {
   const { revised } = await published(root); await withdrawResearch({ ...revised, actor: publisher }, root);
+  const withdrawn = await readFile(workspacePath(root), 'utf8');
+  await assert.rejects(withdrawResearch({ ...revised, actor: publisher }, root), /already withdrawn/);
+  assert.equal(await readFile(workspacePath(root), 'utf8'), withdrawn);
   const baseline = structuredClone(await readWorkspace(root));
   for (const mutate of [
     (s: any) => { s.withdrawals[0].artifactVersion += 1; },
