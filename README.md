@@ -22,6 +22,7 @@ The guides below offer a reading path from the ideas to the records and working 
 | Understand the records | [Anatomy of GAP][anatomy] |
 | Follow the steps and map them to your tools | [Lifecycle][lifecycle] and [Application actions][actions] |
 | Explore possible uses | [Case studies][case-studies] and [Domain guides][domains] |
+| Understand how GAP relates to other work | [Related work][related-work] |
 | Consider GAP for your own work | [Evaluation guide][evaluation] |
 | Implement or check the rules | [Working draft][draft] and [Requirements and coverage][conformance] |
 
@@ -103,6 +104,7 @@ Project posts are on the [blog][blog]. To run or work on the site locally, see [
 [anatomy]: https://block.github.io/governed-artifact-protocol/intro/anatomy-of-gap
 [lifecycle]: https://block.github.io/governed-artifact-protocol/intro/lifecycle
 [actions]: https://block.github.io/governed-artifact-protocol/intro/application-actions
+[related-work]: https://block.github.io/governed-artifact-protocol/intro/related-work
 [case-studies]: https://block.github.io/governed-artifact-protocol/case-studies
 [domains]: https://block.github.io/governed-artifact-protocol/domains
 [evaluation]: https://block.github.io/governed-artifact-protocol/domains/evaluation-guide

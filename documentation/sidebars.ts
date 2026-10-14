@@ -13,6 +13,7 @@ const sidebars: SidebarsConfig = {
         "intro/anatomy-of-gap",
         "intro/lifecycle",
         "intro/application-actions",
+        "intro/related-work",
       ],
     },
     {
