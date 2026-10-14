@@ -46,6 +46,7 @@ This draft leaves the following choices and behaviors outside the protocol:
   - Application roles and permissions, who reviews content, and how applications score policy checks.
   - Whether release requires a separate approval, and evidence of what an approver reviewed beyond the exact version, content, and profile revision covered by the decision.
   - How applications manage editable working copies and which actions create artifact versions.
+  - Whether a change prepared from a version that is no longer current is refused, and how an application detects one.
 - **Reading and using content**
   - Who can access content and which records they can see.
   - What happens after release, including running an action, displaying content, or delivering it.
@@ -105,6 +106,8 @@ An implementation MUST NOT accept a payload unless it can establish that the pay
 
 Multiple immutable draft versions can share an artifact ID. Creating a later draft MUST NOT overwrite an earlier draft or imply that either version is released.
 
+An artifact ID and version number identify at most one artifact version. An implementation MUST refuse to create an artifact version unless, when the version is recorded, no artifact version with the same artifact ID and version number exists ([GAP-CORE-016](conformance/README.md#gap-core-016)). The refused attempt records nothing, and its author can create the change again under another version number. An implementation MAY instead return the existing version when the attempt carries an identical record, so that a retried request does not fail. Which number a new version takes is application policy: the research and issue-tracking reference implementations take the next number above the highest stored version, and the CMS reference implementation takes the number the author names. [Concurrent attempts](#concurrent-attempts) describes how an implementation applies this rule when two attempts arrive together.
+
 Before creating a version, an application MAY hold a mutable [working copy](#working-copy). A working copy is not a GAP record. It MUST NOT be readable through the release boundary, and it MUST NOT be the subject of an authorization preview or decision. Those decisions refer to stored artifact versions.
 
 Creating a version from a working copy performs this step and makes the version immutable. The payload MUST satisfy the pinned contract as created, regardless of any earlier validation of the working copy. Applications choose when to create versions: on every save, for example, or when a person or an AI agent requests review.
@@ -127,15 +130,31 @@ An approval MUST NOT release anything and MUST NOT confer release authority. Rel
 
 Accepting valid authorization atomically records the authorization and the [release](#release). A crash MUST NOT expose a partial release as valid. Cancellation, invalid authorization, or conflicting output MUST produce no new release.
 
+An artifact version is released at most once. An implementation MUST refuse an authorization unless, when the authorization and release are recorded, no release of that artifact version exists, including a withdrawn one ([GAP-CORE-016](conformance/README.md#gap-core-016)). The refused authorization is not recorded and produces no new release. To release the same content again, an author creates a new artifact version, which needs its own authorization.
+
 A release proof MAY carry the release approvals recorded for the same subject. An implementation MUST NOT carry an approval whose subject differs from the authorization's. Approvals are recorded when made. The atomicity requirement applies to the authorization and release; recording an approval alone does not make the version readable through the release boundary.
 
 An implementation MAY release successive versions of the same artifact. Every released version and its release evidence MUST be preserved. A version's release evidence is its [release proof](#release-proof) and every approval, rejection, and withdrawal recorded for its subject. Releasing a later version, recording a withdrawal, or ratifying a later profile revision MUST NOT alter or delete any record in a released version's evidence, and each released version's evidence MUST remain verifiable under [step 6](#6-read-and-verify) without relying on any later release ([GAP-CORE-014](conformance/README.md#gap-core-014)).
 
-Application policy determines [which released version is current](#current-release-selection). An application MAY expose only the release it treats as current at any interface, including its release boundary; doing so does not violate preservation. A release-proof lookup MUST resolve one exact released version and MUST NOT select among several ambiguously. This draft does not require an implementation to retrieve an earlier release by exact version or to let callers discover the released versions of an artifact; both questions are [deferred](../../DEFERRED.md#versioned-release-proof-lookup). Portable discovery of the current release also remains open ([deferred](../../DEFERRED.md#versioned-release-proof-lookup)), as does resolution of concurrent updates to one artifact ([deferred](../../DEFERRED.md#concurrent-updates-to-one-artifact)).
+Application policy determines [which released version is current](#current-release-selection). An application MAY expose only the release it treats as current at any interface, including its release boundary; doing so does not violate preservation. A release-proof lookup MUST resolve one exact released version and MUST NOT select among several ambiguously. This draft does not require an implementation to retrieve an earlier release by exact version or to let callers discover the released versions of an artifact; both questions are [deferred](../../DEFERRED.md#versioned-release-proof-lookup). Portable discovery of the current release also remains open ([deferred](../../DEFERRED.md#versioned-release-proof-lookup)).
 
 **Withdrawal.** A configured authority MAY withdraw one exact released version by recording a [release withdrawal](#release-withdrawal). The acting participant MUST be a configured authority for withdrawal in this deployment. The withdrawal MAY carry that authority's [authority signature](#authority-signature) over the same subject digest under the withdrawal's own signing domain.
 
 A withdrawal adds a record. The released version, its authorization, and its release proof MUST remain preserved and unchanged ([GAP-CORE-013](conformance/README.md#gap-core-013)). A release boundary that has recorded a withdrawal MUST NOT serve that release's proof without the withdrawal; it MAY serve the withdrawal alone or refuse to serve the release. Withdrawal does not correct or supersede content, or select another version as current. [Current release selection](#current-release-selection) remains application policy.
+
+A release has at most one withdrawal. An implementation MUST refuse to record a withdrawal unless, when it is recorded, no withdrawal of that release exists ([GAP-CORE-016](conformance/README.md#gap-core-016)).
+
+<a id="concurrent-attempts"></a>
+
+**Concurrent attempts.** Two participants can try to record conflicting records for one artifact at nearly the same time: two artifact versions with the same number, two authorizations of the same version, or two withdrawals of the same release. The rules in [step 3](#3-draft-immutable-artifact-versions) and in this step settle each case the same way:
+
+- The implementation checks for the conflict against the records it holds when it records the new one, as part of the same atomic write. A preview shown earlier does not settle it.
+- The first attempt recorded takes effect. Each later conflicting attempt MUST be refused and MUST record nothing ([GAP-CORE-016](conformance/README.md#gap-core-016)).
+- The implementation MUST report a refused attempt as refused to the participant that made it, and MUST NOT report it as recorded or released. The report SHOULD identify the existing record the attempt conflicted with, so the participant can read that record and decide what to do next.
+
+How the implementation orders attempts, for example with a lock, a transaction, or a conditional write, is local. GAP defines no error format; each interface reports a refusal in its own way.
+
+Releases of different versions of one artifact do not conflict under these rules. Each authorized release is recorded and preserved, and [which one is current](#current-release-selection) remains application policy. An application MAY refuse a change that was prepared from a version that is no longer current. For example, it can require the request to name the version that was current when the change was prepared, and refuse the request when another version has become current since, as the research and issue-tracking reference implementations do. GAP defines no field for that version. It is part of the application's request, not of any GAP record.
 
 ### 6. Read and verify
 
