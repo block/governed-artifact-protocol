@@ -18,6 +18,7 @@ const pages: Record<string, string> = {
   "intro/anatomy-of-gap.mdx": "/intro/anatomy-of-gap",
   "intro/lifecycle.mdx": "/intro/lifecycle",
   "intro/application-actions.mdx": "/intro/application-actions",
+  "intro/related-work.md": "/intro/related-work",
   "case-studies/index.mdx": "/case-studies",
   "case-studies/software-support.mdx": "/case-studies/software-support",
   "case-studies/in-app-content.mdx": "/case-studies/in-app-content",
@@ -61,7 +62,7 @@ test("the four section headings follow #218 without Project or a second Demo sec
   const categories = sidebars.docsSidebar as { type: string; label: string; items: unknown[] }[];
   assert.deepEqual(categories.map((item) => item.label), ["Intro", "Case studies", "Domains", "Specification"]);
   assert.deepEqual(categories.map((category) => category.items.map((item) => typeof item === "string" ? item : (item as { id: string }).id)), [
-    ["intro/index", "intro/what-is-gap", "intro/why-gap", "intro/anatomy-of-gap", "intro/lifecycle", "intro/application-actions"],
+    ["intro/index", "intro/what-is-gap", "intro/why-gap", "intro/anatomy-of-gap", "intro/lifecycle", "intro/application-actions", "intro/related-work"],
     ["case-studies/index", "case-studies/software-support", "case-studies/in-app-content"],
     ["domains/index", "domains/blog-website", "domains/issue-tracking", "domains/research", "domains/run-the-demos", "domains/how-the-demos-work", "domains/evaluation-guide"],
     ["specification/README", "specification/draft/README", "specification/draft/schemas", "specification/draft/examples", "specification/draft/conformance"],
@@ -70,6 +71,13 @@ test("the four section headings follow #218 without Project or a second Demo sec
   assert(!sidebarText.includes("project/"));
   assert(!sidebarText.includes("/demo\""));
   assert(!existsSync(`${root}${docs}project/index.md`));
+});
+
+test("related work is discoverable from the Intro index and repository README", () => {
+  assert(read(`${docs}intro/index.mdx`).includes("[Related work](related-work.md)"));
+  const readme = read("README.md");
+  assert(readme.includes("[Related work][related-work]"));
+  assert.match(readme, /^\[related-work\]: https:\/\/block\.github\.io\/governed-artifact-protocol\/intro\/related-work$/m);
 });
 
 test("header and footer follow #218, with Project destinations in the repository", () => {
