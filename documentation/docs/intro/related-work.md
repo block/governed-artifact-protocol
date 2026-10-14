@@ -24,7 +24,7 @@ SAGE specifies how a particular workflow produces and evaluates content. GAP spe
 
 ### in-toto
 
-**in-toto project.** [Attestation Framework](https://github.com/in-toto/attestation/blob/main/spec/README.md), [Statement specification](https://github.com/in-toto/attestation/blob/main/spec/v1/statement.md), and [supply-chain specification](https://github.com/in-toto/specification/blob/master/in-toto-spec.md).
+**in-toto project.** [Attestation Framework](https://github.com/in-toto/attestation/blob/fd2609c16bcb0ac53443e2b4612977f997e8f9a5/spec/README.md), [Statement specification](https://github.com/in-toto/attestation/blob/fd2609c16bcb0ac53443e2b4612977f997e8f9a5/spec/v1/statement.md), and [supply-chain specification](https://github.com/in-toto/specification/blob/6459afd8e94a332e423ba05c2862b534acbe741d/in-toto-spec.md).
 
 in-toto provides structured, authenticated evidence about artifacts and supply-chain activities. An attestation Statement identifies artifact subjects by digest and associates them with a typed predicate. The supply-chain specification also describes expected steps, authorized participants, and verification rules. Its overlap with GAP includes exact artifact identity, attributed evidence, and consumer-side verification.
 
@@ -92,7 +92,7 @@ GAP defines the meaning and binding of profile and release decisions; it does no
 
 ### DSSE
 
-**Secure Systems Lab, *Dead Simple Signing Envelope*, protocol 1.0.2 (2024).** [Signing protocol](https://github.com/secure-systems-lab/dsse/blob/master/protocol.md) and [envelope](https://github.com/secure-systems-lab/dsse/blob/master/envelope.md).
+**Secure Systems Lab, *Dead Simple Signing Envelope*, protocol 1.0.2 (2024).** [Signing protocol](https://github.com/secure-systems-lab/dsse/blob/b531b787bb3e5f0c3e1c19cee84da1c5d569b061/protocol.md) and [envelope](https://github.com/secure-systems-lab/dsse/blob/b531b787bb3e5f0c3e1c19cee84da1c5d569b061/envelope.md).
 
 DSSE defines a signing protocol and envelope that authenticate both payload bytes and their declared type. It addresses ambiguity in how a signed payload is interpreted. This is relevant to GAP's use of distinct signing domains for different authority decisions.
 
