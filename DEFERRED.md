@@ -59,6 +59,13 @@ This ledger preserves questions intentionally excluded from the current Governed
 - **Revisit when:** Two independently built implementations need to exchange or resolve proofs for an artifact with more than one released version, or a consumer needs to verify a historical version it did not receive directly from the releasing application.
 - **Known constraint:** A proof lookup must resolve one exact authorized release and must never select a version ambiguously. Neither answer may weaken preservation: every released version and its evidence stay preserved and verifiable whether or not an interface returns them. Current-release selection remains an application policy the draft does not standardize.
 
+## Concurrent updates to one artifact
+
+- **Why deferred:** The draft requires the [release transition](specification/draft/README.md#5-commit-the-release-transition) to be atomic and requires conflicting output to produce no new release, but it does not say how an implementation detects or resolves concurrent attempts to change or release the same artifact in one record store, such as two working versions prepared from the same base or two authorizations for different versions accepted at nearly the same time. The demo applications are single-user and do not exercise this. This entry is about one store; conflicts between multiple writable stores belong to [Distributed record stores and replication](#distributed-record-stores-and-replication).
+- **Decide later:** Whether a portable rule is needed at all or this stays application policy; if needed, how an implementation detects a conflicting update (for example, by naming the base version a change was prepared from), which attempt wins or whether both are refused, and how the losing participant learns its authorization produced no release.
+- **Revisit when:** A real workflow has more than one person or AI agent changing or releasing the same artifact at once, or two implementations disagree about which concurrent release took effect.
+- **Known constraint:** Resolution must not produce a partial release, release content no configured authority authorized, alter or delete preserved release evidence, or turn current-release selection into a protocol rule. A refused attempt must produce no new release.
+
 ## Portable conformance suite
 
 - **Why deferred:** The repository’s executable evidence is its own reference-implementation tests and `pnpm check:specification`. Neither can be run against an independent implementation without trusting this repository’s code.
