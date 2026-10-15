@@ -7,3 +7,6 @@ build/
 # All other docs/ pages are authored in this directory.
 docs/specification/
 src/data/
+
+# Blog link-preview cards, rendered by plugins/social-cards.
+static/img/og/
