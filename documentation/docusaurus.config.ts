@@ -78,6 +78,8 @@ const config: Config = {
         onUntruncatedBlogPosts: "warn",
       } satisfies BlogOptions,
     ],
+    // Renders each blog post's link-preview card; see plugins/social-cards.
+    "./plugins/social-cards/index.ts",
     [
       "@docusaurus/plugin-content-pages",
       {
@@ -104,7 +106,8 @@ const config: Config = {
 
   themeConfig: {
     // Link previews. Docusaurus adds og:image and twitter:image from `image`, as absolute URLs; the tags below are
-    // ones it leaves out. Blog posts replace og:type with "article".
+    // ones it leaves out. Blog posts replace og:type with "article", and the image and its alt text with the post's
+    // generated card (plugins/social-cards), which has the same type and size.
     image: "img/social-card.png",
     metadata: [
       { property: "og:site_name", content: "Governed Artifact Protocol" },
