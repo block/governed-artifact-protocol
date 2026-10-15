@@ -41,7 +41,7 @@ This ledger preserves questions intentionally excluded from the current Governed
 ## Distributed record stores and replication
 
 - **Why deferred:** Portable digest verification does not require multiple writable stores, and the current examples use one trusted record store.
-- **Decide later:** Authority across stores, replication protocol, conflict and ordering rules, and synchronization failure behavior.
+- **Decide later:** Authority across stores, replication protocol, conflict and ordering rules across stores, and synchronization failure behavior. Conflicting attempts within one store are settled by the draft's [concurrent attempts](specification/draft/README.md#concurrent-attempts) rules.
 - **Revisit when:** A second independent store actually needs to hold GAP records.
 - **Known constraint:** Distribution must preserve exact record bytes and fail-closed verification.
 

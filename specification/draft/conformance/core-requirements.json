@@ -210,6 +210,19 @@
         ],
         "notes": "Only the CMS has a profile proposal step; the research and issue-tracking implementations ship fixed ratified profiles, so they have nothing to number. The CMS accepts one unratified proposal per profile at a time, which is local policy, so no test ratifies one of two proposals that name the same revision. The skipped-revision test writes its proposal to the store directly, because the CMS refuses it when it is proposed."
       }
+    },
+    {
+      "id": "GAP-CORE-016",
+      "name": "Conflicting attempts",
+      "statement": "One artifact ID and version number MUST identify at most one artifact version, an artifact version MUST be released at most once, and a release MUST have at most one withdrawal. An implementation MUST check each rule when it records the new record. The first attempt recorded takes effect; each later conflicting attempt MUST be refused, MUST record nothing, and MUST be reported as refused to the participant that made it. An attempt to create an artifact version whose record has the same canonical JSON bytes as the stored one does not conflict, and the implementation MAY return the stored version.",
+      "coverage": {
+        "executable": [
+          "demo/test/cms/cms.test.ts (a second artifact version under an existing number is refused; a second authorization of a released article is refused)",
+          "demo/test/issue-tracking/bug-tickets.test.ts (of two concurrent saves of the same next ticket version, exactly one succeeds and the history gains one version)",
+          "demo/test/research/research.test.ts (replaying a release of an already released version is refused and writes nothing; a second withdrawal of the same release is refused and writes nothing; a stored duplicate withdrawal makes reads fail closed)"
+        ],
+        "notes": "Only the issue-tracking test runs two attempts at the same time; the CMS and research tests make the second attempt after the first is recorded. The CMS's generic create and its release hold no lock (its blog-post save holds one, but only against other blog-post saves), and two overlapping generic calls that create the same version both report success while only one version is stored (issue #19). The CMS supports one release per artifact, a local policy narrower than this requirement. Each demo reports a refusal as a thrown error, which its MCP interface returns as a tool error; no test checks that the error names the conflicting record, which the draft recommends but does not require. No implementation uses the identical-retry allowance: the CMS refuses a repeated create under the same number, and the research and issue-tracking implementations choose version numbers themselves."
+      }
     }
   ]
 }
