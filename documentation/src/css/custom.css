@@ -609,6 +609,13 @@ dialog.gap-diagram-dialog svg.gap-diagram {
   .navbar[class*="navbarHidden_"] {
     transform: none;
   }
+  /* The theme leaves anchors only 0.5rem of scroll margin, expecting the bar
+     to hide; since it stays, clear it as a sticky navbar would. (Sections
+     keep their own margin, above, and the theme's rule loads after this
+     file, hence the type selector.) */
+  [class*="anchorTargetHideOnScrollNavbar_"]:not(h2) {
+    scroll-margin-top: calc(var(--ifm-navbar-height) + 0.5rem);
+  }
 }
 /* On a docs page the phone's menu opens on the docs sidebar, which reaches
    every page; the theme's way back to the navbar's own short list of links
