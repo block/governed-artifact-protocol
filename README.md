@@ -1,4 +1,9 @@
-# Governed Artifact Protocol
+<h1>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset=".github/readme/lockup-dark.svg">
+    <img src=".github/readme/lockup-light.svg" alt="Governed Artifact Protocol" width="400">
+  </picture>
+</h1>
 
 [![Specification status: draft, no published version yet](https://img.shields.io/badge/specification-draft-orange)][draft] [![License: Apache 2.0](https://img.shields.io/badge/license-Apache%202.0-blue)](LICENSE)
 
