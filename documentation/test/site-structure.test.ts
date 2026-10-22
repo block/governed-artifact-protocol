@@ -13,6 +13,7 @@ const docs = "documentation/docs/";
 
 const pages: Record<string, string> = {
   "intro/index.mdx": "/intro",
+  "intro/gap-in-five-minutes.md": "/intro/gap-in-five-minutes",
   "intro/why-gap.md": "/intro/why-gap",
   "intro/what-is-gap.md": "/intro/what-is-gap",
   "intro/anatomy-of-gap.mdx": "/intro/anatomy-of-gap",
@@ -62,7 +63,7 @@ test("the four section headings follow #218 without Project or a second Demo sec
   const categories = sidebars.docsSidebar as { type: string; label: string; items: unknown[] }[];
   assert.deepEqual(categories.map((item) => item.label), ["Intro", "Case studies", "Domains", "Specification"]);
   assert.deepEqual(categories.map((category) => category.items.map((item) => typeof item === "string" ? item : (item as { id: string }).id)), [
-    ["intro/index", "intro/what-is-gap", "intro/why-gap", "intro/anatomy-of-gap", "intro/lifecycle", "intro/application-actions", "intro/related-work"],
+    ["intro/index", "intro/gap-in-five-minutes", "intro/what-is-gap", "intro/why-gap", "intro/anatomy-of-gap", "intro/lifecycle", "intro/application-actions", "intro/related-work"],
     ["case-studies/index", "case-studies/software-support", "case-studies/in-app-content"],
     ["domains/index", "domains/blog-website", "domains/issue-tracking", "domains/research", "domains/run-the-demos", "domains/how-the-demos-work", "domains/evaluation-guide"],
     ["specification/README", "specification/draft/README", "specification/draft/schemas", "specification/draft/examples", "specification/draft/conformance"],
