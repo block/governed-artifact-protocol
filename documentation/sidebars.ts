@@ -8,6 +8,7 @@ const sidebars: SidebarsConfig = {
       collapsible: false,
       items: [
         "intro/index",
+        "intro/gap-in-five-minutes",
         "intro/what-is-gap",
         "intro/why-gap",
         "intro/anatomy-of-gap",
